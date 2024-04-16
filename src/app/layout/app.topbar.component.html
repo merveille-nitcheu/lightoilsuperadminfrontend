@@ -1,0 +1,56 @@
+<div class="layout-topbar">
+    <button
+        #menubutton
+        class="p-link layout-menu-button layout-topbar-button justify-content-start m-0 border-gray-300 border-right-1 border-noround"
+        (click)="layoutService.onMenuToggle()"
+    >
+        <i class="pi pi-bars"></i>
+    </button>
+
+    <a class="layout-topbar-logo shadow-none m-3" routerLink="">
+        <img
+            src="assets/layout/images/LightOil.png"
+            alt="logo"
+            class="h-10rem"
+        />
+    </a>
+
+    <button
+        #topbarmenubutton
+        class="p-link layout-topbar-menu-button layout-topbar-button"
+        (click)="layoutService.showProfileSidebar()"
+    >
+        <i class="pi pi-ellipsis-v"></i>
+    </button>
+
+    <div
+        #topbarmenu
+        class="layout-topbar-menu mr-5"
+        [ngClass]="{
+            'layout-topbar-menu-mobile-active ':
+                layoutService.state.profileSidebarVisible
+        }"
+    >
+
+    <button class="p-link layout-topbar-button">
+        <i class="pi pi-envelope" ></i>
+        <span>Suggestions</span>
+    </button>
+    <button class="p-link layout-topbar-button border-gray-300 border-right-1 border-noround">
+        <i class="pi pi-bell text-3xl" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger" style="color: red"></i>
+
+        <span>Alerts</span>
+    </button>
+    <p-menu #menu [model]="items" [popup]="true"></p-menu>
+    <div class="flex flex-row" (click)="menu.toggle($event)">
+        <p-avatar label="P" size="large" class="mx-3"></p-avatar>
+        <span class="text-lg flex flex-column">
+            <span class="text-base capitalize">merveille nitcheu</span>
+            <span class="text-sm mt-1">web developper</span>
+        </span>
+
+    </div>
+
+
+    </div>
+</div>

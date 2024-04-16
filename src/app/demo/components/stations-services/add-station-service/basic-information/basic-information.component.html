@@ -1,0 +1,49 @@
+<p-card>
+    <ng-template pTemplate="title">
+        Informations de la station service
+    </ng-template>
+    <ng-template pTemplate="subtitle">
+        <span> Entrer les informations de base de la station service</span>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6">
+                <label htmlFor="name">Nom de la station service</label>
+                <input pInputText id="name" type="text" required />
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="address">Nom de l'entreprise </label>
+                <p-dropdown
+                    [options]="compagnies"
+                    [(ngModel)]="selectedCompagny"
+                    placeholder="Selectionner l'entreprise"
+                    [editable]="true"
+                    optionLabel="name"
+                    required
+                ></p-dropdown>
+            </div>
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12">
+                <label htmlFor="phone">Description de la station service</label>
+                <textarea
+                    rows="5"
+                    pInputTextarea
+                    [autoResize]="true"
+                    placeholder="entrer la description de la station service"
+                ></textarea>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="grid grid-nogutter justify-content-end mt-1">
+            <p-button
+                label="Suivant"
+                [loading]="loading"
+                (onClick)="nextPage()"
+                icon="pi pi-angle-right"
+                iconPos="right"
+            ></p-button>
+        </div>
+    </ng-template>
+</p-card>

@@ -1,0 +1,52 @@
+<p-card>
+    <ng-template pTemplate="title">
+        Informations de la station service
+    </ng-template>
+    <ng-template pTemplate="subtitle">
+        <span>
+             Validation des informations de la station service
+        </span>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div style="height: 3px; background: linear-gradient(90deg, var(--primary-color) 0%, rgba(33, 150, 243, 0) 50%);"></div>
+
+            <app-task-list>
+              <div>
+                <div
+                  class="text-900 font-semibold text-lg mt-5 mb-3 border-bottom-1 surface-border py-3"
+                >
+                  Informations de base
+                </div>
+
+              </div> </app-task-list
+            ><app-task-list>
+              <div>
+                <div
+                  class="text-900 font-semibold text-lg mt-5 mb-3 border-bottom-1 surface-border py-3"
+                >
+                  Informations de localisation
+                </div>
+
+              </div>
+            </app-task-list>
+
+
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="grid grid-nogutter justify-content-between mt-1">
+            <p-button
+                label="Précedent"
+                (onClick)="prevPage()"
+                icon="pi pi-angle-left"
+            ></p-button>
+            <p-button
+                label="Valider"
+                [loading]="loading"
+                styleClass="p-button-success"
+                icon="pi pi-check"
+                iconPos="left"
+            ></p-button>
+        </div>
+    </ng-template>
+</p-card>
+

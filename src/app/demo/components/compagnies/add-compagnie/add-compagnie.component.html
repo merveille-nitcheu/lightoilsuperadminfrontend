@@ -1,0 +1,119 @@
+<div class="stepsdemo-content">
+    <p-fieldset legend="Ajouter une entreprise">
+        <div class="grid">
+            <div class="col-12 md:col-4 lg:col-4">
+                <p-card class="h-2">
+                    <ng-template pTemplate="subtitle">
+                        Televerser la photo de l entreprise
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <div
+                            *ngIf="showUploadText"
+                            class="p-fileupload-content contenu"
+                            data-pc-section="content"
+                        >
+                            <div
+                                class="w-full py-8 ng-star-inserted"
+                                style="cursor: pointer"
+                                (click)="fileInput.click()"
+                            >
+                                <input
+                                    #fileInput
+                                    type="file"
+                                    style="display: none"
+                                    (change)="
+                                        handleFileUpload($event.target.files)
+                                    "
+                                />
+                                <div
+                                    class="h-full flex flex-column justify-content-center align-items-center ng-star-inserted"
+                                >
+                                    <i
+                                        class="pi pi-upload text-900 text-2xl mb-3"
+                                    ></i>
+                                    <span
+                                        class="font-bold text-900 text-xl mb-3"
+                                        >Televerser la photo</span
+                                    >
+                                    <span
+                                        class="font-medium text-600 text-md text-center"
+                                        >Drop or select file</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="image-container" [ngClass]="{'hovered': showDeleteIcon}" (mouseenter)="showDeleteIcon = true" (mouseleave)="showDeleteIcon = false">
+                            <img *ngIf="!showUploadText && uploadedImageUrl" [src]="uploadedImageUrl" alt="Uploaded Image" class="w-full h-full object-contain">
+                            <i *ngIf="!showUploadText && uploadedImageUrl" class="pi pi-times-circle delete-icon" (click)="deleteImage()"></i>
+                          </div>
+                    </ng-template>
+                </p-card>
+            </div>
+            <div class="col-12 md:col-8 lg:col-8">
+                <p-card>
+                    <ng-template pTemplate="title">
+                        Informations de l'entreprise
+                    </ng-template>
+                    <ng-template pTemplate="subtitle">
+                        <span> Entrer les informations de l'entreprise </span>
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <div class="p-fluid p-formgrid grid">
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="name"
+                                    >Nom de l'entreprise</label
+                                >
+                                <input pInputText id="name" type="text" />
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="address">Adresse Mail</label>
+                                <input pInputText id="address" type="email" />
+                            </div>
+                        </div>
+                        <div class="p-fluid p-formgrid grid">
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="phone"
+                                    >Numero de telephone</label
+                                >
+                                <p-inputNumber inputId="integeronly"  [showButtons]="true" formControlName="value" ></p-inputNumber>
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="financial_years"
+                                    >Age de l'entreprise (en mois)</label
+                                >
+                                <p-inputNumber inputId="integeronly"  [showButtons]="true" formControlName="value" ></p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="p-fluid p-formgrid grid">
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="website">Site web</label>
+                                <input pInputText id="website" type="text" />
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="localisation"
+                                    >Date de début </label
+                                >
+                                <p-calendar [(ngModel)]="date2" dateFormat="dd/mm/yy" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"></p-calendar>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <div
+                            class="grid grid-nogutter justify-content-end mt-1"
+                        >
+                            <p-button
+                                label="Enregistrer"
+                                [loading]="loading"
+                                (onClick)="load()"
+                                icon="pi pi-check"
+                                iconPos="left"
+                            ></p-button>
+                        </div>
+                    </ng-template>
+                </p-card>
+            </div>
+        </div>
+    </p-fieldset>
+</div>
+

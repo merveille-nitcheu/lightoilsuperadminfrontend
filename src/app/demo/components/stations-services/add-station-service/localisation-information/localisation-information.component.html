@@ -1,0 +1,60 @@
+<p-card>
+    <ng-template pTemplate="title">
+        Informations de la station service
+    </ng-template>
+    <ng-template pTemplate="subtitle">
+        <span>
+            Entrer les informations de localisation de la station service
+        </span>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6">
+                <label htmlFor="name">Ville </label>
+                <input pInputText id="name" type="text" required/>
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="fuseau_horaire">Fuseau Horaire</label>
+                <input
+                required
+                    pInputText
+                    id="fuseau_horaire"
+                    type="text"
+                    placeholder="UTC-2"
+                />
+            </div>
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6">
+                <label htmlFor="phone">Latitude</label>
+                <p-inputNumber required
+                inputId="locale-user" [minFractionDigits]="5" inputId="minmaxfraction"
+
+                ></p-inputNumber>
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="financial_years">Longitude</label>
+                <p-inputNumber required
+                inputId="locale-user" [minFractionDigits]="5" inputId="minmaxfraction"
+
+                ></p-inputNumber>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="grid grid-nogutter justify-content-between mt-1">
+            <p-button
+                label="Précedent"
+                (onClick)="prevPage()"
+                icon="pi pi-angle-left"
+            ></p-button>
+            <p-button
+                label="Suivant"
+                [loading]="loading"
+                (onClick)="nextPage()"
+                icon="pi pi-angle-right"
+                iconPos="right"
+            ></p-button>
+        </div>
+    </ng-template>
+</p-card>
