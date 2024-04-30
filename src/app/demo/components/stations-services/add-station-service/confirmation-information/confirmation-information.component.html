@@ -3,50 +3,137 @@
         Informations de la station service
     </ng-template>
     <ng-template pTemplate="subtitle">
-        <span>
-             Validation des informations de la station service
-        </span>
+        <span> Validation des informations de la station service </span>
     </ng-template>
     <ng-template pTemplate="content">
-        <div style="height: 3px; background: linear-gradient(90deg, var(--primary-color) 0%, rgba(33, 150, 243, 0) 50%);"></div>
+        <div style="
+                height: 3px;
+                background: linear-gradient(
+                    90deg,
+                    var(--primary-color) 0%,
+                    rgba(33, 150, 243, 0) 50%
+                );
+            "></div>
 
-            <app-task-list>
-              <div>
-                <div
-                  class="text-900 font-semibold text-lg mt-5 mb-3 border-bottom-1 surface-border py-3"
-                >
-                  Informations de base
-                </div>
+        <p-splitter [style]="{ height: '300px' }" styleClass="my-3">
+            <ng-template pTemplate>
+                <app-task-list>
+                    <div>
+                        <div class="text-900 font-semibold text-lg  mb-3 border-bottom-1 surface-border py-3 mx-4">
+                            Informations de base
+                        </div>
+                        <div class="field flex flex-column mx-4">
+                            <div>
+                                <label for="class">Nom de la station service  </label>
+                            </div>
 
-              </div> </app-task-list
-            ><app-task-list>
-              <div>
-                <div
-                  class="text-900 font-semibold text-lg mt-5 mb-3 border-bottom-1 surface-border py-3"
-                >
-                  Informations de localisation
-                </div>
+                            <b class="mt-3 mb-2">{{ stationServiceInformation.basicInformation.name }}
+                            </b>
+                        </div>
 
-              </div>
-            </app-task-list>
+                        <div class="field flex flex-column mx-4">
+                            <div>
+                                <label for="class"> Nom de l'Entreprise  </label>
+                            </div>
 
+                            <b class="mt-3 mb-2">{{
+                                stationServiceInformation.basicInformation
+                                .entreprise.name
+                                }}
+                            </b>
+                        </div>
 
+                        <div class="field flex flex-column mx-4">
+                            <div>
+                                <label for="class" class="">Produits utilisés par la station service
+                                </label>
+                            </div>
+
+                            <div class="mt-3 mb-2 flex flex-lg-row">
+                                 <span class="font-bold" *ngFor="let product of stationServiceInformation.basicInformation.product_name; let last = last">
+                                    {{ product.name }} {{ !last ? ', ' : '' }}
+                                  </span>
+                            </div>
+                        </div>
+
+                        <div class="field flex flex-column mx-4">
+                            <div>
+                                <label for="class">Description de la station service
+                                </label>
+                            </div>
+
+                            <b class="mt-3 mb-2">{{
+                                stationServiceInformation.basicInformation
+                                .description
+                                }}
+                            </b>
+                        </div>
+                    </div>
+                </app-task-list>
+            </ng-template>
+            <ng-template pTemplate>
+                <app-task-list>
+                    <div>
+                        <div class="text-900 font-semibold text-lg  mb-3 border-bottom-1 surface-border py-3 mx-4">
+                            Informations de localisation
+                        </div>
+                        <div class="field flex flex-column mx-4">
+                            <div>
+                                <label for="class">Localisation de la station service
+                                </label>
+                            </div>
+
+                            <b class="mt-3 mb-2">{{
+                                stationServiceInformation.localisationInformation
+                                .ville
+                                }}
+                            </b>
+                        </div>
+                        <div class="field flex flex-column mx-4">
+                            <div>
+                                <label for="class">Fuseau Horaire  </label>
+                            </div>
+
+                            <b class="mt-3 mb-2">{{
+                                stationServiceInformation.localisationInformation
+                                .fuseau_horaire
+                                }}
+                            </b>
+                        </div>
+
+                        <div class="field flex flex-column mx-4">
+                            <div>
+                                <label for="class">Latitude  </label>
+                            </div>
+
+                            <b class="mt-3 mb-2">{{
+                                stationServiceInformation.localisationInformation
+                                .latitude
+                                }}
+                            </b>
+                        </div>
+
+                        <div class="field flex flex-column mx-4">
+                            <div>
+                                <label for="class">Longitude  </label>
+                            </div>
+
+                            <b class="mt-3 mb-2">{{
+                                stationServiceInformation.localisationInformation
+                                .longitude
+                                }}
+                            </b>
+                        </div>
+                    </div>
+                </app-task-list>
+            </ng-template>
+        </p-splitter>
     </ng-template>
     <ng-template pTemplate="footer">
         <div class="grid grid-nogutter justify-content-between mt-1">
-            <p-button
-                label="Précedent"
-                (onClick)="prevPage()"
-                icon="pi pi-angle-left"
-            ></p-button>
-            <p-button
-                label="Valider"
-                [loading]="loading"
-                styleClass="p-button-success"
-                icon="pi pi-check"
-                iconPos="left"
-            ></p-button>
+            <p-button label="Précedent" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
+            <p-button label="Valider" [loading]="loading" styleClass="p-button-success" icon="pi pi-check"
+                (click)="valider()" iconPos="left"></p-button>
         </div>
     </ng-template>
 </p-card>
-

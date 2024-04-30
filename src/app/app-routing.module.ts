@@ -11,7 +11,10 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                     { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'compagnies', loadChildren: () => import('./demo/components/compagnies/compagnies.module').then(m => m.CompagniesModule) },
                     { path: 'service_station', loadChildren: () => import('./demo/components/stations-services/stations-services.module').then(m => m.ServiceStationModule) },
+                    { path: 'config', loadChildren: () => import('./demo/components/config/config.module').then(m => m.ConfigModule) },
+                    { path: 'cuves', loadChildren: () => import('./demo/components/cuves/cuves.module').then(m => m.CuvesModule) },
                 ]
+
             },
 
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })

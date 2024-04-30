@@ -1,60 +1,64 @@
-<p-card>
-    <ng-template pTemplate="title">
-        Informations de la station service
-    </ng-template>
-    <ng-template pTemplate="subtitle">
-        <span>
-            Entrer les informations de localisation de la station service
-        </span>
-    </ng-template>
-    <ng-template pTemplate="content">
-        <div class="p-fluid p-formgrid grid">
-            <div class="field col-12 md:col-6">
-                <label htmlFor="name">Ville </label>
-                <input pInputText id="name" type="text" required/>
+<form [formGroup]="localisationInformationForm">
+    <p-card>
+        <ng-template pTemplate="title">
+            Informations de la station service
+        </ng-template>
+        <ng-template pTemplate="subtitle">
+            <span>
+                Entrer les informations de localisation de la station service
+            </span>
+        </ng-template>
+        <ng-template pTemplate="content">
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="ville">Ville </label>
+                    <input pInputText id="ville" type="text" formControlName="ville" [(ngModel)]="localisationInformation.ville" required/>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="fuseau_horaire">Fuseau Horaire</label>
+                    <input
+                    required
+                        pInputText
+                        id="fuseau_horaire"
+                        type="text"
+                        placeholder="UTC-2"
+                        formControlName="fuseau_horaire" [(ngModel)]="localisationInformation.fuseau_horaire"
+                    />
+                </div>
             </div>
-            <div class="field col-12 md:col-6">
-                <label htmlFor="fuseau_horaire">Fuseau Horaire</label>
-                <input
-                required
-                    pInputText
-                    id="fuseau_horaire"
-                    type="text"
-                    placeholder="UTC-2"
-                />
-            </div>
-        </div>
-        <div class="p-fluid p-formgrid grid">
-            <div class="field col-12 md:col-6">
-                <label htmlFor="phone">Latitude</label>
-                <p-inputNumber required
-                inputId="locale-user" [minFractionDigits]="5" inputId="minmaxfraction"
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="latitude">Latitude</label>
+                    <input  pInputText required
+                     formControlName="latitude" [(ngModel)]="localisationInformation.latitude"
 
-                ></p-inputNumber>
-            </div>
-            <div class="field col-12 md:col-6">
-                <label htmlFor="financial_years">Longitude</label>
-                <p-inputNumber required
-                inputId="locale-user" [minFractionDigits]="5" inputId="minmaxfraction"
+                    />
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="longitude">Longitude</label>
+                    <input pInputText required
+                    formControlName="longitude" [(ngModel)]="localisationInformation.longitude"
 
-                ></p-inputNumber>
+                    />
+                </div>
             </div>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <div class="grid grid-nogutter justify-content-between mt-1">
-            <p-button
-                label="Précedent"
-                (onClick)="prevPage()"
-                icon="pi pi-angle-left"
-            ></p-button>
-            <p-button
-                label="Suivant"
-                [loading]="loading"
-                (onClick)="nextPage()"
-                icon="pi pi-angle-right"
-                iconPos="right"
-            ></p-button>
-        </div>
-    </ng-template>
-</p-card>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <div class="grid grid-nogutter justify-content-between mt-1">
+                <p-button
+                    label="Précedent"
+                    (onClick)="prevPage()"
+                    icon="pi pi-angle-left"
+                ></p-button>
+                <p-button
+                    label="Suivant"
+                    [loading]="loading"
+                    (onClick)="nextPage()"
+                    icon="pi pi-angle-right"
+                    iconPos="right"
+                ></p-button>
+            </div>
+        </ng-template>
+    </p-card>
+</form>
+

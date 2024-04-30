@@ -61,7 +61,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Cuves',
                         icon: 'pi pi-fw pi-database',
-                        routerLink: ['/uikit/misc'],
+                        routerLink: ['/cuves'],
                     },
 
                     {
@@ -74,6 +74,29 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-bell',
                         routerLink: ['/uikit/misc'],
                     },
+                    {
+                        label: 'Configurations',
+                        icon: 'pi pi-fw pi-cog',
+                        items: [
+                            {
+                                label: 'Produits',
+                                icon: 'pi pi-fw pi-sliders-h',
+                                routerLink: ['/config/products'],
+                            },
+                            {
+                                label: 'Type de Jauge',
+                                icon: 'pi pi-fw pi-fast-forward',
+                                routerLink: ['/config/jauge']
+                            },
+                            {
+                                label: 'Calibrage',
+                                icon: 'pi pi-fw pi-share-alt',
+                                routerLink: ['/calibrage']
+                            },
+
+                        ]
+                    },
+
 
 
 

@@ -1,0 +1,22 @@
+::ng-deep .p-card .p-card-footer{
+    padding: 0;
+}
+
+
+
+::ng-deep .field{
+    margin-bottom: -1rem;
+}
+
+
+::ng-deep .block{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+
+@media screen and (min-width: 1005px)  {
+    .size{
+        min-height: 19.8rem;
+    }
+  }

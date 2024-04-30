@@ -10,7 +10,11 @@ body {
   background-position: center;
 }
 .card{
-    border-radius: 0.375rem !important;
+    border-radius: 0.700rem !important;
+}
+
+.p-card {
+    border-radius: 0.700rem !important;
 }
 
 .p-inputtext{
@@ -42,6 +46,25 @@ body {
     }
 }
 
+.p-tieredmenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover {
+    &:hover {
+        background-color: transparent;
+    }
+  }
+.p-tieredmenu .p-menuitem > .p-menuitem-content{
+
+    &:hover {
+        background-color: transparent;
+    }
+    &:focus {
+        background-color: transparent;
+    }
+
+}
+.p-tieredmenu .p-submenu-icon.p-icon{
+    visibility: hidden;
+}
+
 .p-button{
     border-radius: 0.375rem !important;
 
@@ -58,6 +81,29 @@ body {
     background-color: transparent;
 
     border-width: 0px 0px;
+}
+ .p-fluid .p-button-icon-only {
+    width: 1.357rem;
+    margin-left: -1.5rem;
+    background-color: transparent;
+    border: none;
+    color: rgb(104, 103, 103);
+}
+
+.p-tieredmenu {
+    border: none;
+    background: transparent;
+    padding: 0;
+    width: 3.2rem;
+}
+
+.p-tieredmenu ul{
+    padding: 0;
+}
+.p-tieredmenu .p-menuitem-active>p-tieredmenusub>.p-submenu-list{
+    left: -1.7rem;
+    top: 2.2rem;
+    width: 8rem;
 }
 
 

@@ -1,5 +1,6 @@
 import { Injectable, effect, signal } from '@angular/core';
 import { Subject } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 export interface AppConfig {
     inputStyle: string;
@@ -33,6 +34,7 @@ export class LayoutService {
     };
 
     config = signal<AppConfig>(this._config);
+    constructor(private cookieService: CookieService) { }
 
     state: LayoutState = {
         staticMenuDesktopInactive: false,
@@ -113,4 +115,14 @@ export class LayoutService {
         },
 
     ];
+
+    getUserConnected() {
+        let user = ''
+        if (this.cookieService.check('User')) {
+           const user: string = this.cookieService.get('User');
+           console.log(user)
+        return user;
+        }
+        return user
+    }
 }

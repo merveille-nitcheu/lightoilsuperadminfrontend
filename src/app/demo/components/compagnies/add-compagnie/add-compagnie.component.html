@@ -1,119 +1,250 @@
 <div class="stepsdemo-content">
     <p-fieldset legend="Ajouter une entreprise">
-        <div class="grid">
-            <div class="col-12 md:col-4 lg:col-4">
-                <p-card class="h-2">
-                    <ng-template pTemplate="subtitle">
-                        Televerser la photo de l entreprise
-                    </ng-template>
-                    <ng-template pTemplate="content">
-                        <div
-                            *ngIf="showUploadText"
-                            class="p-fileupload-content contenu"
-                            data-pc-section="content"
-                        >
+        <form [formGroup]="companyForm">
+            <div class="grid">
+                <div class="col-12 md:col-4 lg:col-4">
+                    <p-card class="h-2">
+                        <ng-template pTemplate="subtitle">
+                            Televerser la photo de l entreprise
+                        </ng-template>
+                        <ng-template pTemplate="content">
                             <div
-                                class="w-full py-8 ng-star-inserted"
-                                style="cursor: pointer"
-                                (click)="fileInput.click()"
+                                *ngIf="showUploadText"
+                                class="p-fileupload-content contenu"
+                                data-pc-section="content"
                             >
-                                <input
-                                    #fileInput
-                                    type="file"
-                                    style="display: none"
-                                    (change)="
-                                        handleFileUpload($event.target.files)
-                                    "
-                                />
                                 <div
-                                    class="h-full flex flex-column justify-content-center align-items-center ng-star-inserted"
+                                    class="w-full py-8 ng-star-inserted"
+                                    style="cursor: pointer"
+                                    (click)="fileInput.click()"
                                 >
-                                    <i
-                                        class="pi pi-upload text-900 text-2xl mb-3"
-                                    ></i>
-                                    <span
-                                        class="font-bold text-900 text-xl mb-3"
-                                        >Televerser la photo</span
+                                    <input
+                                        #fileInput
+                                        type="file"
+                                        style="display: none"
+                                        (change)="
+                                            handleFileUpload(
+                                                $event.target.files
+                                            )
+                                        "
+                                        formControlName="logo"
+                                    />
+                                    <div
+                                        class="h-full flex flex-column justify-content-center align-items-center ng-star-inserted"
                                     >
-                                    <span
-                                        class="font-medium text-600 text-md text-center"
-                                        >Drop or select file</span
-                                    >
+                                        <i
+                                            class="pi pi-upload text-900 text-2xl mb-3"
+                                        ></i>
+                                        <span
+                                            class="font-medium text-600 text-md text-center"
+                                            >Televerser l'icone de l
+                                            entreprise</span
+                                        >
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="image-container" [ngClass]="{'hovered': showDeleteIcon}" (mouseenter)="showDeleteIcon = true" (mouseleave)="showDeleteIcon = false">
-                            <img *ngIf="!showUploadText && uploadedImageUrl" [src]="uploadedImageUrl" alt="Uploaded Image" class="w-full h-full object-contain">
-                            <i *ngIf="!showUploadText && uploadedImageUrl" class="pi pi-times-circle delete-icon" (click)="deleteImage()"></i>
-                          </div>
-                    </ng-template>
-                </p-card>
-            </div>
-            <div class="col-12 md:col-8 lg:col-8">
-                <p-card>
-                    <ng-template pTemplate="title">
-                        Informations de l'entreprise
-                    </ng-template>
-                    <ng-template pTemplate="subtitle">
-                        <span> Entrer les informations de l'entreprise </span>
-                    </ng-template>
-                    <ng-template pTemplate="content">
-                        <div class="p-fluid p-formgrid grid">
-                            <div class="field col-12 md:col-6">
+                            <div
+                                class="image-container"
+                                [ngClass]="{ hovered: showDeleteIcon }"
+                                (mouseenter)="showDeleteIcon = true"
+                                (mouseleave)="showDeleteIcon = false"
+                            >
+                                <img
+                                    *ngIf="!showUploadText && uploadedImageUrl"
+                                    [src]="uploadedImageUrl"
+                                    alt="Uploaded Image"
+                                    class="w-full h-full object-contain"
+                                />
+                                <i
+                                    *ngIf="!showUploadText && uploadedImageUrl"
+                                    class="pi pi-times-circle delete-icon"
+                                    (click)="deleteImage()"
+                                ></i>
+                            </div>
+                        </ng-template>
+                    </p-card>
+                </div>
+                <div class="col-12 md:col-8 lg:col-8">
+                    <p-card>
+                        <ng-template pTemplate="title">
+                            Informations de l'entreprise
+                        </ng-template>
+                        <ng-template pTemplate="subtitle">
+                            <span>
+                                Entrer les informations de l'entreprise
+                            </span>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="name"
+                                        >Nom de l'entreprise</label
+                                    >
+                                    <input
+                                        pInputText
+                                        id="name"
+                                        type="text"
+                                        formControlName="name"
+                                        [ngModel]="filteredcompany?.name"
+                                    />
+                                </div>
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address"
+                                        >Localisation</label
+                                    >
+                                    <input
+                                        pInputText
+                                        id="localisation"
+                                        type="text"
+                                        formControlName="address"
+                                        [ngModel]="filteredcompany?.address"
+                                    />
+                                </div>
+                            </div>
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="phone"
+                                        >Numero de telephone</label
+                                    >
+                                    <p-inputNumber
+                                        inputId="integeronly"
+                                        [showButtons]="true"
+                                        formControlName="phone"
+                                        [ngModel]="filteredcompany?.phone"
+                                    ></p-inputNumber>
+                                    <small id="username-help" class="ml-2"
+                                        >Ajouter l'indicateur du pays sans le signe (+).</small
+                                    >
+                                </div>
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="start_date"
+                                        >Date de debut</label
+                                    >
+
+                                    <p-calendar
+                                        dateFormat="dd/mm/yy"
+                                        [iconDisplay]="'input'"
+                                        [showIcon]="true"
+                                        [(ngModel)]="start_date"
+                                        inputId="icondisplay"
+                                        formControlName="start_date"
+                                    ></p-calendar>
+                                </div>
+                            </div>
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="website">Site web</label>
+                                    <input
+                                        pInputText
+                                        id="website"
+                                        type="text"
+                                        formControlName="website"
+                                        [ngModel]="filteredcompany?.website"
+                                    />
+                                </div>
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="expected_end_date"
+                                        >Date de fin
+                                    </label>
+
+                                    <p-calendar
+                                        dateFormat="dd/mm/yy"
+                                        [iconDisplay]="'input'"
+                                        [showIcon]="true"
+                                        inputId="icondisplay"
+                                        [(ngModel)]="expected_end_date"
+                                        formControlName="expected_end_date"
+                                    ></p-calendar>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <div
+                                class="grid grid-nogutter justify-content-end mt-1"
+                            >
+                                <p-button
+                                    [label]="
+                                        filteredcompany
+                                            ? 'Modifier'
+                                            : 'Enregistrer'
+                                    "
+                                    [loading]="loading"
+                                    (click)="
+                                        filteredcompany
+                                            ? onUpdateForm(filteredcompany.id)
+                                            : onSubmitForm()
+                                    "
+                                    icon="pi pi-check"
+                                    iconPos="left"
+                                    type="submit"
+                                    [disabled]="
+                                        filteredcompany
+                                            ? false
+                                            : companyForm.invalid
+                                    "
+                                ></p-button>
+                            </div>
+                        </ng-template>
+                    </p-card>
+                </div>
+
+                <div class="col-12 md:col-12 lg:col-12" *ngIf="filteredcompany">
+                    <p-card>
+                        <ng-template pTemplate="title">
+                            Informations supplementaires
+                        </ng-template>
+                        <div class="field col-12 md:col-12">
+                            <ng-container
+                                *ngIf="filteredcompany?.nbstations > 0"
+                            >
                                 <label htmlFor="name"
-                                    >Nom de l'entreprise</label
+                                    >Nombre de stations services de l entreprise
+                                    :
+                                    <span class="font-bold text-lg">
+                                        {{ filteredcompany?.nbstations }}</span
+                                    ></label
                                 >
-                                <input pInputText id="name" type="text" />
-                            </div>
-                            <div class="field col-12 md:col-6">
-                                <label htmlFor="address">Adresse Mail</label>
-                                <input pInputText id="address" type="email" />
-                            </div>
-                        </div>
-                        <div class="p-fluid p-formgrid grid">
-                            <div class="field col-12 md:col-6">
-                                <label htmlFor="phone"
-                                    >Numero de telephone</label
+
+                                <div class="field col-12 md:col-12">
+                                    <ul
+                                        class="p-0 mx-0 mt-0 mb-4 list-none"
+                                        *ngFor="
+                                            let serviceStation of filteredcompany.servicestations
+                                        "
+                                    >
+                                        <li
+                                            class="flex align-items-center py-2 border-bottom-1 surface-border cursor-pointer" (click)="showDetails(serviceStation.id)"
+                                        >
+                                            <span
+                                                class="text-900 line-height-3"
+                                            >
+                                                {{ serviceStation.name }}
+                                                <span class="text-700">
+                                                    située à
+                                                    <span
+                                                        class="text-blue-500"
+                                                        >{{
+                                                            serviceStation.city
+                                                        }}</span
+                                                    ></span
+                                                >
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="filteredcompany?.nbstations === 0"
+                            >
+                                <span class="text-600 font-medium mb-3"
+                                    >Aucune Informations supplementaires</span
                                 >
-                                <p-inputNumber inputId="integeronly"  [showButtons]="true" formControlName="value" ></p-inputNumber>
-                            </div>
-                            <div class="field col-12 md:col-6">
-                                <label htmlFor="financial_years"
-                                    >Age de l'entreprise (en mois)</label
-                                >
-                                <p-inputNumber inputId="integeronly"  [showButtons]="true" formControlName="value" ></p-inputNumber>
-                            </div>
+                            </ng-container>
                         </div>
-                        <div class="p-fluid p-formgrid grid">
-                            <div class="field col-12 md:col-6">
-                                <label htmlFor="website">Site web</label>
-                                <input pInputText id="website" type="text" />
-                            </div>
-                            <div class="field col-12 md:col-6">
-                                <label htmlFor="localisation"
-                                    >Date de début </label
-                                >
-                                <p-calendar [(ngModel)]="date2" dateFormat="dd/mm/yy" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"></p-calendar>
-                            </div>
-                        </div>
-                    </ng-template>
-                    <ng-template pTemplate="footer">
-                        <div
-                            class="grid grid-nogutter justify-content-end mt-1"
-                        >
-                            <p-button
-                                label="Enregistrer"
-                                [loading]="loading"
-                                (onClick)="load()"
-                                icon="pi pi-check"
-                                iconPos="left"
-                            ></p-button>
-                        </div>
-                    </ng-template>
-                </p-card>
+                    </p-card>
+                </div>
             </div>
-        </div>
+        </form>
     </p-fieldset>
 </div>
-

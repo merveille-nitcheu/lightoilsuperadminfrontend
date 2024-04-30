@@ -9,3 +9,41 @@
 ::ng-deep .field{
     margin-bottom: 0;
 }
+
+::ng-deep .p-checkbox .p-checkbox-box{
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+::ng-deep .p-multiselect-panel .p-multiselect-items .p-multiselect-item{
+    padding: 0.3rem 1rem;
+}
+
+::ng-deep .p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container .p-multiselect-filter-icon{
+    visibility: hidden;
+}
+
+::ng-deep .p-multiselect-filter-container .p-inputtext{
+    height: 2rem;
+}
+
+::ng-deep  .p-multiselect-panel .p-multiselect-header{
+    padding: 0.3rem 1rem;
+}
+::ng-deep  .p-multiselect-panel .p-multiselect-items{
+    padding: 0.1rem 0;
+}
+
+::ng-deep .fileInput{
+    border: 1px  solid #ced4da;
+    border-radius: 0.375rem;
+    height: 2.3rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+::ng-deep .p-fluid .p-fileupload .p-button{
+    background-color: transparent;
+    color: black;
+    border:none
+}

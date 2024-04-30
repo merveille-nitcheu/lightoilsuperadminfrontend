@@ -1,29 +1,26 @@
 <div class="stepsdemo-content">
     <p-fieldset legend="Liste des entreprises">
         <p-card>
-            <p-table #dt1 [value]="" dataKey="id" [rows]="10" [rowHover]="true" [paginator]="true" [globalFilterFields]="[
-                    'name',
-                    'country.name',
-                    'representative.name',
-                    'status'
-                ]" responsiveLayout="scroll">
+            <p-table #dt [value]="allCompagnies" dataKey="id" [rows]="10" [rowHover]="true" [paginator]="true" [(selection)]="selectedCompanies"   [globalFilterFields]="['name','address']" responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <div class="flex justify-content-between">
-                            <p-button label="Supprimer" icon="pi pi-trash" severity="danger"></p-button>
+                            <p-button label="Supprimer" icon="pi pi-trash" severity="danger" (click)="deleteSelectedCompanies()" [disabled]="!selectedCompanies || !selectedCompanies.length" ></p-button>
                             <button pButton label="Ajouter Entreprise" class="p-button-outlined ml-4" icon="pi pi-plus"
                                 [routerLink]="['/compagnies/addcompagnie']"></button>
                         </div>
 
                         <span class="p-input-icon-left mt-3 sm:mt-0">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)"
-                                placeholder="Rechercher" class="w-full" />
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Rechercher..." class="w-full" />
                         </span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
+                        <th style="width: 4rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 Nom
@@ -45,28 +42,34 @@
                                 Website
                             </div>
                         </th>
+
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Actions
+                            </div>
+                        </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-customer>
+                <ng-template pTemplate="body" let-allCompagnie>
                     <tr>
                         <td>
-                            <img [alt]="customer.representative.name" src="assets/demo/images/avatar/{{
-                                    customer.representative.image
-                                }}" width="45" style="vertical-align: middle" />
-                            <span class="image-text ml-3">{{
-                                customer.representative.name
-                                }}</span>
+                            <p-tableCheckbox [value]="allCompagnie"></p-tableCheckbox>
                         </td>
-                        <td>
-                            {{ customer.date | date : "MM/dd/yyyy" }}
+                        <td style="width: 25%;">
+                            <img [alt]="" src="../../../../../assets/layout/images/lightimage.jpg" width="40" style="vertical-align: middle" />
+                            <span class="image-text ml-3">{{ allCompagnie.name}}</span>
                         </td>
-                        <td>
-                            {{ customer.balance | currency : "USD" : "symbol" }}
+                        <td style="width: 25%;">
+                            {{ allCompagnie.address }}
                         </td>
-                        <td>
-                            <span [class]="
-                                    'customer-badge status-' + customer.status
-                                ">{{ customer.status }}</span>
+                        <td style="width: 25%;">
+                            +{{ allCompagnie.phone }}
+                        </td>
+                        <td style="width: 25%;">
+                            <span >{{ allCompagnie.website }}</span>
+                        </td>
+                        <td style="width: 15%;" class="justify-content-center">
+                            <p-button icon="pi pi-file-edit" class="ml-3" pTooltip="details" tooltipPosition="bottom" (click)="Details(allCompagnie.id)" [rounded]="true" [text]="true" severity="success"></p-button>
                         </td>
                     </tr>
                 </ng-template>
@@ -86,5 +89,14 @@
             </p-table>
         </p-card>
     </p-fieldset>
+
+    <p-confirmPopup>
+        <ng-template pTemplate="content" let-message>
+            <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border p-3 mb-3">
+                <i [class]="message.icon" class="text-6xl text-primary-500"></i>
+                <p>{{ message.message }}</p>
+            </div>
+        </ng-template>
+    </p-confirmPopup>
 </div>
 

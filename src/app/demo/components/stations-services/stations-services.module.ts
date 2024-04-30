@@ -18,6 +18,17 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { MultiSelectModule } from "primeng/multiselect";
+import { FileUploadModule } from 'primeng/fileupload';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MenuModule } from 'primeng/menu';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { MenubarModule } from 'primeng/menubar';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { SplitterModule } from 'primeng/splitter';
+import { ShowServiceStationComponent } from './show-service-station/show-service-station.component';
+
 
 
 @NgModule({
@@ -35,10 +46,21 @@ import { InputNumberModule } from 'primeng/inputnumber';
         DropdownModule,
         InputTextareaModule,
         InputMaskModule,
-        InputNumberModule
+        InputNumberModule,
+        MultiSelectModule,
+        FileUploadModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MenuModule,
+        SplitButtonModule,
+        MenubarModule,
+        TieredMenuModule,
+        ConfirmPopupModule,
+        SplitterModule
+
 
     ],
-    declarations: [AddStationServiceComponent,StationServiceListComponent,BasicInformationComponent,LocalisationInformationComponent,ConfirmationInformationComponent]
+    declarations: [AddStationServiceComponent,StationServiceListComponent,BasicInformationComponent,LocalisationInformationComponent,ConfirmationInformationComponent,ShowServiceStationComponent]
 
 })
 export class ServiceStationModule { }

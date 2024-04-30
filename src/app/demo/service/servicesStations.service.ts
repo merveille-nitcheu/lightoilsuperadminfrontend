@@ -1,4 +1,6 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { environment } from "src/environments/environment";
 
 
 @Injectable({
@@ -25,13 +27,17 @@ import { Injectable } from "@angular/core";
     ];
 
 
+
+
     stationServiceInformation = {
         basicInformation: {
             name: '',
-            entrprise: '',
-            description: ''
+            entreprise: '',
+            description: '',
+            product_name: [],
+            logo_ss:''
         },
-        LocalisationInformation: {
+        localisationInformation: {
             ville: '',
             fuseau_horaire: '',
             longitude: '',
@@ -39,4 +45,29 @@ import { Injectable } from "@angular/core";
         },
 
     };
+
+
+    constructor(private http: HttpClient) { }
+
+
+
+    getAllservicestation(){
+      return this.http.get<any[]>(environment.apiUrl+'/servicestation/getallservicestation')
+    }
+
+    storeServicestation(servicestationInfos:any){
+      return this.http.post<any[]>(environment.apiUrl+'/servicestation/storeservicestation',servicestationInfos)
+    }
+
+    showServicestation(servicestationId:number){
+      return this.http.get<any[]>(environment.apiUrl+'/servicestation/showservicestation/'+servicestationId)
+    }
+
+    updateservicestation(servicestationId:number,servicestationInfos:any){
+      return this.http.post<any[]>(environment.apiUrl+'/servicestation/updateservicestation/'+servicestationId,servicestationInfos)
+    }
+
+    deleteservicestation(servicestationId:number){
+      return this.http.delete<any[]>(environment.apiUrl+'/servicestation/destroyservicestation/'+servicestationId)
+    }
  }

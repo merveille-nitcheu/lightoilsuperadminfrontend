@@ -1,0 +1,171 @@
+<div class="grid flex flex-row">
+    <div class="col-12 lg:col-6 xl:col-7">
+        <div class="card size">
+            <h5>Liste des Jauges</h5>
+            <p-table
+                #dt
+                [value]="allJauges"
+                [paginator]="true"
+                [rows]="6"
+                responsiveLayout="scroll"
+                selectionMode="single"
+                [(selection)]="selectedJauge"
+                (onRowSelect)="showselectedJauge()"
+                [globalFilterFields]="['name','price']"
+            >
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between">
+                        <p-button
+                            label="Supprimer"
+                            icon="pi pi-trash"
+                            severity="danger"
+                            (click)="deleteJauge(selectedJauge.id)"
+                            [disabled]="!selectedJauge"
+                        ></p-button>
+                        <span class="p-input-icon-left mt-3 sm:mt-0">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Rechercher..." class="w-full" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Code</th>
+                        <th>Prix</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-jauge>
+                    <tr [pSelectableRow]="jauge">
+                        <td>
+                            {{ jauge.name }}
+                        </td>
+                        <td>
+                            {{ jauge.code }}
+                        </td>
+                        <td>
+                            {{ jauge.price | number:'1.0-0' }} Fcfa
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">Aucune Jauge trouvée</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="8">
+                            Chargement de données des Jauges. Patientez svp.
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 xl:col-5">
+        <form [formGroup]="jaugeForm">
+            <p-card>
+                <ng-template pTemplate="title">
+                    Informations sur la jauge
+                </ng-template>
+                <ng-template pTemplate="subtitle">
+                    <span> Entrer les informations sur la jauge </span>
+                </ng-template>
+
+                <ng-template pTemplate="content">
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-12">
+                            <label htmlFor="name">Nom de la sonde</label>
+                            <input
+                                pInputText
+                                id="name"
+                                type="text"
+                                formControlName="name"
+                                [ngModel]="selectedJauge?.name"
+                            />
+                        </div>
+                        <div class="field col-12 md:col-12">
+                            <label htmlFor="price">Prix de la sonde</label>
+                            <p-inputNumber
+                                inputId="integeronly"
+                                [showButtons]="true"
+                                formControlName="price"
+                                [min]="0"
+                                [ngModel]="selectedJauge?.price"
+                            ></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div
+                        class="p-fluid p-formgrid grid mt-3"
+                        *ngIf="selectedJauge"
+                    >
+                        <div class="field col-12 md:col-12">
+                            <span class="block mb-3"
+                                >Informations Supplementaires</span
+                            >
+                            <ng-container *ngIf="nbserviceStations>0">
+
+                                <label htmlFor="name"
+                                >Nombre de stations services qui utilisent la jauge</label
+                            >
+                            <p-inputNumber
+                                inputId="integeronly"
+                                formControlName=""
+                                [min]="0"
+                                [disabled]="true"
+                            ></p-inputNumber>
+                            <div class="field col-12 md:col-12">
+                                <ul class="p-0 mx-0 mt-0 mb-4 list-none" *ngFor="let serviceStation of selectedJauge.serviceStations" >
+                                    <li
+                                        class="flex align-items-center py-2 border-bottom-1 surface-border"
+                                    >
+                                        <span class="text-900 line-height-3">
+                                            {{serviceStation.name}}
+                                            <span class="text-700">
+                                                située à
+                                                <span class="text-blue-500"
+                                                    >{{serviceStation.address}}</span
+                                                ></span
+                                            >
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            </ng-container>
+                            <ng-container *ngIf="nbserviceStations ===0">
+                                <span class="text-600 font-medium mb-3">Aucune Informations supplementaires</span>
+                            </ng-container>
+
+                        </div>
+
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <div class="grid grid-nogutter justify-content-end mt-1">
+                        <p-button
+                            [label]="
+                                selectedJauge ? 'Modifier' : 'Enregistrer'
+                            "
+                            [loading]="loading"
+                            (click)="
+                                selectedProduct
+                                    ? onUpdateForm(selectedJauge.id)
+                                    : onSubmitForm()
+                            "
+                            icon="pi pi-check"
+                            iconPos="left"
+                            type="submit"
+                            [disabled]="
+                                selectedJauge ? false : jaugeForm.invalid
+                            "
+                        ></p-button>
+                    </div>
+                </ng-template>
+            </p-card>
+        </form>
+    </div>
+</div>

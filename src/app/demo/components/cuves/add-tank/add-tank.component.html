@@ -1,0 +1,200 @@
+
+    <div class="stepsdemo-content">
+        <p-fieldset legend="Ajouter une cuve">
+            <form [formGroup]="tankForm">
+
+                <p-card>
+                    <div class="field col-12 md:col-12">
+                        <span class="block font-bold mb-3">Informations Primaires</span>
+
+                        <div class="pt-5 border-top-1 surface-border">
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address"
+                                        >Nom de la station service
+                                    </label>
+                                    <p-dropdown
+                                    [options]="allstationservice"
+                                        placeholder="Selectionner la station service"
+                                        [editable]="true"
+                                        optionLabel="name"
+                                        required
+                                        [showClear]="true"
+                                        formControlName="name_ss"
+                                    ></p-dropdown>
+                                </div>
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address">Nom du produit </label>
+                                    <p-dropdown
+                                    [options]="allProducts"
+                                        placeholder="Selectionner le produit"
+                                        [editable]="true"
+                                        optionLabel="name"
+                                        required
+                                        [showClear]="true"
+                                        formControlName="name_product"
+                                    ></p-dropdown>
+                                </div>
+                            </div>
+
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address"
+                                        >Diametre de la cuve
+                                    </label>
+                                    <p-inputNumber
+                                        inputId="locale-user"
+                                        formControlName="diameter"
+                                        [minFractionDigits]="5"
+                                        [showButtons]="true"
+                                    ></p-inputNumber>
+                                </div>
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address">Type de sonde </label>
+                                    <p-dropdown
+                                    [options]="allJauges"
+                                        placeholder="Selectionner le sonde"
+                                        [editable]="true"
+                                        optionLabel="name"
+                                        required
+                                        [showClear]="true"
+                                        formControlName="type_jauge"
+                                    ></p-dropdown>
+                                </div>
+                            </div>
+
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-12">
+                                    <label htmlFor="address">Abacus </label>
+                                    <input
+                                        pInputText
+                                        id="name"
+                                        type="text"
+                                        formControlName="abacus"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field col-12 md:col-12">
+                        <span class="block font-bold mb-3"
+                            >Informations Secondaires</span
+                        >
+
+                        <div class="pt-5 border-top-1 surface-border">
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address"
+                                        >Type de liquide
+                                    </label>
+                                    <input
+                                    pInputText
+                                    id="name"
+                                    type="text"
+                                    formControlName="liquid_type"
+                                    required
+                                />
+                                </div>
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address">Man hole height </label>
+                                    <input
+                                        pInputText
+                                        id="name"
+                                        type="text"
+                                        formControlName="man_hole_height"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address"
+                                        >Sensor Deph
+                                    </label>
+                                    <input
+                                    pInputText
+                                    id="name"
+                                    type="text"
+                                    formControlName="sensor_depth"
+                                    required
+                                />
+                                </div>
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address">Sensor Ref </label>
+                                    <input
+                                    pInputText
+                                    id="name"
+                                    type="text"
+                                    formControlName="sensor_reference"
+                                    required
+                                />
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="field col-12 md:col-12">
+
+                        <div class="grid grid-nogutter justify-content-end mt-1">
+                            <p-button
+                                label="Valider"
+                                icon="pi pi-check"
+                                iconPos="right"
+                                [disabled]="tankForm.invalid"
+                                (click)=" onSubmitForm()"
+                                type="submit"
+                            ></p-button>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 md:col-12 lg:col-12" *ngIf="filteredTank">
+                        <p-card>
+                            <ng-template pTemplate="title">
+                                Informations supplementaires
+                            </ng-template>
+                            <div class="field col-12 md:col-12">
+                                <ng-container *ngIf="filteredcompany?.nbstations > 0">
+                                    <label htmlFor="name">Nombre de stations services de l
+                                        entreprise</label>
+                                    <p-inputNumber inputId="integeronly" formControlName="" [min]="0"
+                                        [ngModel]="filteredTank?.nbstations" [disabled]="true"></p-inputNumber>
+                                    <div class="field col-12 md:col-12">
+                                        <ul class="p-0 mx-0 mt-0 mb-4 list-none" *ngFor="
+                                                let serviceStation of filteredTank.servicestations
+                                            ">
+                                            <li class="flex align-items-center py-2 border-bottom-1 surface-border">
+                                                <span class="text-900 line-height-3">
+                                                    {{ serviceStation.name }}
+                                                    <span class="text-700">
+                                                        située à
+                                                        <span class="text-blue-500">{{
+                                                            serviceStation.address
+                                                            }}</span></span>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="filteredcompany?.nbstations === 0">
+                                    <span class="text-600 font-medium mb-3">Aucune Informations supplementaires</span>
+                                </ng-container>
+                            </div>
+                        </p-card>
+                    </div>
+
+
+                </p-card>
+
+            </form>
+
+        </p-fieldset>
+    </div>
+
+
+

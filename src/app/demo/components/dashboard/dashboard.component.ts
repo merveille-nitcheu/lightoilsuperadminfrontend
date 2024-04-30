@@ -1,6 +1,9 @@
 import { Component, OnInit} from '@angular/core';
 import { Product } from '../../api/product';
 import { ProductService } from '../../service/product.service';
+import { Compagnie } from '../../models/model';
+import { Router } from '@angular/router';
+import { CompagniesService } from '../../service/compagnies.service';
 
 
 @Component({
@@ -8,13 +11,21 @@ import { ProductService } from '../../service/product.service';
     styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
-    products!: Product[];
+    allCompagnies: Compagnie[]= [];
+    nbcomp:number
 
-    constructor(private productService: ProductService) {}
 
-    ngOnInit() {
-        this.productService
-            .getProductsSmall()
-            .then((data) => (this.products = data));
+
+    constructor(private compagniesService: CompagniesService,private router:Router) {}
+
+    ngOnInit(): void {
+        this.compagniesService.getAllCompany().subscribe((data) =>{
+                this.allCompagnies = data['data'];
+        })
+        this.nbcomp = this.allCompagnies.length
+        console.log(this.allCompagnies)
+        console.log(this.nbcomp)
+
+
     }
 }

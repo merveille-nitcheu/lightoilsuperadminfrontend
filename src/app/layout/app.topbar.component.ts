@@ -9,6 +9,7 @@ import { LayoutService } from "./service/app.layout.service";
 export class AppTopBarComponent {
 
     items!: MenuItem[];
+    user:any
 
     @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -21,5 +22,8 @@ export class AppTopBarComponent {
 
     ngOnInit(): void {
         this.items = this.layoutService.items_profil
+        this.user = this.layoutService.getUserConnected();
     }
+
+
 }

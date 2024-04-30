@@ -13,6 +13,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputMaskModule } from 'primeng/inputmask';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -29,7 +31,9 @@ import { InputMaskModule } from 'primeng/inputmask';
         FileUploadModule,
         CalendarModule,
         InputNumberModule,
-        InputMaskModule
+        InputMaskModule,
+        ConfirmPopupModule,
+        ReactiveFormsModule
 
     ],
 

@@ -8,7 +8,8 @@ import { CompagniesListComponent } from './compagnies-list/compagnies-list.compo
 @NgModule({
     imports: [RouterModule.forChild([
         { path: 'addcompagnie', component: AddCompagnieComponent },
-        { path: 'compagnielist', component: CompagniesListComponent}
+        { path: 'compagnielist', component: CompagniesListComponent},
+        { path: 'addcompagnie/:companyId', component: AddCompagnieComponent },
     ])],
     exports: [RouterModule]
 })
