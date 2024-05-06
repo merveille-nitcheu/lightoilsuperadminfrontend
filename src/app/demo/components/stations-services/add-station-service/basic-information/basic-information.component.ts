@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Compagnie } from 'src/app/demo/models/model';
+import { Compagnie, Product } from 'src/app/demo/models/model';
 import { CompagniesService } from 'src/app/demo/service/compagnies.service';
 import { ProductService } from '../../../../service/product.service';
 import { ServicesStationsService } from '../../../../service/servicesStations.service';
@@ -17,7 +17,7 @@ export class BasicInformationComponent {
     constructor(private compagniesService:CompagniesService,private router: Router,private productService: ProductService,private servicesStationsService:ServicesStationsService,  private formBuilder: FormBuilder,){}
 
     allCompagnies: Compagnie[] | undefined;
-    allProducts: Compagnie[] | undefined;
+    allProducts: Product[] | undefined;
     basicInformation:any
     basicInformationForm!: FormGroup;
 

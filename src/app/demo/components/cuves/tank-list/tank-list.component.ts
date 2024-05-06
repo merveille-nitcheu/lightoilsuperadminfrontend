@@ -15,28 +15,6 @@ export class TankListComponent {
 
     selectedtank!: Tank;
 
-    items_tank:MenuItem[] = [
-        {
-
-        label: '',
-        icon: 'pi pi-fw pi-ellipsis-v',
-        items: [
-            {
-                label: 'Details',
-                icon: 'pi pi-fw pi-eye',
-                command: (event) => this.Details(this.selectedtank.id)
-
-            } ,
-            {
-                label: 'Supprimer',
-                icon: 'pi pi-fw pi-trash',
-                command: (event) => this.deleteSelectedTanks()
-
-            } ,
-        ]
-        },
-    ];
-
     constructor(private tankService:TankService,private router:Router,private confirmationService: ConfirmationService,){}
     ngOnInit() {
         this.tankService.getAllTank().subscribe((data) => {
@@ -46,7 +24,7 @@ export class TankListComponent {
     }
 
     Details(tankId: any) {
-        this.router.navigateByUrl(`tank/addTank/${tankId}`);
+        this.router.navigateByUrl(`cuves/showtank/${tankId}`);
     }
 
 

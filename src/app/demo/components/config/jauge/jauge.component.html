@@ -100,34 +100,36 @@
 
                     <div
                         class="p-fluid p-formgrid grid mt-3"
-                        *ngIf="selectedJauge"
+                        *ngIf="filteredJauge"
                     >
                         <div class="field col-12 md:col-12">
                             <span class="block mb-3"
                                 >Informations Supplementaires</span
                             >
-                            <ng-container *ngIf="nbserviceStations>0">
+                            <ng-container *ngIf="filteredJauge.tanks.length>0">
 
-                                <label htmlFor="name"
-                                >Nombre de stations services qui utilisent la jauge</label
-                            >
-                            <p-inputNumber
-                                inputId="integeronly"
-                                formControlName=""
-                                [min]="0"
-                                [disabled]="true"
-                            ></p-inputNumber>
+                                <div class="mb-2">
+                                    <label htmlFor="name"
+                                    >Nombre de stations services qui utilisent la sonde : <span class="font-bold text-lg"> {{stationCount}}</span></label
+                                >
+                                </div>
+                                <div>
+                                    <label htmlFor="name"
+                            >Nombre de cuves qui utilisent la sonde : <span class="font-bold text-lg"> {{filteredJauge.tanks.length}}</span></label
+                        >
+                                </div>
+
                             <div class="field col-12 md:col-12">
-                                <ul class="p-0 mx-0 mt-0 mb-4 list-none" *ngFor="let serviceStation of selectedJauge.serviceStations" >
+                                <ul class="p-0 mx-0 mt-0 mb-4 list-none" *ngFor="let serviceStation of stations" >
                                     <li
-                                        class="flex align-items-center py-2 border-bottom-1 surface-border"
+                                        class="flex align-items-center py-2 border-bottom-1 surface-border cursor-pointer" (click)="showDetails(serviceStation.id)"
                                     >
                                         <span class="text-900 line-height-3">
                                             {{serviceStation.name}}
                                             <span class="text-700">
                                                 située à
                                                 <span class="text-blue-500"
-                                                    >{{serviceStation.address}}</span
+                                                    >{{serviceStation.city}}</span
                                                 ></span
                                             >
                                         </span>
@@ -136,11 +138,13 @@
                             </div>
 
                             </ng-container>
-                            <ng-container *ngIf="nbserviceStations ===0">
+                            <ng-container *ngIf="filteredJauge.tanks.length ===0">
                                 <span class="text-600 font-medium mb-3">Aucune Informations supplementaires</span>
                             </ng-container>
 
                         </div>
+
+
 
                     </div>
                 </ng-template>

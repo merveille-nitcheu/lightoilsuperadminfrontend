@@ -1,0 +1,628 @@
+<div class="stepsdemo-content">
+    <p-fieldset legend="cuve">
+
+        <p-card>
+            <div class="field col-12 md:col-12">
+                <span class="block font-bold mb-3">Informations Primaires</span>
+
+                <div class="pt-5 border-top-1 surface-border">
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address"
+                                >Nom de la station service
+                            </label>
+                            <input
+                            pInputText
+                            id="name"
+                            type="text"
+
+                            required
+                        />
+                        </div>
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address">Nom du produit </label>
+                            <input
+                            pInputText
+                            id="name"
+                            type="text"
+
+                            required
+                        />
+                        </div>
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address"
+                                >Diametre de la cuve
+                            </label>
+                            <p-inputNumber
+                                inputId="locale-user"
+                                formControlName="diameter"
+                                [minFractionDigits]="5"
+                                [showButtons]="true"
+                            ></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="p-fluid p-formgrid grid">
+
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address">Type de sonde </label>
+                            <input
+                            pInputText
+                            id="name"
+                            type="text"
+
+                            required
+                        />
+                        </div>
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address"
+                                >Type de liquide
+                            </label>
+                            <input
+                            pInputText
+                            id="name"
+                            type="text"
+
+                            required
+                        />
+
+                        </div>
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address"
+                                >Type de liquide
+                            </label>
+                            <input
+                            pInputText
+                            id="name"
+                            type="text"
+
+                            required
+                        />
+
+                        </div>
+                    </div>
+
+                   <div class="p-fluid p-formgrid grid">
+
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address">Man hole height </label>
+                            <p-inputNumber
+                            inputId="locale-user"
+
+                                required
+                            [minFractionDigits]="5"
+                            [showButtons]="true"
+                        ></p-inputNumber>
+                        </div>
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address"
+                                >Sensor Deph
+                            </label>
+                            <p-inputNumber
+                            inputId="locale-user"
+
+                                required
+                            [minFractionDigits]="5"
+                            [showButtons]="true"
+                        ></p-inputNumber>
+
+                        </div>
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address">Sensor Ref </label>
+                            <input
+                            pInputText
+                            id="name"
+                            type="text"
+                            required
+                        />
+                        </div>
+                    </div>
+
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address"
+                                >Data_level
+                            </label>
+                            <p-chips separator=";"
+                            required></p-chips>
+
+                        </div>
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address">Data_temp </label>
+                            <p-chips separator=";"
+                            required></p-chips>
+                        </div>
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address">Data_pressure </label>
+                            <p-chips separator=";"
+                            required></p-chips>
+                        </div>
+
+                    </div>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-4">
+                            <label htmlFor="address">Level_active_depotage </label>
+                            <p-inputNumber
+                            inputId="locale-user"
+
+                                required
+                            [minFractionDigits]="5"
+                            [showButtons]="true"
+                        ></p-inputNumber>
+                        </div>
+                        <div class="field col-12 md:col-8">
+                            <label htmlFor="address">Abacus </label>
+                            <p-chips separator=";"
+                            required></p-chips>
+                        </div>
+
+                        <div class="field col-12 md:col-12">
+
+                            <div class="grid grid-nogutter justify-content-end mt-1">
+                                <p-button
+                                    label="Valider"
+                                    icon="pi pi-check"
+                                    iconPos="right"
+
+                                    type="submit"
+                                ></p-button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="field col-12 md:col-12 -mt-5">
+
+
+                    <p-tabView>
+                        <p-tabPanel header="Informations de la Record">
+                            <p-splitter [style]="{ height: '300px' }" styleClass="mt-4">
+                                <ng-template pTemplate>
+                                        <div class="tabs">
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Battery Level </b>
+                                                </div>
+
+                                                <label class="text-lg">ffffffffffff
+                                                </label>
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class"> Density  </b>
+                                                </div>
+
+                                                <label class="text-lg">
+                                                   fffff
+                                                </label>
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class" class="">Depotage
+                                                    </b>
+                                                </div>
+
+
+                                                     <label class="text-lg">
+                                                       ffff
+                                                      </label>
+
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Env_Temperature
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Total_Volume
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Volume_at_fift
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                </ng-template>
+                                <ng-template pTemplate>
+
+                                        <div class="tabs">
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Level </b>
+                                                </div>
+
+                                                <label class="text-lg">fff
+                                                </label>
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class"> Liquid height </b>
+                                                </div>
+
+                                                <label class="text-lg">
+                                                   fffff
+                                                </label>
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class" class="">Liquid Temperature
+                                                    </b>
+                                                </div>
+
+
+                                                     <label class="text-lg" >
+                                                       ffff
+                                                      </label>
+
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Sensor_reference
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Volume
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                </ng-template>
+                            </p-splitter>
+                        </p-tabPanel>
+                        <p-tabPanel header="Informations de la Raw datas">
+                            <p-splitter [style]="{ height: '300px' }" styleClass="mt-4">
+                                <ng-template pTemplate>
+                                        <div class="tabs">
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Reference Kit </b>
+                                                </div>
+
+                                                <label class="text-lg">ffffffffffff
+                                                </label>
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class"> Level_drt  </b>
+                                                </div>
+
+                                                <label class="text-lg">
+                                                   fffff
+                                                </label>
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class" class="">Level_mrc
+                                                    </b>
+                                                </div>
+
+
+                                                     <label class="text-lg">
+                                                       ffff
+                                                      </label>
+
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Temperature
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Env_Temperature
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Current
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Current_value
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Raw_Data
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">F2
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                </ng-template>
+                                <ng-template pTemplate>
+
+                                        <div class="tabs">
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Voltage </b>
+                                                </div>
+
+                                                <label class="text-lg">fff
+                                                </label>
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Density </b>
+                                                </div>
+
+                                                <label class="text-lg">
+                                                   fffff
+                                                </label>
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class" class="">Date_time
+                                                    </b>
+                                                </div>
+
+
+                                                     <label class="text-lg" >
+                                                       ffff
+                                                      </label>
+
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Pressure
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Depotage
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Is_Depotage
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Value_to_store
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">F1
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Dep
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+                                </ng-template>
+                            </p-splitter>
+                        </p-tabPanel>
+                        <p-tabPanel header="Informations de la Props Sensor">
+                            <p-splitter [style]="{ height: '300px' }" styleClass="mt-4">
+                                <ng-template pTemplate>
+                                        <div class="tabs">
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Sensor Reference </b>
+                                                </div>
+
+                                                <label class="text-lg">ffffffffffff
+                                                </label>
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class"> Density_up  </b>
+                                                </div>
+
+                                                <label class="text-lg">
+                                                   fffff
+                                                </label>
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class" class=""> Density_down
+                                                    </b>
+                                                </div>
+
+
+                                                     <label class="text-lg">
+                                                       ffff
+                                                      </label>
+
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Temperature_up
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Temperature_down
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+                                </ng-template>
+                                <ng-template pTemplate>
+
+                                        <div class="tabs">
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Level_up </b>
+                                                </div>
+
+                                                <label class="text-lg">fff
+                                                </label>
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class"> Level_down </b>
+                                                </div>
+
+                                                <label class="text-lg">
+                                                   fffff
+                                                </label>
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class" class="">Pressure_up
+                                                    </b>
+                                                </div>
+
+
+                                                     <label class="text-lg" >
+                                                       ffff
+                                                      </label>
+
+                                            </div>
+
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">Pressure_down
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                            <div class="field flex flex-row justify-content-between mx-4 mb-2">
+                                                <div class="mr-5">
+                                                    <b for="class">HourKit
+                                                    </b>
+                                                </div>
+
+                                                <label class="text-lg">dddd
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                </ng-template>
+                            </p-splitter>
+                        </p-tabPanel>
+                    </p-tabView>
+
+
+            </div>
+
+
+
+
+
+
+
+        </p-card>
+    </p-fieldset>
+</div>

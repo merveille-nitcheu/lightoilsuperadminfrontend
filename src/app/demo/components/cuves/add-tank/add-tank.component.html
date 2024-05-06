@@ -66,13 +66,8 @@
                             <div class="p-fluid p-formgrid grid">
                                 <div class="field col-12 md:col-12">
                                     <label htmlFor="address">Abacus </label>
-                                    <input
-                                        pInputText
-                                        id="name"
-                                        type="text"
-                                        formControlName="abacus"
-                                        required
-                                    />
+                                    <p-chips separator=";"  formControlName="abacus"
+                                    required></p-chips>
                                 </div>
                             </div>
                         </div>
@@ -96,16 +91,17 @@
                                     formControlName="liquid_type"
                                     required
                                 />
+
                                 </div>
                                 <div class="field col-12 md:col-6">
                                     <label htmlFor="address">Man hole height </label>
-                                    <input
-                                        pInputText
-                                        id="name"
-                                        type="text"
-                                        formControlName="man_hole_height"
+                                    <p-inputNumber
+                                    inputId="locale-user"
+                                    formControlName="man_hole_height"
                                         required
-                                    />
+                                    [minFractionDigits]="5"
+                                    [showButtons]="true"
+                                ></p-inputNumber>
                                 </div>
                             </div>
 
@@ -114,13 +110,14 @@
                                     <label htmlFor="address"
                                         >Sensor Deph
                                     </label>
-                                    <input
-                                    pInputText
-                                    id="name"
-                                    type="text"
+                                    <p-inputNumber
+                                    inputId="locale-user"
                                     formControlName="sensor_depth"
-                                    required
-                                />
+                                        required
+                                    [minFractionDigits]="5"
+                                    [showButtons]="true"
+                                ></p-inputNumber>
+
                                 </div>
                                 <div class="field col-12 md:col-6">
                                     <label htmlFor="address">Sensor Ref </label>

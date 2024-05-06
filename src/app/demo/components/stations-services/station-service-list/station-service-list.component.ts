@@ -13,15 +13,11 @@ import { format } from 'date-fns';
 })
 export class StationServiceListComponent {
 
-
     constructor(private servicestationService:ServicesStationsService,private confirmationService: ConfirmationService,private router:Router){}
 
     servicesStations: StationService[] = [];
     selectedStation!: StationService;
     stationId!:number
-
-
-
 
     ngOnInit() {
         this.servicestationService.getAllservicestation().subscribe((data) => {
@@ -33,9 +29,6 @@ export class StationServiceListComponent {
         console.log(ssId)
         this.router.navigateByUrl(`service_station/showservice_station/${ssId}`);
     }
-
-
-
 
     deleteSelectedStationService(ssId:any) {
 
@@ -62,11 +55,6 @@ export class StationServiceListComponent {
 
             }
         });
-
-
-
-
-
 
     }
 

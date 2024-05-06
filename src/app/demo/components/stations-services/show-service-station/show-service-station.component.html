@@ -1,102 +1,281 @@
 <div class="stepsdemo-content">
-    <p-fieldset legend="{{filteredStation[0].name}}">
-        <p-card>
-            <p-table #dt [value]="filteredStation" selectionMode="single" dataKey="id"
-             responsiveLayout="scroll">
+    <p-fieldset legend="{{ filteredStation.name }}">
 
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width:1%"></th>
+            <p-card>
+                <form [formGroup]="ssForm">
+                    <div class="field col-12 md:col-12">
+                        <span class="block font-bold mb-3"
+                            >Informations sur la station service</span
+                        >
 
-                        <th>
-                            <div class="flex justify-content-between align-items-center">
-                                Nom de la station service
+                        <div class="pt-5 border-top-1 surface-border">
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="name"
+                                        >Nom de la station service
+                                    </label>
+                                    <input
+                                        formControlName="name"
+                                        pInputText
+                                        id="name"
+                                        type="text"
+                                        required
+                                    />
+                                </div>
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="city">Localisation </label>
+                                    <input
+                                        formControlName="city"
+                                        pInputText
+                                        id="city"
+                                        type="text"
+                                        required
+                                    />
+                                </div>
                             </div>
-                        </th>
-                        <th>
-                            <div class="flex justify-content-between align-items-center">
-                                Localistion
+
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address"
+                                        >Produits de la station service
+                                    </label>
+                                    <p-multiSelect
+                                    [options]="allProducts"
+                                    formControlName="selectedCities"
+                                    optionLabel="name"
+                                    placeholder="Rechercher"/>
+
+                                </div>
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address">Fuseau Horaire </label>
+                                    <input
+                                        formControlName="gmt"
+                                        pInputText
+                                        id="name"
+                                        type="text"
+                                        required
+                                    />
+                                </div>
                             </div>
-                        </th>
-                        <th>
-                            <div class="flex justify-content-between align-items-center">
-                                Nom de l'entreprise
+
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="longitude">Longitude </label>
+                                    <input
+                                        formControlName="longitude"
+                                        pInputText
+                                        id="name"
+                                        type="text"
+                                        required
+                                    />
+                                </div>
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="latitude">Latitude </label>
+                                    <input
+                                        formControlName="latitude"
+                                        pInputText
+                                        id="name"
+                                        type="text"
+                                        required
+                                    />
+                                </div>
                             </div>
-                        </th>
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address">Limit_critic </label>
+                                    <input
+                                        formControlName="critic_limit"
+                                        pInputText
+                                        id="name"
+                                        type="text"
+                                        required
+                                    />
+                                </div>
 
-                        <th>
-                            <div class="flex justify-content-between align-items-center">
-                                Fuseau horaire
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="address">Scdp_delay_day </label>
+                                    <input
+                                        formControlName="scdp_delay_day"
+                                        pInputText
+                                        id="name"
+                                        type="text"
+                                        required
+                                    />
+                                </div>
                             </div>
-                        </th>
-
-                    </tr>
-                </ng-template>
-
-                <ng-template pTemplate="body" let-rowData let-expanded="expanded">
-                    <tr >
-                        <td>
-                            <button type="button" pButton pRipple [pRowToggler]="rowData" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                        </td>
-
-                        <td>
-                            <span class=" block font-semibold">{{rowData.name}}</span>
-
-                        </td>
-                        <td>
-                            <span class="white-space-nowrap p-2 font-semibold">{{rowData.city}}</span>
-                        </td>
-                        <td>
-                            <span class="white-space-nowrap block font-semibold ">{{rowData.company.name}}</span>
-                        </td>
-                        <td>
-                            <span class="white-space-nowrap block font-semibold ">{{rowData.gmt}}</span>
-                        </td>
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="field col-12 md:col-12">
+                                    <label htmlFor="description"
+                                        >Description
+                                    </label>
+                                    <textarea
+                                        formControlName="description"
+                                        rows="5"
+                                        pInputTextarea
+                                        [autoResize]="true"
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
 
-                        <!-- <td style="width: 20%" class="justify-content-between">
-                            <p-button icon="pi pi-file-edit" class="ml-3" pTooltip="details" tooltipPosition="bottom" (click)="Details(servicesStation.id)" [rounded]="true" [text]="true" severity="success"></p-button>
-                            <p-button icon="pi pi-trash"  pTooltip="supprimer" tooltipPosition="bottom" (click)="deleteSelectedStationService(servicesStation.id)" [rounded]="true" [text]="true" severity="danger"></p-button>
-                        </td> -->
+                <div class="field col-12 md:col-12">
+                    <span class="block font-bold mb-3"
+                        >Informations Supplementaires</span
+                    >
 
-                    </tr>
-                </ng-template>
+                    <div class="pt-5 border-top-1 surface-border">
+                        <div class="p-fluid p-formgrid grid">
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="name_entreprise"
+                                    >Nom de l'entreprise
+                                </label>
+                                <input
+                                [disabled]="true"
 
-                <ng-template pTemplate="rowexpansion" let-rowData>
-                    <tr>
-                        <td colspan="7">
-                            <div class="p-3">
-                                <p-table [value]="filteredStationsupp" dataKey="id">
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th>Latitude</th>
-                                            <th>Longitude </th>
-                                            <th>NbCuves </th>
-                                            <th>scdp-delay</th>
-                                            <th>critic_limit</th>
-                                        </tr>
+                                    pInputText
+                                    id="name_entreprise"
+                                    type="text"
+                                    required
+                                    [(ngModel)]="filteredStation.company.name"
+                                />
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="totalTanks"
+                                    >nombre de cuves
+                                </label>
+                                <input
+
+                                    pInputText
+                                    id="name"
+                                    type="text"
+                                    required
+                                    [disabled]="true"
+                                    [(ngModel)]="filteredStationsupp.totalTanks"
+                                />
+                            </div>
+                        </div>
+
+                        <p-splitter
+                            [style]="{ height: '300px' }"
+                            styleClass="my-3"
+                        >
+                            <ng-template pTemplate>
+                                <p-orderList
+                                    [value]="ultrasonsTank"
+                                    [listStyle]="{
+                                        'max-height': '25rem',
+                                        width: '27rem'
+                                    }"
+                                    header="Cuves a ultrasons"
+                                    filterBy="name"
+                                    filterPlaceholder="Rechercher"
+                                >
+                                    <ng-template let-tank pTemplate="item">
+                                        <div
+                                            class="flex flex-wrap p-2 align-items-center gap-3"
+                                            *ngIf="ultrasonsTank.length > 0"
+                                        >
+                                            <div
+                                                class="flex-1 flex flex-column gap-2"
+                                            >
+                                                <span class="font-bold">{{
+                                                    tank.diameter + " m"
+                                                }}</span>
+                                                <div
+                                                    class="flex align-items-center gap-2"
+                                                >
+                                                    <i
+                                                        class="pi pi-ticket text-sm"
+                                                    ></i>
+                                                    <span>
+                                                        {{
+                                                            tank.sensor_reference
+                                                        }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <span class="font-bold text-900">
+                                                {{ tank.liquid_type }}
+                                            </span>
+                                        </div>
+                                        <div
+                                            class="flex flex-wrap p-2 align-items-center gap-3"
+                                            *ngIf="ultrasonsTank.length == 0"
+                                        >
+                                            <div
+                                                class="flex-1 flex flex-column gap-2"
+                                            >
+                                                <span class="font-bold"
+                                                    >Aucune cuve
+                                                    disponible</span
+                                                >
+                                            </div>
+                                        </div>
                                     </ng-template>
-                                    <ng-template pTemplate="body" let-rowData>
-                                        <tr>
-                                            <td>{{ latitude}}</td>
-                                            <td>{{ longitude }}</td>
-                                            <td>{{ rowData.totalTanks }}</td>
-                                            <td>{{ rowData.Parameter.scdp_delay_day }}</td>
-                                            <td>{{ rowData.Parameter.critic_limit }}</td>
-
-                                        </tr>
+                                </p-orderList>
+                            </ng-template>
+                            <ng-template pTemplate>
+                                <p-orderList
+                                    [value]="autresTank"
+                                    [listStyle]="{
+                                        'max-height': '25rem',
+                                        width: '27rem'
+                                    }"
+                                    header="Autres cuves "
+                                    filterBy="name"
+                                    filterPlaceholder="Rechercher"
+                                >
+                                    <ng-template let-tank pTemplate="item">
+                                        <div
+                                            class="flex flex-wrap p-2 align-items-center gap-3"
+                                            *ngIf="autresTank.length > 0"
+                                        >
+                                            <div
+                                                class="flex-1 flex flex-column gap-2"
+                                            >
+                                                <span class="font-bold">{{
+                                                    tank.diameter + " m"
+                                                }}</span>
+                                                <div
+                                                    class="flex align-items-center gap-2"
+                                                >
+                                                    <i
+                                                        class="pi pi-ticket text-sm"
+                                                    ></i>
+                                                    <span>
+                                                        {{
+                                                            tank.sensor_reference
+                                                        }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <span class="font-bold text-900">
+                                                {{ tank.liquid_type }}
+                                            </span>
+                                        </div>
+                                        <div
+                                            class="flex flex-wrap p-2 align-items-center gap-3"
+                                            *ngIf="autresTank.length == 0"
+                                        >
+                                            <div
+                                                class="flex-1 flex flex-column gap-2"
+                                            >
+                                                <span class="font-bold"
+                                                    >Aucune cuve
+                                                    disponible</span
+                                                >
+                                            </div>
+                                        </div>
                                     </ng-template>
+                                </p-orderList>
+                            </ng-template>
+                        </p-splitter>
+                    </div>
+                </div>
+            </p-card>
 
-                                </p-table>
-                            </div>
-                        </td>
-                    </tr>
-                </ng-template>
-
-            </p-table>
-        </p-card>
     </p-fieldset>
-
-
 </div>
-

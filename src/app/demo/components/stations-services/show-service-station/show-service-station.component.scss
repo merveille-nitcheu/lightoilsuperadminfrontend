@@ -15,3 +15,61 @@
     padding: 0;
 
 }
+
+::ng-deep .p-multiselect-panel .p-multiselect-items .p-multiselect-item{
+    padding: 0.3rem 1rem;
+}
+
+::ng-deep .p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container .p-multiselect-filter-icon{
+    visibility: hidden;
+}
+
+::ng-deep .p-multiselect-filter-container .p-inputtext{
+    height: 2rem;
+}
+
+::ng-deep  .p-multiselect-panel .p-multiselect-header{
+    padding: 0.3rem 1rem;
+}
+::ng-deep  .p-multiselect-panel .p-multiselect-items{
+    padding: 0.1rem 0;
+}
+
+::ng-deep .p-card .p-card-footer{
+    padding: 0;
+}
+
+
+
+::ng-deep .field{
+    margin-bottom: -0.3rem;
+}
+
+
+::ng-deep .block{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+
+@media screen and (min-width: 1005px)  {
+    .size{
+        min-height: 19.8rem;
+    }
+  }
+
+
+::ng-deep .p-orderlist .p-orderlist-controls{
+    display: none;
+}
+
+
+::ng-deep .p-splitter{
+    border:none;
+}
+
+::ng-deep .p-orderlist .p-orderlist-header {
+    background-color: #cae6fc;
+}
+
+

@@ -28,6 +28,8 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { SplitterModule } from 'primeng/splitter';
 import { ShowServiceStationComponent } from './show-service-station/show-service-station.component';
+import { OrderListModule } from 'primeng/orderlist';
+import { ChipsModule } from 'primeng/chips';
 
 
 
@@ -56,7 +58,9 @@ import { ShowServiceStationComponent } from './show-service-station/show-service
         MenubarModule,
         TieredMenuModule,
         ConfirmPopupModule,
-        SplitterModule
+        SplitterModule,
+        OrderListModule,
+        ChipsModule
 
 
     ],

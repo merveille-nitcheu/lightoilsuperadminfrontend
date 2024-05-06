@@ -61,7 +61,7 @@
                         </td>
 
                         <td style="width: 20%" class="justify-content-between">
-                            <p-button icon="pi pi-file-edit" class="ml-3" pTooltip="details" tooltipPosition="bottom" (click)="Details(servicesStation.id)" [rounded]="true" [text]="true" severity="success"></p-button>
+                            <p-button icon="pi pi-file-edit" class="" pTooltip="details" tooltipPosition="bottom" (click)="Details(servicesStation.id)" [rounded]="true" [text]="true" severity="success"></p-button>
                             <p-button icon="pi pi-trash"  pTooltip="supprimer" tooltipPosition="bottom" (click)="deleteSelectedStationService(servicesStation.id)" [rounded]="true" [text]="true" severity="danger"></p-button>
                         </td>
 
@@ -69,7 +69,7 @@
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
                     <tr>
-                        <td colspan="8">Aucune Entreprise trouvée</td>
+                        <td colspan="8">Aucune station service trouvée</td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="loadingbody">

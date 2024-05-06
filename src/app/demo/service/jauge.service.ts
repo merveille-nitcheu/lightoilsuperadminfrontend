@@ -28,4 +28,10 @@ export class JaugeService {
   deleteJauge(jaugeId:number){
     return this.http.delete<any[]>(environment.apiUrl+'/jauge/destroyjauge/'+jaugeId)
   }
+
+  getCodebyJaugeId(jaugeId:number){
+    return this.http.get<any[]>(environment.apiUrl+'/jauge/getCodebyJaugeId/'+jaugeId)
+  }
+
+
 }

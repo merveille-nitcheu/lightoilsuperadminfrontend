@@ -24,49 +24,49 @@
                         </div>
                         <div class="field flex flex-column mx-4">
                             <div>
-                                <label for="class">Nom de la station service  </label>
+                                <b for="class">Nom de la station service  </b>
                             </div>
 
-                            <b class="mt-3 mb-2">{{ stationServiceInformation.basicInformation.name }}
-                            </b>
+                            <label class="mt-3 mb-2">{{ stationServiceInformation.basicInformation.name }}
+                            </label>
                         </div>
 
                         <div class="field flex flex-column mx-4">
                             <div>
-                                <label for="class"> Nom de l'Entreprise  </label>
+                                <b for="class"> Nom de l'Entreprise  </b>
                             </div>
 
-                            <b class="mt-3 mb-2">{{
+                            <label class="mt-3 mb-2">{{
                                 stationServiceInformation.basicInformation
                                 .entreprise.name
                                 }}
-                            </b>
+                            </label>
                         </div>
 
                         <div class="field flex flex-column mx-4">
                             <div>
-                                <label for="class" class="">Produits utilisés par la station service
-                                </label>
+                                <b for="class" class="">Produits utilisés par la station service
+                                </b>
                             </div>
 
                             <div class="mt-3 mb-2 flex flex-lg-row">
-                                 <span class="font-bold" *ngFor="let product of stationServiceInformation.basicInformation.product_name; let last = last">
+                                 <label  *ngFor="let product of stationServiceInformation.basicInformation.product_name; let last = last">
                                     {{ product.name }} {{ !last ? ', ' : '' }}
-                                  </span>
+                                  </label>
                             </div>
                         </div>
 
                         <div class="field flex flex-column mx-4">
                             <div>
-                                <label for="class">Description de la station service
-                                </label>
+                                <b for="class">Description de la station service
+                                </b>
                             </div>
 
-                            <b class="mt-3 mb-2">{{
+                            <label class="mt-3 mb-2">{{
                                 stationServiceInformation.basicInformation
                                 .description
                                 }}
-                            </b>
+                            </label>
                         </div>
                     </div>
                 </app-task-list>
@@ -79,50 +79,50 @@
                         </div>
                         <div class="field flex flex-column mx-4">
                             <div>
-                                <label for="class">Localisation de la station service
-                                </label>
+                                <b for="class">Localisation de la station service
+                                </b>
                             </div>
 
-                            <b class="mt-3 mb-2">{{
+                            <label class="mt-3 mb-2">{{
                                 stationServiceInformation.localisationInformation
                                 .ville
                                 }}
-                            </b>
+                            </label>
                         </div>
                         <div class="field flex flex-column mx-4">
                             <div>
-                                <label for="class">Fuseau Horaire  </label>
+                                <b for="class">Fuseau Horaire  </b>
                             </div>
 
-                            <b class="mt-3 mb-2">{{
+                            <label class="mt-3 mb-2">{{
                                 stationServiceInformation.localisationInformation
                                 .fuseau_horaire
                                 }}
-                            </b>
+                            </label>
                         </div>
 
                         <div class="field flex flex-column mx-4">
                             <div>
-                                <label for="class">Latitude  </label>
+                                <b for="class">Latitude  </b>
                             </div>
 
-                            <b class="mt-3 mb-2">{{
+                            <label class="mt-3 mb-2">{{
                                 stationServiceInformation.localisationInformation
                                 .latitude
                                 }}
-                            </b>
+                            </label>
                         </div>
 
                         <div class="field flex flex-column mx-4">
                             <div>
-                                <label for="class">Longitude  </label>
+                                <b for="class">Longitude  </b>
                             </div>
 
-                            <b class="mt-3 mb-2">{{
+                            <label class="mt-3 mb-2">{{
                                 stationServiceInformation.localisationInformation
                                 .longitude
                                 }}
-                            </b>
+                            </label>
                         </div>
                     </div>
                 </app-task-list>

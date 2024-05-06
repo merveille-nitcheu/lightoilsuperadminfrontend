@@ -42,6 +42,7 @@ export interface Tank{
 export interface Product{
     id?: number;
     name?: string;
+    code:string
     price?: number;
     nbserviceStations?: any
     serviceStations?:any

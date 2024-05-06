@@ -25,39 +25,71 @@
                         </span>
                     </div>
                 </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Type de cuve
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Sensor_reference
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Station service
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Produit
+                            </div>
+                        </th>
+
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Actions
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
 
                 <ng-template pTemplate="body" let-tank>
                     <tr [pSelectableRow]="tank">
 
                         <td>
-                            <span class=" block font-semibold">Apple iCloud Subscription</span><span
-                                class="block text-color-secondary font-sm font-bold">12 Aug, 19:18</span>
-                        </td>
-                        <td>
-                            <span class="white-space-nowrap p-2 surface-ground font-semibold">Entertainment</span>
-                        </td>
-                        <td>
-                            <span class="white-space-nowrap block font-semibold text-lg text-right">-$25.00</span>
-                        </td>
-                        <td>
-                            <span class="white-space-nowrap block font-semibold text-lg text-right">-$25.00</span>
-                        </td>
-                        <td>
-                            <p-tieredMenu #menu [model]="items_tank"></p-tieredMenu>
+                            <span class=" block font-semibold">{{tank.jauge.name}}</span>
 
+                        </td>
+                        <td>
+                            <span class=" block font-semibold">{{tank.sensor_reference}}</span>
+
+                        </td>
+                        <td>
+                            <span class="white-space-nowrap  font-semibold">{{tank.stationProduct.name_stationservice.name}}</span>
+                        </td>
+                        <td>
+                            <span class="white-space-nowrap block font-semibold">{{tank.stationProduct.nameproduct.name}}</span>
+                        </td>
+                        <td style="width: 20%" class="justify-content-between">
+                            <p-button icon="pi pi-eye" class="" pTooltip="details" tooltipPosition="bottom" (click)="Details(tank.id)" [rounded]="true" [text]="true" severity="success"></p-button>
+                            <p-button icon="pi pi-trash"  pTooltip="supprimer" tooltipPosition="bottom" (click)="deleteSelectedTank(tank.id)" [rounded]="true" [text]="true" severity="danger"></p-button>
                         </td>
 
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
                     <tr>
-                        <td colspan="8">Aucune Entreprise trouvée</td>
+                        <td colspan="8">Aucune Cuve trouvée</td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="loadingbody">
                     <tr>
                         <td colspan="8">
-                            Chargement de données des entreprises. Patientez
+                            Chargement de données des cuves. Patientez
                             svp.
                         </td>
                     </tr>

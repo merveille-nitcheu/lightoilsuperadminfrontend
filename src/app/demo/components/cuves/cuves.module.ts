@@ -7,7 +7,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview'
 import { TagModule } from 'primeng/tag';
-import { TabViewModule } from 'primeng/tabview';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,12 +16,16 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { AddTankComponent } from './add-tank/add-tank.component';
 import { TankListComponent } from './tank-list/tank-list.component';
+import { ChipsModule } from 'primeng/chips';
+import { ShowTankComponent } from './show-tank/show-tank.component';
+import { TabViewModule } from 'primeng/tabview';
+import { SplitterModule } from 'primeng/splitter';
 
 
 
 
 @NgModule({
-  declarations: [AddTankComponent,TankListComponent],
+  declarations: [AddTankComponent,TankListComponent,ShowTankComponent],
   imports: [
     CommonModule,
     CuveRoutingModule,
@@ -39,7 +42,9 @@ import { TankListComponent } from './tank-list/tank-list.component';
     TableModule,
     MenuModule,
     TieredMenuModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    ChipsModule,
+    SplitterModule
   ]
 })
 export class CuvesModule { }

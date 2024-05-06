@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Jauge } from 'src/app/demo/models/model';
 import { JaugeService } from 'src/app/demo/service/jauge.service';
 
@@ -15,10 +16,14 @@ export class JaugeComponent {
     selectedJauge!: Jauge;
     nbserviceStations:number = 0
     loading: boolean = false;
+    filteredJauge:any
+    stationCount = 0;
+    stations = [];
 
     constructor(
         private jaugeService: JaugeService,
         private formBuilder: FormBuilder,
+        private router:Router
 
     ) {}
 
@@ -76,8 +81,29 @@ export class JaugeComponent {
     }
 
    showselectedJauge(){
-    let nbserviceStations = Object.keys(this.selectedJauge.nbserviceStations).length
+    this.jaugeService.showJauge(this.selectedJauge.id).subscribe((data) => {
+        this.filteredJauge = data['data'];
+
+
+
+        for (const tank of this.filteredJauge.tanks) {
+            const stationName = tank.stationProduct.name_stationservice;
+            if (!this.stations.includes(stationName)) {
+                this.stations.push(stationName);
+                this.stationCount++;
+            }
+        }
+
+        console.log('Nombre de stations-service:', this.stationCount);
+        console.log('Noms des stations-service:', this.stations);
+    });
+
+
 
    }
+
+   showDetails(ssId){
+    this.router.navigateByUrl(`service_station/showservice_station/${ssId}`);
+}
 
 }
