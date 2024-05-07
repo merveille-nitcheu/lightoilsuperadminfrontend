@@ -28,22 +28,22 @@ export class TankListComponent {
     }
 
 
-    deleteSelectedTanks() {
+    deleteSelectedTank(tankId: any) {
         this.confirmationService.confirm({
-            message: 'Voulez-vous vraiment supprimer la station service selectionnée.',
+            message: 'Voulez-vous vraiment supprimer la cuve selectionnée.',
             icon: 'pi pi-exclamation-triangle',
             acceptIcon: 'pi pi-check mr-1',
             rejectIcon: 'pi pi-times mr-1',
             rejectButtonStyleClass: 'p-button-danger p-button-sm',
             acceptButtonStyleClass: 'p-button-outlined p-button-sm',
             accept: () => {
-                this.tankService.deleteTank(this.selectedtank.id).subscribe(
+                this.tankService.deleteTank(tankId).subscribe(
                     (response) => {
                         window.location.reload();
-                        console.error('suppression de la company', response);
+                        console.error('suppression de la cuve', response);
                     },
                     (error) => {
-                      console.error('Erreur lors de la suppression de la company', error);
+                      console.error('Erreur lors de la suppression de la cuve', error);
                     }
                   );
 

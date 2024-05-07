@@ -54,7 +54,7 @@ export class TankService {
 
     deleteTank(tankId: number) {
         return this.http.delete<any[]>(
-            environment.apiUrl + '/tank/deletetank/' + tankId
+            environment.apiUrl + '/tank/destroytank/' + tankId
         );
     }
 }

@@ -9,7 +9,7 @@ import { DataViewModule } from 'primeng/dataview'
 import { TagModule } from 'primeng/tag';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
@@ -44,7 +44,8 @@ import { SplitterModule } from 'primeng/splitter';
     TieredMenuModule,
     ConfirmPopupModule,
     ChipsModule,
-    SplitterModule
+    SplitterModule,
+    FormsModule
   ]
 })
 export class CuvesModule { }
