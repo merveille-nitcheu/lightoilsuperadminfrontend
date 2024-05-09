@@ -20,6 +20,8 @@ export class ShowServiceStationComponent {
     loading: boolean = false;
     ultrasonsTank: Tank[] = [];
     autresTank: Tank[] = [];
+    isChanged:boolean = false
+
 
     constructor(
         private servicestationService: ServicesStationsService,
@@ -85,5 +87,27 @@ export class ShowServiceStationComponent {
 
     Details(tankId: any) {
         this.router.navigateByUrl(`cuves/showtank/${tankId}`);
+    }
+
+    onElementChange(): void {
+        this.isChanged = true;
+    }
+
+    onUpdateForm(servicestationId: number) {
+        this.loading = true;
+        this.servicestationService
+            .updateservicestation(servicestationId, this.ssForm.value)
+            .subscribe(
+                (response) => {
+                    this.ssForm.reset();
+                    window.location.reload();
+                },
+                (error) => {
+                    console.error(
+                        'Erreur lors de la mise à jour de la station service',
+                        error
+                    );
+                }
+            );
     }
 }

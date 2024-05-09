@@ -6,25 +6,7 @@ import { environment } from 'src/environments/environment';
 export class TankService {
 
 
-    items_tank = [
-        {
 
-        label: '',
-        icon: 'pi pi-fw pi-ellipsis-v',
-        items: [
-            {
-                label: 'Details',
-                icon: 'pi pi-fw pi-eye',
-
-            } ,
-            {
-                label: 'Supprimer',
-                icon: 'pi pi-fw pi-trash',
-
-            } ,
-        ]
-        },
-    ];
 
     constructor(private http: HttpClient) {}
 
