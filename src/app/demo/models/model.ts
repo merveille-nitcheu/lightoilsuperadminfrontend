@@ -3,6 +3,7 @@ export interface Compagnie {
     address?: string;
     name?: string;
     phone?: string;
+    email?: string;
     logo?: string;
     website?: string;
     start_date?: Date;

@@ -35,6 +35,7 @@ export class AddCompagnieComponent implements OnInit {
             address: [null,[Validators.required]],
             name: [null,[Validators.required]],
             phone: [null,[Validators.required]],
+            email: [null],
             logo: [null],
             start_date: [null,[Validators.required]],
             expected_end_date: [null,[Validators.required]],
@@ -45,8 +46,10 @@ export class AddCompagnieComponent implements OnInit {
 
         this.compagniesService.showCompany(this.companyId).subscribe((data) =>{
             this.filteredcompany = data['data'];
+            this.financialYear = data['financialYear']
+            console.log(this.financialYear)
 
-            this.financialYear = this.filteredcompany.financialYear
+
              this.start_date = parse(format(this.financialYear.start_date, 'dd/MM/yy'), 'dd/MM/yy', new Date());
 
              this.expected_end_date = parse(format(this.financialYear.expected_end_date, 'dd/MM/yy'), 'dd/MM/yy', new Date());

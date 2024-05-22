@@ -33,7 +33,7 @@ export class ShowServiceStationComponent {
     ) {}
 
     ngOnInit() {
-        selectedCities: [{ name: 'Istanbul', code: 'IST' }]
+
         this.servicestationId = this.route.snapshot.params['ssId'];
 
         this.productService.getAllproduct().subscribe((data) => {
@@ -43,6 +43,8 @@ export class ShowServiceStationComponent {
         this.servicestationService.showServicestation(this.servicestationId).subscribe((data) => {
             this.filteredStation = data['data'];
             this.filteredStationsupp = data['additionaldata'];
+            const productNames = this.filteredStationsupp.products.map(product => product.name);
+            console.log(productNames)
             this.ssForm = this.formBuilder.group({
                 name: [this.filteredStation.name],
                 city: [this.filteredStation.city],
@@ -54,7 +56,7 @@ export class ShowServiceStationComponent {
                 totalcuves: [this.filteredStationsupp.totalTanks],
                 scdp_delay_day:[ this.filteredStationsupp.Parameter.scdp_delay_day],
                 critic_limit: [this.filteredStationsupp.Parameter.critic_limit],
-                product_name: this.filteredStationsupp.products,
+                product_name: [productNames],
 
             });
 
@@ -92,6 +94,16 @@ export class ShowServiceStationComponent {
     onElementChange(): void {
         this.isChanged = true;
     }
+
+    onProductSelect(event: any) {
+        const selectedProduct = event.value.map((product: any) => product.name); // Obtenir le nom du produit sélectionné
+        let currentSelectedProducts = this.ssForm.get('product_name').value; // Obtenir les produits déjà sélectionnés
+        currentSelectedProducts = currentSelectedProducts.concat(selectedProduct.filter(item => !currentSelectedProducts.includes(item))); // Fusionner les listes en évitant les doublons
+        this.ssForm.get('product_name').setValue(currentSelectedProducts); // Mettre à jour la valeur du contrôle de formulaire avec les nouveaux produits ajoutés
+    }
+
+
+
 
     onUpdateForm(servicestationId: number) {
         this.loading = true;

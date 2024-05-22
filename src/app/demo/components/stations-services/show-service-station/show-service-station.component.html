@@ -40,12 +40,15 @@
                                 <label htmlFor="address"
                                     >Produits de la station service
                                 </label>
-                                <p-multiSelect
-                                    [options]="allProducts"
-                                    formControlName="selectedCities"
-                                    optionLabel="code"
-                                    placeholder="Rechercher"
-                                />
+
+                                    <p-chips
+                                        formControlName="product_name"
+                                        class="w-full"
+                                        required
+                                    >
+                                    </p-chips>
+
+
                             </div>
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="address">Fuseau Horaire </label>
@@ -123,12 +126,21 @@
                                 ></textarea>
                             </div>
                             <div class="field col-12 md:col-12">
-
-                                <div class="grid grid-nogutter justify-content-end mt-1" *ngIf="isChanged">
-                                    <p-button [loading]="loading" (click)="onUpdateForm(filteredStation.id)" label="Modifier"
-                                        icon="pi pi-check" iconPos="right" type="submit"></p-button>
+                                <div
+                                    class="grid grid-nogutter justify-content-end mt-1"
+                                    *ngIf="isChanged"
+                                >
+                                    <p-button
+                                        [loading]="loading"
+                                        (click)="
+                                            onUpdateForm(filteredStation.id)
+                                        "
+                                        label="Modifier"
+                                        icon="pi pi-check"
+                                        iconPos="right"
+                                        type="submit"
+                                    ></p-button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -174,14 +186,15 @@
                                 [value]="ultrasonsTank"
                                 [listStyle]="{
                                     'max-height': '25rem',
-                                    width: '27rem'
+                                    width: '31rem'
                                 }"
                                 header="Cuves a ultrasons"
                                 filterBy="name"
                                 filterPlaceholder="Rechercher"
                             >
                                 <ng-template let-tank pTemplate="item">
-                                    <div (click)="Details(tank.id)"
+                                    <div
+                                        (click)="Details(tank.id)"
                                         class="flex flex-wrap p-2 align-items-center gap-3"
                                         *ngIf="ultrasonsTank.length > 0"
                                     >
@@ -208,9 +221,12 @@
                                     </div>
                                     <div
                                         class="flex flex-wrap p-2 align-items-center gap-3"
-
                                     >
-                                        <div  *ngIf="ultrasonsTank && ultrasonsTank.length == 0"
+                                        <div
+                                            *ngIf="
+                                                ultrasonsTank &&
+                                                ultrasonsTank.length == 0
+                                            "
                                             class="flex-1 flex flex-column gap-2"
                                         >
                                             <span class="font-bold"
@@ -226,14 +242,16 @@
                                 [value]="autresTank"
                                 [listStyle]="{
                                     'max-height': '25rem',
-                                    width: '27rem'
+                                    width: '31rem',
+
                                 }"
                                 header="Autres cuves "
                                 filterBy="name"
                                 filterPlaceholder="Rechercher"
                             >
                                 <ng-template let-tank pTemplate="item">
-                                    <div (click)="Details(tank.id)"
+                                    <div
+                                        (click)="Details(tank.id)"
                                         class="flex flex-wrap p-2 align-items-center gap-3"
                                         *ngIf="autresTank.length > 0"
                                     >
@@ -260,9 +278,12 @@
                                     </div>
                                     <div
                                         class="flex flex-wrap p-2 align-items-center gap-3"
-
                                     >
-                                        <div *ngIf="autresTank && autresTank.length == 0"
+                                        <div
+                                            *ngIf="
+                                                autresTank &&
+                                                autresTank.length == 0
+                                            "
                                             class="flex-1 flex flex-column gap-2"
                                         >
                                             <span class="font-bold"

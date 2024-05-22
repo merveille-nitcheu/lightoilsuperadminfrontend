@@ -43,6 +43,7 @@ export class ShowTankComponent {
         let tankId = this.route.snapshot.params['tankId'];
         this.tankService.showTank(tankId).subscribe((data) => {
             this.tankData = data['data'];
+            console.log(this.tankData)
             this.tankAdditionalData = data['additionaldata'];
             this.Level_active_depotage = parseFloat(this.tankData.level_active_depotage);
             this.abacusResults = this.tankData.abacus.split(';').filter(value => value.trim() !== '')
@@ -63,6 +64,7 @@ export class ShowTankComponent {
                 data_level: [this.data_level],
                 data_pressure: [this.data_pressure]
               });
+              console.log(this.tankForm.value)
         });
 
 

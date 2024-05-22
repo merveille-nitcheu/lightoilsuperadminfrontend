@@ -3,67 +3,98 @@
         <form [formGroup]="companyForm">
             <div class="grid">
                 <div class="col-12 md:col-4 lg:col-4">
-                    <p-card class="h-2">
-                        <ng-template pTemplate="subtitle">
-                            Televerser la photo de l entreprise
-                        </ng-template>
-                        <ng-template pTemplate="content">
-                            <div
-                                *ngIf="showUploadText"
-                                class="p-fileupload-content contenu"
-                                data-pc-section="content"
-                            >
+                    <div class="flex flex-column gap-2">
+                        <p-card class="h-2">
+                            <ng-template pTemplate="subtitle">
+                                Televerser la photo de l entreprise
+                            </ng-template>
+
+                            <ng-template pTemplate="content">
                                 <div
-                                    class="w-full py-8 ng-star-inserted"
-                                    style="cursor: pointer"
-                                    (click)="fileInput.click()"
+                                    class="p-fileupload-content contenu"
+                                    data-pc-section="content"
                                 >
-                                    <input
-                                        #fileInput
-                                        type="file"
-                                        style="display: none"
-                                        (change)="
-                                            handleFileUpload(
-                                                $event.target.files
-                                            )
-                                        "
-                                        formControlName="logo"
-                                    />
                                     <div
-                                        class="h-full flex flex-column justify-content-center align-items-center ng-star-inserted"
+                                        *ngIf="showUploadText"
+                                        class="w-full py-8 ng-star-inserted"
+                                        style="cursor: pointer"
+                                        (click)="fileInput.click()"
                                     >
-                                        <i
-                                            class="pi pi-upload text-900 text-2xl mb-3"
-                                        ></i>
-                                        <span
-                                            class="font-medium text-600 text-md text-center"
-                                            >Televerser l'icone de l
-                                            entreprise</span
+                                        <input
+                                            #fileInput
+                                            type="file"
+                                            style="display: none"
+                                            (change)="
+                                                handleFileUpload(
+                                                    $event.target.files
+                                                )
+                                            "
+                                            formControlName="logo"
+                                        />
+                                        <div
+                                            class="h-full flex flex-column justify-content-center align-items-center ng-star-inserted -mt-6"
                                         >
+                                            <i
+                                                class="pi pi-upload text-900 text-2xl mb-3"
+                                            ></i>
+                                            <span
+                                                class="font-medium text-600 text-md text-center"
+                                                >Televerser l'icone de l
+                                                entreprise</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="image-container"
+                                        [ngClass]="{ hovered: showDeleteIcon }"
+                                        (mouseenter)="showDeleteIcon = true"
+                                        (mouseleave)="showDeleteIcon = false"
+                                    >
+                                        <img
+                                            *ngIf="
+                                                !showUploadText &&
+                                                uploadedImageUrl
+                                            "
+                                            [src]="uploadedImageUrl"
+                                            alt="Uploaded Image"
+                                            class="object-contain"
+                                        />
+                                        <i
+                                            *ngIf="
+                                                !showUploadText &&
+                                                uploadedImageUrl
+                                            "
+                                            class="pi pi-times-circle delete-icon"
+                                            (click)="deleteImage()"
+                                        ></i>
+                                    </div>
+
+                                    <div class="h-divider">
+                                        <div class="shadow"></div>
+                                    </div>
+
+                                    <div
+                                        class="p-fluid p-formgrid grid gridmail mt-5"
+                                    >
+                                        <div class="field col-12 md:col-12">
+                                            <label htmlFor="website"
+                                                >Site web de l'entreprise</label
+                                            >
+                                            <input
+                                                pInputText
+                                                id="website"
+                                                type="text"
+                                                formControlName="website"
+                                                [ngModel]="
+                                                    filteredcompany?.website
+                                                "
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div
-                                class="image-container"
-                                [ngClass]="{ hovered: showDeleteIcon }"
-                                (mouseenter)="showDeleteIcon = true"
-                                (mouseleave)="showDeleteIcon = false"
-                            >
-                                <img
-                                    *ngIf="!showUploadText && uploadedImageUrl"
-                                    [src]="uploadedImageUrl"
-                                    alt="Uploaded Image"
-                                    class="w-full h-full object-contain"
-                                />
-                                <i
-                                    *ngIf="!showUploadText && uploadedImageUrl"
-                                    class="pi pi-times-circle delete-icon"
-                                    (click)="deleteImage()"
-                                ></i>
-                            </div>
-                        </ng-template>
-                    </p-card>
+                            </ng-template>
+                        </p-card>
+                    </div>
                 </div>
                 <div class="col-12 md:col-8 lg:col-8">
                     <p-card>
@@ -91,7 +122,7 @@
                                 </div>
                                 <div class="field col-12 md:col-6">
                                     <label htmlFor="address"
-                                        >Localisation</label
+                                        >Adresse de la direction genérale</label
                                     >
                                     <input
                                         pInputText
@@ -114,9 +145,24 @@
                                         [ngModel]="filteredcompany?.phone"
                                     ></p-inputNumber>
                                     <small id="username-help" class="ml-2"
-                                        >Ajouter l'indicateur du pays sans le signe (+).</small
+                                        >Ajouter l'indicateur du pays sans le
+                                        signe (+).</small
                                     >
                                 </div>
+                                <div class="field col-12 md:col-6">
+                                    <label htmlFor="name"
+                                        >Adresse mail de l'entreprise</label
+                                    >
+                                    <input
+                                        pInputText
+                                        id="email"
+                                        type="text"
+                                        formControlName="email"
+                                        [ngModel]="filteredcompany?.email"
+                                    />
+                                </div>
+                            </div>
+                            <div class="p-fluid p-formgrid grid">
                                 <div class="field col-12 md:col-6">
                                     <label htmlFor="start_date"
                                         >Date de debut</label
@@ -130,18 +176,6 @@
                                         inputId="icondisplay"
                                         formControlName="start_date"
                                     ></p-calendar>
-                                </div>
-                            </div>
-                            <div class="p-fluid p-formgrid grid">
-                                <div class="field col-12 md:col-6">
-                                    <label htmlFor="website">Site web</label>
-                                    <input
-                                        pInputText
-                                        id="website"
-                                        type="text"
-                                        formControlName="website"
-                                        [ngModel]="filteredcompany?.website"
-                                    />
                                 </div>
                                 <div class="field col-12 md:col-6">
                                     <label htmlFor="expected_end_date"
@@ -214,7 +248,10 @@
                                         "
                                     >
                                         <li
-                                            class="flex align-items-center py-2 border-bottom-1 surface-border cursor-pointer" (click)="showDetails(serviceStation.id)"
+                                            class="flex align-items-center py-2 border-bottom-1 surface-border cursor-pointer"
+                                            (click)="
+                                                showDetails(serviceStation.id)
+                                            "
                                         >
                                             <span
                                                 class="text-900 line-height-3"

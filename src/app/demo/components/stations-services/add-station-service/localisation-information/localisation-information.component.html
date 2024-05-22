@@ -11,8 +11,8 @@
         <ng-template pTemplate="content">
             <div class="p-fluid p-formgrid grid">
                 <div class="field col-12 md:col-6">
-                    <label htmlFor="ville">Ville </label>
-                    <input pInputText id="ville" type="text" formControlName="ville" [(ngModel)]="localisationInformation.ville" required/>
+                    <label htmlFor="address">Adresse de localisation</label>
+                    <input pInputText id="address" type="text" formControlName="address" [(ngModel)]="localisationInformation.address" required/>
                 </div>
                 <div class="field col-12 md:col-6">
                     <label htmlFor="fuseau_horaire">Fuseau Horaire</label>
@@ -25,7 +25,88 @@
                         formControlName="fuseau_horaire" [(ngModel)]="localisationInformation.fuseau_horaire"
                     />
                 </div>
+                <!-- <div class="field col-12 md:col-6">
+                    <label htmlFor="ville">Ville  </label>
+                    <p-dropdown
+                        [options]="cities"
+                        [(ngModel)]="localisationInformation.ville"
+                        [ngModelOptions]="{standalone: true}"
+                        placeholder="Selectionner la ville"
+                        [editable]="true"
+                        optionLabel="name"
+                        required
+                        [filter]="true"
+                        filterBy="name"
+                        [showClear]="true"
+                        formControlName="ville"
+
+                    >
+                    <ng-template pTemplate="filter" let-options="options">
+                        <div class="flex gap-1">
+                            <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                                <input
+                                    type="text"
+                                    pInputText
+                                    placeholder="Rechercher"
+                                    [(ngModel)]="filterValue"
+                                    (keyup)="customFilterFunction($event, options)" />
+                            </div>
+                            <p-button icon="pi pi-plus" (click)="resetFunction(options)" class="ml-5 mt-1"></p-button>
+
+                        </div>
+
+
+                    </ng-template></p-dropdown>
+                </div> -->
+
             </div>
+            <!-- <div class="p-fluid p-formgrid grid">
+                 <div class="field col-12 md:col-6">
+                    <label htmlFor="region">Region  </label>
+                    <p-dropdown
+                        [options]="regions"
+                        [(ngModel)]="localisationInformation.region"
+                        [ngModelOptions]="{standalone: true}"
+                        placeholder="Selectionner la region"
+                        [editable]="true"
+                        optionLabel="name"
+                        required
+                        [filter]="true"
+                        filterBy="name"
+                        [showClear]="true"
+                        formControlName="region"
+
+                    >
+
+                    <ng-template pTemplate="filter" let-options="options">
+                        <div class="flex gap-1">
+                            <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                                <input
+                                    type="text"
+                                    pInputText
+                                    placeholder="Rechercher"
+                                    [(ngModel)]="filterValue"
+                                    (keyup)="customFilterFunction($event, options)" />
+                            </div>
+                            <p-button icon="pi pi-plus" (click)="resetFunction(options)" class="ml-5 mt-1"></p-button>
+
+                        </div>
+
+
+                    </ng-template></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="fuseau_horaire">Fuseau Horaire</label>
+                    <input
+                    required
+                        pInputText
+                        id="fuseau_horaire"
+                        type="text"
+                        placeholder="UTC-2"
+                        formControlName="fuseau_horaire" [(ngModel)]="localisationInformation.fuseau_horaire"
+                    />
+                </div>
+            </div> -->
             <div class="p-fluid p-formgrid grid">
                 <div class="field col-12 md:col-6">
                     <label htmlFor="latitude">Latitude</label>

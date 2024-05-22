@@ -29,9 +29,10 @@
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
-                                Localistion
+                                Localisation
                             </div>
                         </th>
+
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 Nom de l'entreprise
@@ -56,9 +57,11 @@
                         <td style="width: 25%">
                             <span class="white-space-nowrap p-2 font-semibold">{{servicesStation.city}}</span>
                         </td>
+
                         <td>
                             <span class="white-space-nowrap block font-semibold ">{{servicesStation.company.name}}</span>
                         </td>
+
 
                         <td style="width: 20%" class="justify-content-between">
                             <p-button icon="pi pi-file-edit" class="" pTooltip="details" tooltipPosition="bottom" (click)="Details(servicesStation.id)" [rounded]="true" [text]="true" severity="success"></p-button>

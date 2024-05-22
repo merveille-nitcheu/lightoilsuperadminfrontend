@@ -14,7 +14,7 @@ import { Compagnie } from "../models/model";
     constructor(private http: HttpClient) { }
 
   getAllCompany(){
-    return this.http.get<Compagnie[]>(environment.apiUrl+'/company/getallcompagnies')
+    return this.http.get<Compagnie[]>(environment.apiUrl+'/company/getallcompanies')
   }
 
   storeCompany(companyInfos:any){

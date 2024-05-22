@@ -9,6 +9,23 @@ import { environment } from "src/environments/environment";
  export class ServicesStationsService {
 
 
+    cities = [
+        { name: 'Douala', code: 'NY' },
+        { name: 'Yaounde', code: 'RM' },
+        { name: 'Limbe', code: 'LDN' },
+        { name: 'Garoua', code: 'IST' },
+        { name: 'Kribi', code: 'PRS' }
+    ];
+
+    regions = [
+        { name: 'Douala', code: 'NY' },
+        { name: 'Yaounde', code: 'RM' },
+        { name: 'Limbe', code: 'LDN' },
+        { name: 'Garoua', code: 'IST' },
+        { name: 'Kribi', code: 'PRS' }
+    ];
+
+
 
     items_step = [
         {
@@ -38,10 +55,14 @@ import { environment } from "src/environments/environment";
             logo_ss:''
         },
         localisationInformation: {
-            ville: '',
+            // ville: '',
+            // region:'',
             fuseau_horaire: '',
             longitude: '',
-            latitude:''
+            latitude:'',
+            address:'',
+
+
         },
 
     };

@@ -36,6 +36,14 @@
 
 }
 
+::ng-deep .layout-main-container{
+    padding: 7rem 6rem 2rem 9rem;
+}
+
+::ng-deep .layout-sidebar{
+    width: 24rem !important;
+}
+
 ::ng-deep  .p-avatar.p-avatar-lg{
     width:2.7rem;
     height: 2.7rem;
