@@ -9,13 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './layout/app.layout.module';
 import { ProductService } from './demo/service/product.service';
 import { CookieService } from 'ngx-cookie-service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TankService } from './demo/service/tank.service';
 import { ServicesStationsService } from './demo/service/servicesStations.service';
 import { CompagniesService } from './demo/service/compagnies.service';
 import { JaugeService } from './demo/service/jauge.service';
 import { ConfirmationService } from 'primeng/api';
+import { InterceptorService } from './demo/interceptors/interceptor.service';
 
 
 
@@ -32,8 +33,12 @@ import { ConfirmationService } from 'primeng/api';
         ServicesStationsService,
         CompagniesService,
         JaugeService,
-        ConfirmationService
-
+        ConfirmationService,
+        // {
+        //     provide: HTTP_INTERCEPTORS,
+        //     useClass:InterceptorService ,
+        //     multi: true
+        // }
     ],
     bootstrap: [AppComponent],
 })
