@@ -72,3 +72,11 @@
     width: 10px;
 }
 
+::ng-deep .p-dialog .p-dialog-header {
+    padding: 0.1rem;
+}
+
+::ng-deep .p-dialog .p-dialog-content{
+    padding: 0 0.5rem 0 0.5rem;
+}
+

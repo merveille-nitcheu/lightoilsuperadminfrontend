@@ -1,21 +1,46 @@
+::ng-deep .p-fieldset{
+    border-radius: 0.375rem !important;
+    background-color: transparent;
+    border: 1px solid #c4c1c5;
+    padding: 0.8rem;
+}
+::ng-deep .p-fieldset .p-fieldset-legend{
+ padding-block: 0 !important;
+ padding-inline: 0.5rem;
+ background-color: transparent ;
+ border: none;
+}
 
-
-::ng-deep .p-card .p-card-footer{
+::ng-deep .p-fieldset .p-fieldset-content{
     padding: 0;
+
 }
 
 
+::ng-deep .p-confirm-popup{
+    margin-top: 20rem;
+    margin-left: 35rem;
+}
 
 ::ng-deep .field{
-    margin-bottom: 0;
+    margin-bottom: -0.3rem;
 }
 
-::ng-deep .p-checkbox .p-checkbox-box{
-    width: 1.2rem;
-    height: 1.2rem;
+
+::ng-deep .block{
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
-::ng-deep .p-multiselect-panel .p-multiselect-items .p-multiselect-item{
+
+@media screen and (min-width: 1005px)  {
+    .size{
+        min-height: 19.8rem;
+    }
+  }
+
+
+  ::ng-deep .p-multiselect-panel .p-multiselect-items .p-multiselect-item{
     padding: 0.3rem 1rem;
 }
 
@@ -32,20 +57,6 @@
 }
 ::ng-deep  .p-multiselect-panel .p-multiselect-items{
     padding: 0.1rem 0;
-}
-
-::ng-deep .fileInput{
-    border: 1px  solid #ced4da;
-    border-radius: 0.375rem;
-    height: 2.3rem;
-    cursor: pointer;
-    text-align: center;
-}
-
-::ng-deep .p-fluid .p-fileupload .p-button{
-    background-color: transparent;
-    color: black;
-    border:none
 }
 
 ::ng-deep .p-chips .p-chips-multiple-container {

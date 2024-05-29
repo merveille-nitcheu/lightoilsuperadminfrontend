@@ -2,7 +2,7 @@
     <p-fieldset legend="Liste des stations services">
         <p-card>
             <p-table #dt [value]="servicesStations" selectionMode="single" dataKey="id" [rows]="10" [rowHover]="true" [paginator]="true"  [(selection)]="selectedStation"
-                [globalFilterFields]="['name','address']" responsiveLayout="scroll">
+                [globalFilterFields]="['name','city','company.name']" responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row  mb-2">
                         <div class="flex justify-content-between">
@@ -13,10 +13,12 @@
                         </div>
 
                         <span class="p-input-icon-left mt-3 sm:mt-0">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" #filter placeholder="Rechercher" class="w-full"
+                            <i class="pi pi-search mr-2"></i>
+                            <input pInputText type="text" #filter placeholder="Rechercher ... " class="w-full"
                                 (input)="dt.filterGlobal($event.target.value, 'contains')" />
+
                         </span>
+
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">

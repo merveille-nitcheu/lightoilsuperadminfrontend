@@ -1,0 +1,291 @@
+<div class="stepsdemo-content">
+    <p-fieldset legend="Utilisateurs">
+        <form [formGroup]="userForm">
+            <p-card>
+                <div class="field col-12 md:col-12">
+                    <span class="block font-bold mb-3"
+                        >Informations Personnelles</span
+                    >
+
+                    <div class="pt-5 border-top-1 surface-border">
+                        <div class="p-fluid p-formgrid grid">
+                            <div class="field col-12 md:col-4">
+                                <label htmlFor="last_name"
+                                    >Nom de famille
+                                </label>
+                                <input
+                                pInputText
+                                id="name"
+                                type="text"
+                                formControlName="last_name"
+                                required
+                            />
+
+                            </div>
+
+                            <div class="field col-12 md:col-4">
+                                <label htmlFor="first_name"
+                                    >Prénom
+                                </label>
+                                <input
+                                pInputText
+                                id="name"
+                                type="text"
+                                formControlName="first_name"
+
+                            />
+
+                            </div>
+                            <div class="field col-12 md:col-4">
+                                <label htmlFor="email">Email </label>
+                                <input
+                                pInputText
+                                id="email"
+                                type="email"
+                                formControlName="email"
+                                required
+                            />
+                            </div>
+                        </div>
+
+                        <div class="p-fluid p-formgrid grid">
+                            <div class="field col-12 md:col-4">
+                                <label htmlFor="name_entreprise"
+                                    >Nom de l'entreprise
+                                </label>
+                               <p-dropdown
+                                    [options]="allCompagnies"
+                                    placeholder="Selectionner l'entreprise"
+                                    [editable]="true"
+                                    optionLabel="name"
+                                    required
+                                    [showClear]="true"
+                                    formControlName="name_entreprise"
+                                    (onChange)="show()"
+                                ></p-dropdown>
+                            </div>
+                            <div class="field col-12 md:col-4">
+                                <label htmlFor="role_user">Role de l'utilisateur </label>
+                                 <p-dropdown
+                                    [options]="roles"
+                                    placeholder="Selectionner le role de l'utilisateur"
+                                    [editable]="true"
+                                    optionLabel="name"
+                                    required
+                                    [showClear]="true"
+                                    formControlName="role_user"
+                                ></p-dropdown>
+                            </div>
+
+                            <div class="field col-12 md:col-4">
+                                <label htmlFor="name_ss">Stations services </label>
+                                <p-dropdown
+                                [options]="datastationService"
+                                placeholder="Selectionner les stations services"
+                                [editable]="true"
+                                optionLabel="name"
+                                required
+                                [showClear]="true"
+                                formControlName="name_ss"
+                            ></p-dropdown>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="field col-12 md:col-12">
+                    <div class="grid grid-nogutter justify-content-end mt-1">
+                        <p-button
+                            [loading]="loading"
+                            label="Valider"
+                            icon="pi pi-check"
+                            iconPos="right"
+                            [disabled]=userForm.invalid
+                            (click)="onSubmitForm()"
+                            type="submit"
+                        ></p-button>
+                    </div>
+                </div>
+
+                <div class="field col-12 md:col-12">
+                    <span class="block font-bold mb-3"
+                        >Liste des utilisateurs</span
+                    >
+                    <div class="pt-5 border-top-1 surface-border">
+                        <p-table
+                        #dt
+                        [value]="allUsers"
+                        dataKey="id"
+                        [rows]="10"
+                        [rowHover]="true"
+                        [paginator]="true"
+                        responsiveLayout="scroll"
+                    >
+                        <ng-template pTemplate="caption">
+                            <div
+                                class="flex justify-content-between flex-column sm:flex-row mb-2"
+                            >
+                                <div class="flex justify-content-between"></div>
+
+                                <span class="p-input-icon-right mt-3 sm:mt-0">
+                                    <i
+                                        class="pi pi-align-justify mr-2"
+                                        (mouseenter)="menu.toggle($event)"
+                                        (click)="menu.toggle($event)"
+                                    ></i>
+                                    <input
+                                        pInputText
+                                        type="text"
+                                        #filter
+                                        placeholder="filtrer par ... "
+                                        class="w-full"
+                                        (input)="
+                                            dt.filterGlobal(
+                                                $event.target.value,
+                                                'contains'
+                                            )
+                                        "
+                                    />
+                                    <p-menu
+                                        #menu
+                                        [model]="items"
+                                        [popup]="true"
+                                        (click)="menu.hide()"
+                                    />
+                                </span>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Nom de l'utilisateur
+                                    </div>
+                                </th>
+                                <th>
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Email
+                                    </div>
+                                </th>
+                                <th>
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Station service
+                                    </div>
+                                </th>
+                                <th>
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Role
+                                    </div>
+                                </th>
+                                <th>
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Entreprise
+                                    </div>
+                                </th>
+
+                                <th>
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Actions
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-user>
+                            <!-- <tr [pSelectableRow]="user">
+                                <td style="width: 20%">
+                                    <span class="block font-semibold"
+                                        >merveillenitcheu12gmail</span
+                                    >
+                                </td>
+                                <td style="width: 20%">
+                                    <span class="block font-semibold"
+                                        >merveillenitcheu12gmail</span
+                                    >
+                                </td>
+                                <td style="width: 20%">
+                                    <span class="white-space-nowrap font-semibold"
+                                        >merveillenitcheu12gmail</span
+                                    >
+                                </td>
+                                <td style="width: 15%">
+                                    <span class="white-space-nowrap block font-semibold"
+                                        >merveillenitcheu12gmail</span
+                                    >
+                                </td>
+                                <td style="width: 15%">
+                                    <span class="white-space-nowrap block font-semibold"
+                                        >merveillenitcheu12gmail</span
+                                    >
+                                </td>
+                                <td style="width: 15%" class="justify-content-between">
+                                    <p-button
+                                        icon="pi pi-eye"
+                                        class=""
+                                        pTooltip="details"
+                                        tooltipPosition="bottom"
+                                        (click)="Details(tank.id)"
+                                        [rounded]="true"
+                                        [text]="true"
+                                        severity="success"
+                                    ></p-button>
+                                    <p-button
+                                        icon="pi pi-trash"
+                                        pTooltip="supprimer"
+                                        tooltipPosition="bottom"
+                                        (click)="deleteSelectedTank(tank.id)"
+                                        [rounded]="true"
+                                        [text]="true"
+                                        severity="danger"
+                                    ></p-button>
+                                </td>
+                            </tr> -->
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="8">Aucune Cuve trouvée</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="loadingbody">
+                            <tr>
+                                <td colspan="8">
+                                    Chargement de données des cuves. Patientez svp.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    </div>
+
+
+                </div>
+
+    </p-card>
+        </form>
+
+    </p-fieldset>
+    <p-confirmPopup>
+        <ng-template pTemplate="content" let-message>
+            <div
+                class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border p-3 mb-3"
+            >
+                <i [class]="message.icon" class="text-6xl text-primary-500"></i>
+                <p>{{ message.message }}</p>
+            </div>
+        </ng-template>
+    </p-confirmPopup>
+</div>

@@ -20,6 +20,7 @@ import { ChipsModule } from 'primeng/chips';
 import { ShowTankComponent } from './show-tank/show-tank.component';
 import { TabViewModule } from 'primeng/tabview';
 import { SplitterModule } from 'primeng/splitter';
+import { DialogModule } from 'primeng/dialog';
 
 
 
@@ -45,7 +46,8 @@ import { SplitterModule } from 'primeng/splitter';
     ConfirmPopupModule,
     ChipsModule,
     SplitterModule,
-    FormsModule
+    FormsModule,
+    DialogModule
   ]
 })
 export class CuvesModule { }

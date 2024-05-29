@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+
 import { ServicesStationsService } from 'src/app/demo/service/servicesStations.service';
 import { StationService } from 'src/app/demo/models/model';
 import { Router } from '@angular/router';
 import { ConfirmationService} from 'primeng/api';
-import { format } from 'date-fns';
+
 
 @Component({
   selector: 'app-station-service-list',
@@ -18,11 +18,16 @@ export class StationServiceListComponent {
     servicesStations: StationService[] = [];
     selectedStation!: StationService;
     stationId!:number
+    name_entreprise:any
+
 
     ngOnInit() {
         this.servicestationService.getAllservicestation().subscribe((data) => {
             this.servicesStations = data['data'];
+            // this.name_entreprise = this.servicesStations.company.name
         });
+
+
     }
 
     Details(ssId:any) {

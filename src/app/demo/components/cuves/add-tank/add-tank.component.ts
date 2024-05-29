@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
+    Compagnie,
     Jauge,
     Product,
     StationService,
     Tank,
 } from 'src/app/demo/models/model';
+import { CompagniesService } from 'src/app/demo/service/compagnies.service';
 import { JaugeService } from 'src/app/demo/service/jauge.service';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { ServicesStationsService } from 'src/app/demo/service/servicesStations.service';
@@ -19,6 +21,7 @@ import { TankService } from 'src/app/demo/service/tank.service';
 })
 export class AddTankComponent {
     allProducts: Product[];
+    allCompagnies: Compagnie[];
     allstationservice: StationService[];
     allJauges: Jauge[];
     tankId: number;
@@ -30,6 +33,7 @@ export class AddTankComponent {
         private router: Router,
         private productService: ProductService,
         private jaugeService: JaugeService,
+        private compagniesService: CompagniesService,
         private servicesStationsService: ServicesStationsService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -37,11 +41,9 @@ export class AddTankComponent {
     ) {}
 
     ngOnInit() {
-        this.servicesStationsService
-            .getAllservicestation()
-            .subscribe((data) => {
-                this.allstationservice = data['data'];
-            });
+        this.compagniesService.getAllCompany().subscribe((data) => {
+            this.allCompagnies = data['data'];
+        });
 
         this.productService.getAllproduct().subscribe((data) => {
             this.allProducts = data['data'];
@@ -60,6 +62,7 @@ export class AddTankComponent {
             sensor_reference: [null, [Validators.required]],
             type_jauge: [null, [Validators.required]],
             name_ss: [null, [Validators.required]],
+            name_entreprise: [null, [Validators.required]],
             name_product: [null, [Validators.required]],
         });
 
@@ -71,10 +74,14 @@ export class AddTankComponent {
         }
     }
 
+    show() {
+        this.allstationservice =
+            this.tankForm.value.name_entreprise.servicestations;
+    }
+
     onSubmitForm() {
         this.loading = true;
-        console.log(this.tankForm.value);
-        this.router.navigateByUrl('cuves');
+
         this.tankService.storeTank(this.tankForm.value).subscribe(
             (response) => {
                 this.tankForm.reset();

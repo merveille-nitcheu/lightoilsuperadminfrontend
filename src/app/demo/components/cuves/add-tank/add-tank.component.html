@@ -11,6 +11,23 @@
                         <div class="p-fluid p-formgrid grid">
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="address"
+                                    >Nom de l'entreprise
+                                </label>
+                                <p-dropdown
+                                    [options]="allCompagnies"
+                                    placeholder="Selectionner l'entreprise"
+                                    [editable]="true"
+                                    optionLabel="name"
+                                    required
+                                    [filter]="true"
+                                    filterBy="name"
+                                    [showClear]="true"
+                                    formControlName="name_entreprise"
+                                    (onChange)="show()"
+                                ></p-dropdown>
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="address"
                                     >Nom de la station service
                                 </label>
                                 <p-dropdown
@@ -25,6 +42,10 @@
                                     formControlName="name_ss"
                                 ></p-dropdown>
                             </div>
+
+                        </div>
+
+                        <div class="p-fluid p-formgrid grid">
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="address">Nom du produit </label>
                                 <p-dropdown
@@ -37,20 +58,7 @@
                                     formControlName="name_product"
                                 ></p-dropdown>
                             </div>
-                        </div>
 
-                        <div class="p-fluid p-formgrid grid">
-                            <div class="field col-12 md:col-6">
-                                <label htmlFor="address"
-                                    >Diametre de la cuve
-                                </label>
-                                <p-inputNumber
-                                    inputId="locale-user"
-                                    formControlName="diameter"
-                                    [minFractionDigits]="5"
-                                    [showButtons]="true"
-                                ></p-inputNumber>
-                            </div>
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="address">Type de sonde </label>
                                 <p-dropdown
@@ -62,6 +70,19 @@
                                     [showClear]="true"
                                     formControlName="type_jauge"
                                 ></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="p-fluid p-formgrid grid">
+                            <div class="field col-12 md:col-12">
+                                <label htmlFor="address"
+                                    >Diametre de la cuve
+                                </label>
+                                <p-inputNumber
+                                    inputId="locale-user"
+                                    formControlName="diameter"
+                                    [minFractionDigits]="5"
+                                    [showButtons]="true"
+                                ></p-inputNumber>
                             </div>
                         </div>
 
@@ -139,7 +160,7 @@
                 <div class="field col-12 md:col-12">
                     <div class="grid grid-nogutter justify-content-end mt-1">
                         <p-button
-                        [loading]="loading"
+                            [loading]="loading"
                             label="Valider"
                             icon="pi pi-check"
                             iconPos="right"

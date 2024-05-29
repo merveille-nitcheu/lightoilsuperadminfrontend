@@ -3,7 +3,7 @@
 
         <p-card>
             <p-table #dt [value]="tanks" dataKey="id" [rows]="10" [rowHover]="true" [paginator]="true"
-                [globalFilterFields]="['name','address']" responsiveLayout="scroll" [(selection)]="selectedtank">
+                [globalFilterFields]="[globalFilterFields]" responsiveLayout="scroll" [(selection)]="selectedtank">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row  mb-2">
                         <div class="flex justify-content-between">
@@ -18,10 +18,11 @@
                                 ></button>
                         </div>
 
-                        <span class="p-input-icon-left mt-3 sm:mt-0">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" #filter placeholder="Rechercher" class="w-full"
+                        <span class="p-input-icon-right mt-3 sm:mt-0"  >
+                            <i class="pi pi-align-justify mr-2" (mouseenter)="menu.toggle($event)" (click)="menu.toggle($event)" ></i>
+                            <input pInputText type="text" #filter placeholder="filtrer par ... " class="w-full"
                                 (input)="dt.filterGlobal($event.target.value, 'contains')" />
+                                <p-menu #menu [model]="items" [popup]="true" (click)="menu.hide()"/>
                         </span>
                     </div>
                 </ng-template>
@@ -48,6 +49,11 @@
                                 Produit
                             </div>
                         </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Entreprise
+                            </div>
+                        </th>
 
                         <th>
                             <div class="flex justify-content-between align-items-center">
@@ -68,13 +74,16 @@
                             <span class=" block font-semibold">{{tank.sensor_reference}}</span>
 
                         </td>
-                        <td>
+                        <td style="width: 20%">
                             <span class="white-space-nowrap  font-semibold">{{tank.stationProduct.name_stationservice.name}}</span>
                         </td>
-                        <td>
+                        <td style="width: 15%">
                             <span class="white-space-nowrap block font-semibold">{{tank.stationProduct.nameproduct.name}}</span>
                         </td>
-                        <td style="width: 20%" class="justify-content-between">
+                        <td style="width: 15%">
+                            <span class="white-space-nowrap block font-semibold">{{tank.stationProduct.name_entreprise.name}}</span>
+                        </td>
+                        <td style="width: 15%" class="justify-content-between">
                             <p-button icon="pi pi-eye" class="" pTooltip="details" tooltipPosition="bottom" (click)="Details(tank.id)" [rounded]="true" [text]="true" severity="success"></p-button>
                             <p-button icon="pi pi-trash"  pTooltip="supprimer" tooltipPosition="bottom" (click)="deleteSelectedTank(tank.id)" [rounded]="true" [text]="true" severity="danger"></p-button>
                         </td>
