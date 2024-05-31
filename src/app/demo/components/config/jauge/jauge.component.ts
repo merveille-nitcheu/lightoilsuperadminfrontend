@@ -38,6 +38,7 @@ export class JaugeComponent {
 
     onSubmitForm() {
         this.loading = true;
+
         this.jaugeService.storeJauge(this.jaugeForm.value).subscribe(
             (response) => {
                 this.jaugeForm.reset();
@@ -55,6 +56,7 @@ export class JaugeComponent {
 
     onUpdateForm(jaugeId: number) {
         this.loading = true;
+
         this.jaugeService.updateJauge(jaugeId, this.jaugeForm.value).subscribe(
             (response) => {
                 this.jaugeForm.reset();
@@ -87,10 +89,16 @@ export class JaugeComponent {
         this.jaugeService.showJauge(this.selectedJauge.id).subscribe((data) => {
             this.filteredJauge = data['data'];
 
-            console.log(this.filteredJauge);
+            // Initialisation du tableau des stations et du compteur
+            this.stations = [];
+            this.stationCount = 0;
+
+            // Parcours des réservoirs de la jauge sélectionnée
             for (const tank of this.filteredJauge.tanks) {
                 const stationName = tank.name_stationservice;
                 const stationAddress = tank.adress_stationservice;
+
+                // Vérification si la station existe déjà dans le tableau
                 if (
                     !this.stations.some(
                         (station) =>
@@ -98,16 +106,15 @@ export class JaugeComponent {
                             station.address === stationAddress
                     )
                 ) {
+                    // Ajout de la nouvelle station au tableau
                     this.stations.push({
                         name: stationName,
                         address: stationAddress,
+                        id: tank.id_stationservice,
                     });
                     this.stationCount++;
                 }
             }
-
-            console.log('Nombre de stations-service:', this.stationCount);
-            console.log('Informations des stations-service:', this.stations);
         });
     }
 

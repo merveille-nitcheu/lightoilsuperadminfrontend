@@ -72,7 +72,7 @@ export class TankListComponent {
 
         switch (label) {
             case 'Filter1':
-                this.globalFilterFields = 'jauge.name';
+                this.globalFilterFields = 'jauge';
                 break;
             case 'Filter2':
                 this.globalFilterFields = 'stationProduct.name_stationservice.name';

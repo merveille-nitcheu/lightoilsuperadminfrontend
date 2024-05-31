@@ -43,8 +43,9 @@
 
                                     <p-chips
                                         formControlName="product_name"
-                                        class="w-full"
+                                        class="w-full disabled"
                                         required
+                                        (ngModelChange)="onElementChange()"
                                     >
                                     </p-chips>
 
@@ -180,121 +181,65 @@
                         </div>
                     </div>
 
-                    <p-splitter [style]="{ height: '300px' }" styleClass="my-3">
-                        <ng-template pTemplate>
-                            <p-orderList
-                                [value]="ultrasonsTank"
-                                [listStyle]="{
-                                    'max-height': '25rem',
-                                    width: '31rem'
-                                }"
-                                header="Cuves a ultrasons"
-                                filterBy="name"
-                                filterPlaceholder="Rechercher"
-                            >
-                                <ng-template let-tank pTemplate="item">
-                                    <div
-                                        (click)="Details(tank.id)"
-                                        class="flex flex-wrap p-2 align-items-center gap-3"
-                                        *ngIf="ultrasonsTank.length > 0"
-                                    >
-                                        <div
-                                            class="flex-1 flex flex-column gap-2"
-                                        >
-                                            <span class="font-bold">{{
-                                                tank.diameter + " m"
-                                            }}</span>
-                                            <div
-                                                class="flex align-items-center gap-2"
-                                            >
-                                                <i
-                                                    class="pi pi-ticket text-sm"
-                                                ></i>
-                                                <span>
-                                                    {{ tank.sensor_reference }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <span class="font-bold text-900">
-                                            {{ tank.liquid_type }}
-                                        </span>
-                                    </div>
-                                    <div
-                                        class="flex flex-wrap p-2 align-items-center gap-3"
-                                    >
-                                        <div
-                                            *ngIf="
-                                                ultrasonsTank &&
-                                                ultrasonsTank.length == 0
-                                            "
-                                            class="flex-1 flex flex-column gap-2"
-                                        >
-                                            <span class="font-bold"
-                                                >Aucune cuve disponible</span
-                                            >
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </p-orderList>
-                        </ng-template>
-                        <ng-template pTemplate>
-                            <p-orderList
-                                [value]="autresTank"
-                                [listStyle]="{
-                                    'max-height': '25rem',
-                                    width: '31rem',
 
-                                }"
-                                header="Autres cuves "
-                                filterBy="name"
-                                filterPlaceholder="Rechercher"
+                    <p-orderList
+                    [value]="this.filteredStationsupp?.Tanks"
+
+                    header="CUVES DE {{ filteredStation.name }}"
+                >
+                    <ng-template let-tank pTemplate="item">
+                        <div
+                            (click)="Details(tank.id)"
+                            class="flex flex-wrap align-items-center border-bottom-1 border-black-alpha-10 pb-3 -mx-3"
+                            *ngIf="filteredStationsupp.totalTanks > 0"
+                        >
+
+                            <div
+                                class="flex-1 flex flex-column gap-2 mx-3"
                             >
-                                <ng-template let-tank pTemplate="item">
-                                    <div
-                                        (click)="Details(tank.id)"
-                                        class="flex flex-wrap p-2 align-items-center gap-3"
-                                        *ngIf="autresTank.length > 0"
-                                    >
-                                        <div
-                                            class="flex-1 flex flex-column gap-2"
-                                        >
-                                            <span class="font-bold">{{
-                                                tank.diameter + " m"
-                                            }}</span>
-                                            <div
-                                                class="flex align-items-center gap-2"
-                                            >
-                                                <i
-                                                    class="pi pi-ticket text-sm"
-                                                ></i>
-                                                <span>
-                                                    {{ tank.sensor_reference }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <span class="font-bold text-900">
-                                            {{ tank.liquid_type }}
-                                        </span>
-                                    </div>
-                                    <div
-                                        class="flex flex-wrap p-2 align-items-center gap-3"
-                                    >
-                                        <div
-                                            *ngIf="
-                                                autresTank &&
-                                                autresTank.length == 0
-                                            "
-                                            class="flex-1 flex flex-column gap-2"
-                                        >
-                                            <span class="font-bold"
-                                                >Aucune cuve disponible</span
-                                            >
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </p-orderList>
-                        </ng-template>
-                    </p-splitter>
+                                <span class="font-bold">{{
+                                    tank.diameter + " m"
+                                }}</span>
+                                <div
+                                    class="flex align-items-center gap-2"
+                                >
+                                    <i
+                                        class="pi pi-ticket text-sm"
+                                    ></i>
+                                    <span>
+                                        {{ tank.sensor_reference }}
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="flex-1 flex flex-column gap-2">
+                                <span class="font-bold text-900">
+                                    {{ tank.liquid_type }}
+                                </span>
+                                <span >
+                                    {{ tank.jauge }}
+                                </span>
+
+                            </span>
+
+                        </div>
+                        <div
+                            class="flex flex-wrap p-2 align-items-center gap-3"
+                        >
+                            <div
+                                *ngIf="
+                                    filteredStationsupp.totalTanks == 0
+                                "
+                                class="flex-1 flex flex-column gap-2"
+                            >
+                                <span class="font-bold"
+                                    >Aucune cuve disponible</span
+                                >
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-orderList>
+
+
                 </div>
             </div>
         </p-card>

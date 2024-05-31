@@ -1,89 +1,91 @@
-::ng-deep .p-fieldset{
+::ng-deep .p-fieldset {
     border-radius: 0.375rem !important;
     background-color: transparent;
     border: 1px solid #b975f9;
     padding: 0.8rem;
 }
-::ng-deep .p-fieldset .p-fieldset-legend{
- padding-block: 0 !important;
- padding-inline: 0.5rem;
- background-color: transparent ;
- border: none;
+::ng-deep .p-fieldset .p-fieldset-legend {
+    padding-block: 0 !important;
+    padding-inline: 0.5rem;
+    background-color: transparent;
+    border: none;
 }
 
-::ng-deep .p-fieldset .p-fieldset-content{
+::ng-deep .p-fieldset .p-fieldset-content {
     padding: 0;
-
 }
 
-:host ::ng-deep .p-multiselect-panel{
+::ng-deep .disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+:host ::ng-deep .p-multiselect-panel {
     width: 30rem;
     margin-left: -29rem;
     margin-top: 1rem;
 }
 
-::ng-deep .p-multiselect-panel .p-multiselect-items .p-multiselect-item{
+::ng-deep .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
     padding: 0.3rem 1rem;
 }
 
-::ng-deep .p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container .p-multiselect-filter-icon{
+::ng-deep
+    .p-multiselect-panel
+    .p-multiselect-header
+    .p-multiselect-filter-container
+    .p-multiselect-filter-icon {
     visibility: hidden;
 }
 
-::ng-deep .p-multiselect-filter-container .p-inputtext{
+::ng-deep .p-multiselect-filter-container .p-inputtext {
     height: 2rem;
 }
 
-::ng-deep  .p-multiselect-panel .p-multiselect-header{
+::ng-deep .p-multiselect-panel .p-multiselect-header {
     padding: 0.3rem 1rem;
 }
-::ng-deep  .p-multiselect-panel .p-multiselect-items{
+::ng-deep .p-multiselect-panel .p-multiselect-items {
     padding: 0.1rem 0;
 }
 
-::ng-deep .p-card .p-card-footer{
+::ng-deep .p-card .p-card-footer {
     padding: 0;
 }
 
-
-:host ::ng-deep .p-multiselect{
-    border:none;
+:host ::ng-deep .p-multiselect {
+    border: none;
 
     width: 2rem;
-
 }
 
-::ng-deep .field{
+::ng-deep .field {
     margin-bottom: -0.3rem;
 }
 
-
-::ng-deep .block{
+::ng-deep .block {
     font-size: 1.5rem;
     font-weight: 700;
 }
 
-
-@media screen and (min-width: 1005px)  {
-    .size{
+@media screen and (min-width: 1005px) {
+    .size {
         min-height: 19.8rem;
     }
-  }
+}
 
-
-::ng-deep .p-orderlist .p-orderlist-controls{
+::ng-deep .p-orderlist .p-orderlist-controls {
     display: none;
 }
 
-
-::ng-deep .p-splitter{
-    border:none;
+::ng-deep .p-splitter {
+    border: none;
 }
 
 ::ng-deep .p-orderlist .p-orderlist-header {
     background-color: #cae6fc;
 }
-
 
 ::ng-deep .p-chips .p-chips-multiple-container {
     padding: 0.25rem 0.25rem;

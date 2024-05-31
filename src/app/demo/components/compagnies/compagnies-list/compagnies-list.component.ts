@@ -32,6 +32,10 @@ export class CompagniesListComponent {
     }
 
 
+    parsePhone(phone: any): number {
+        return parseInt(phone, 10);
+      }
+
     deleteSelectedCompanies() {
         const selectedCompanyId: any = this.selectedCompanies.map(company => company.id);
         console.log(selectedCompanyId)

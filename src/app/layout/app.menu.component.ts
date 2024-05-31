@@ -88,11 +88,11 @@ export class AppMenuComponent implements OnInit {
                                 icon: 'pi pi-fw pi-fast-forward',
                                 routerLink: ['/config/jauge']
                             },
-                            {
-                                label: 'Calibrage',
-                                icon: 'pi pi-fw pi-share-alt',
-                                routerLink: ['/calibrage']
-                            },
+                            // {
+                            //     label: 'Calibrage',
+                            //     icon: 'pi pi-fw pi-share-alt',
+                            //     routerLink: ['/calibrage']
+                            // },
 
                         ]
                     },
