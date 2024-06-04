@@ -23,7 +23,7 @@
                                     filterBy="name"
                                     [showClear]="true"
                                     formControlName="name_entreprise"
-                                    (onChange)="show()"
+                                    (onChange)="display_ss()"
                                 ></p-dropdown>
                             </div>
                             <div class="field col-12 md:col-6">
@@ -40,6 +40,7 @@
                                     filterBy="name"
                                     [showClear]="true"
                                     formControlName="name_ss"
+                                    (onChange)="display_product()"
                                 ></p-dropdown>
                             </div>
 
@@ -73,7 +74,7 @@
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid grid">
-                            <div class="field col-12 md:col-12">
+                            <div class="field col-12 md:col-6">
                                 <label htmlFor="address"
                                     >Diametre de la cuve
                                 </label>
@@ -83,6 +84,20 @@
                                     [minFractionDigits]="5"
                                     [showButtons]="true"
                                 ></p-inputNumber>
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="image">Selectionner le fichier abacus </label>
+
+                                <div  class="fileInput" >
+                                    <p-fileUpload
+                                    formControlName="file_abacus"
+                                    mode="basic"
+                                    name="demo[]"
+                                    url="./upload.php"
+                                    [maxFileSize]="2000000"
+                                    chooseLabel="Televerser le fichier d abacus"
+                                ></p-fileUpload>
+                                </div>
                             </div>
                         </div>
 
@@ -164,7 +179,7 @@
                             label="Valider"
                             icon="pi pi-check"
                             iconPos="right"
-                            [disabled]="tankForm.invalid"
+
                             (click)="onSubmitForm()"
                             type="submit"
                         ></p-button>

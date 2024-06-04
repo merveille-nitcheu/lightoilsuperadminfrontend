@@ -45,25 +45,23 @@ export class AddTankComponent {
             this.allCompagnies = data['data'];
         });
 
-        this.productService.getAllproduct().subscribe((data) => {
-            this.allProducts = data['data'];
-        });
 
         this.jaugeService.getAlljauge().subscribe((data) => {
             this.allJauges = data['data'];
         });
 
         this.tankForm = this.formBuilder.group({
-            abacus: [null, [Validators.required]],
-            diameter: [null, [Validators.required]],
-            liquid_type: [null, [Validators.required]],
-            man_hole_height: [null, [Validators.required]],
-            sensor_depth: [null, [Validators.required]],
-            sensor_reference: [null, [Validators.required]],
-            type_jauge: [null, [Validators.required]],
-            name_ss: [null, [Validators.required]],
-            name_entreprise: [null, [Validators.required]],
-            name_product: [null, [Validators.required]],
+            abacus: [null],
+            diameter: [null],
+            liquid_type: [null],
+            man_hole_height: [null],
+            sensor_depth: [null],
+            sensor_reference: [null],
+            type_jauge: [null],
+            name_ss: [null],
+            name_entreprise: [null],
+            name_product: [null],
+            file_abacus: [null]
         });
 
         this.tankId = this.route.snapshot.params['tankId'];
@@ -74,26 +72,33 @@ export class AddTankComponent {
         }
     }
 
-    show() {
+    display_ss() {
         this.allstationservice =
             this.tankForm.value.name_entreprise.servicestations;
     }
 
+    display_product() {
+
+        this.allProducts =
+        this.tankForm.value.name_ss.products;
+
+    }
+
     onSubmitForm() {
         this.loading = true;
-
-        this.tankService.storeTank(this.tankForm.value).subscribe(
-            (response) => {
-                this.tankForm.reset();
-                this.router.navigateByUrl('cuves');
-            },
-            (error) => {
-                console.error(
-                    "Erreur lors de l'enregistrement de l'entreprise",
-                    error
-                );
-            }
-        );
+        console.log(this.tankForm.value)
+        // this.tankService.storeTank(this.tankForm.value).subscribe(
+        //     (response) => {
+        //         this.tankForm.reset();
+        //         this.router.navigateByUrl('cuves');
+        //     },
+        //     (error) => {
+        //         console.error(
+        //             "Erreur lors de l'enregistrement de l'entreprise",
+        //             error
+        //         );
+        //     }
+        // );
     }
 
     onUpdateForm(tankId: number) {

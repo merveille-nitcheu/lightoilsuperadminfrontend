@@ -21,6 +21,7 @@ import { ShowTankComponent } from './show-tank/show-tank.component';
 import { TabViewModule } from 'primeng/tabview';
 import { SplitterModule } from 'primeng/splitter';
 import { DialogModule } from 'primeng/dialog';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 
@@ -47,7 +48,8 @@ import { DialogModule } from 'primeng/dialog';
     ChipsModule,
     SplitterModule,
     FormsModule,
-    DialogModule
+    DialogModule,
+    FileUploadModule
   ]
 })
 export class CuvesModule { }
