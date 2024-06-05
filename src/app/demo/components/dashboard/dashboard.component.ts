@@ -22,8 +22,8 @@ export class DashboardComponent implements OnInit {
                 this.allCompagnies = data['data'];
         })
         this.nbcomp = this.allCompagnies.length
-        console.log(this.allCompagnies)
-        console.log(this.nbcomp)
+        // console.log(this.allCompagnies)
+        // console.log(this.nbcomp)
 
 
     }

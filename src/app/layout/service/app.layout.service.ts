@@ -120,9 +120,11 @@ export class LayoutService {
         let user = ''
         if (this.cookieService.check('User')) {
            const user: string = this.cookieService.get('User');
-           console.log(user)
         return user;
         }
+
         return user
+
+
     }
 }

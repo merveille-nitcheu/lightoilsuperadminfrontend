@@ -88,16 +88,38 @@
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="image">Selectionner le fichier abacus </label>
 
-                                <div  class="fileInput" >
-                                    <p-fileUpload
+
+
+                                <div  class="fileInput" (click)="fileInput.click()" [ngClass]="{
+                                    'blurred': isHovered,
+                                    'relative': isHovered
+                                  }"
+                                  (mouseenter)="isHovered = true"
+                                  (mouseleave)="isHovered = false" >
+                                    <input
+                                    #fileInput
+                                    type="file"
+                                    class="test"
+                                    style="display: none;"
                                     formControlName="file_abacus"
-                                    mode="basic"
-                                    name="demo[]"
-                                    url="./upload.php"
-                                    [maxFileSize]="2000000"
-                                    chooseLabel="Televerser le fichier d abacus"
-                                ></p-fileUpload>
+                                    (change)="handleFileUpload($event)"
+                                />
+
+
+                                <i
+                                    class="pi pi-upload text-900 text-md mt-2 mx-2"
+                                ></i>
+                                <span *ngIf="!file"
+                                    class="font-medium text-900 text-md text-center"
+                                    >Televerser le file abacus</span
+                                >
+
+                                <span class="font-medium text-900 text-md text-center" *ngIf="file" >{{ file }}  <i class="pi pi-trash" *ngIf="isHovered" (click)="deleteFile()"></i></span>
+
+
+
                                 </div>
+
                             </div>
                         </div>
 
@@ -108,6 +130,7 @@
                                     separator=";"
                                     formControlName="abacus"
                                     required
+                                    [ngClass]="{'disabled': !disabled_value}"
                                 ></p-chips>
                             </div>
                         </div>

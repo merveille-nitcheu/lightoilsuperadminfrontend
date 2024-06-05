@@ -28,13 +28,14 @@ export class AddTankComponent {
     filteredTank: Tank;
     tankForm: FormGroup;
     loading: boolean = false;
+    file: string | null = null;
+    disabled_value:boolean = true
+    isHovered: boolean = false;
 
     constructor(
         private router: Router,
-        private productService: ProductService,
         private jaugeService: JaugeService,
         private compagniesService: CompagniesService,
-        private servicesStationsService: ServicesStationsService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private tankService: TankService
@@ -44,7 +45,6 @@ export class AddTankComponent {
         this.compagniesService.getAllCompany().subscribe((data) => {
             this.allCompagnies = data['data'];
         });
-
 
         this.jaugeService.getAlljauge().subscribe((data) => {
             this.allJauges = data['data'];
@@ -84,8 +84,25 @@ export class AddTankComponent {
 
     }
 
+
+
+    handleFileUpload(event:Event){
+        this.file = (event.target as HTMLInputElement).files[0].name;
+        this.disabled_value = false
+
+    }
+
+    deleteFile(): void {
+        this.file = null;
+        this.disabled_value = true
+
+    }
+
+
+
     onSubmitForm() {
         this.loading = true;
+       console.log(this.file)
         console.log(this.tankForm.value)
         // this.tankService.storeTank(this.tankForm.value).subscribe(
         //     (response) => {

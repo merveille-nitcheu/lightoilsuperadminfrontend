@@ -23,6 +23,9 @@ export class AppTopBarComponent {
     ngOnInit(): void {
         this.items = this.layoutService.items_profil
         this.user = this.layoutService.getUserConnected();
+
+        console.log('user3',this.user)
+
     }
 
 

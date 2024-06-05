@@ -70,3 +70,25 @@
     color: black;
     border:none
 }
+
+::ng-deep .disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
+
+  .relative {
+    position: relative;
+  }
+
+  .pi-trash {
+    position: absolute;
+    top: 50%;
+    right: 60px;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: rgb(250, 3, 3);
+    cursor: pointer;
+  }
