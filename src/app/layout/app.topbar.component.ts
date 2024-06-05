@@ -24,9 +24,22 @@ export class AppTopBarComponent {
         this.items = this.layoutService.items_profil
         this.user = this.layoutService.getUserConnected();
 
-        console.log('user3',this.user)
+
 
     }
+
+    getInitials(fullName: string): string {
+        if (this.user) {
+
+          return fullName.charAt(0);
+        } else {
+            return 'MN'
+        }
+
+      }
+
+
+
 
 
 }
