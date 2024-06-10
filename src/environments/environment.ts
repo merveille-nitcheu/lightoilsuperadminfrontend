@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-//   apiUrl:"http://127.0.0.1:8000/api",
+apiUrl:"http://127.0.0.1:8000/api",
 //  apiUrl:"http://173.249.8.175:9005/api",
-apiUrl:"http://161.97.99.88:9099/api",
+// apiUrl:"http://161.97.99.88:9099/api",
   client_id: "9c1ac626-f0fc-4ec2-b83a-85010fa8078f",
   client_secret : "eQLIWMshGWpTNErTyGKSBWXlaOhi33ov7CTHLIoa",
 };

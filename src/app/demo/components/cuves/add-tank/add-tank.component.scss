@@ -77,8 +77,6 @@
     pointer-events: none;
 }
 
-
-
   .relative {
     position: relative;
   }
@@ -86,7 +84,7 @@
   .pi-trash {
     position: absolute;
     top: 50%;
-    right: 60px;
+    right: 25px;
     transform: translateY(-50%);
     font-size: 1rem;
     color: rgb(250, 3, 3);

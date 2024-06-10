@@ -1,6 +1,6 @@
 <div class="stepsdemo-content">
     <p-fieldset legend="Ajouter une cuve">
-        <form [formGroup]="tankForm">
+        <form [formGroup]="tankForm" enctype="multipart/form-data">
             <p-card>
                 <div class="field col-12 md:col-12">
                     <span class="block font-bold mb-3"
@@ -43,7 +43,6 @@
                                     (onChange)="display_product()"
                                 ></p-dropdown>
                             </div>
-
                         </div>
 
                         <div class="p-fluid p-formgrid grid">
@@ -86,11 +85,37 @@
                                 ></p-inputNumber>
                             </div>
                             <div class="field col-12 md:col-6">
-                                <label htmlFor="image">Selectionner le fichier abacus </label>
+                                <label htmlFor="image"
+                                    >Selectionner le fichier abacus
+                                </label>
+                                <!-- <div class="fileInput"  [ngClass]="{
+                                    'blurred': isHovered,
+                                    'relative': isHovered
+                                  }"
+                                  (mouseenter)="isHovered = true"
+                                  (mouseleave)="isHovered = false">
+                                    <p-fileUpload
+                                    mode="basic"
+                                    name="file_abacus"
+                                    chooseLabel="Televerser le fichier d abacus"
+                                    chooseIcon="pi pi-upload"
+                                    formControlName="file_abacus"
+                                    accept=".xlsx,.pdf,.csv,.xls"
+                                    (change)="handleFileUpload($event)"
+                                />
+                                <span>
+                                    <i class="pi pi-trash" *ngIf="isHovered && file" (click)="deleteFile()"></i>
+                                </span>
 
 
 
-                                <div  class="fileInput" (click)="fileInput.click()" [ngClass]="{
+
+                                </div> -->
+
+
+
+
+                                 <div  class="fileInput" (click)="fileInput.click()" [ngClass]="{
                                     'blurred': isHovered,
                                     'relative': isHovered
                                   }"
@@ -100,6 +125,8 @@
                                     #fileInput
                                     type="file"
                                     class="test"
+                                    name="file_abacus"
+
                                     style="display: none;"
                                     formControlName="file_abacus"
                                     (change)="handleFileUpload($event)"
@@ -111,7 +138,7 @@
                                 ></i>
                                 <span *ngIf="!file"
                                     class="font-medium text-900 text-md text-center"
-                                    >Televerser le file abacus</span
+                                    >Televerser le fichier d'abacus</span
                                 >
 
                                 <span class="font-medium text-900 text-md text-center" *ngIf="file" >{{ file }}  <i class="pi pi-trash" *ngIf="isHovered" (click)="deleteFile()"></i></span>
@@ -119,7 +146,6 @@
 
 
                                 </div>
-
                             </div>
                         </div>
 
@@ -130,7 +156,7 @@
                                     separator=";"
                                     formControlName="abacus"
                                     required
-                                    [ngClass]="{'disabled': !disabled_value}"
+                                    [ngClass]="{ disabled: !disabled_value }"
                                 ></p-chips>
                             </div>
                         </div>
@@ -202,7 +228,6 @@
                             label="Valider"
                             icon="pi pi-check"
                             iconPos="right"
-
                             (click)="onSubmitForm()"
                             type="submit"
                         ></p-button>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { FileUpload } from 'primeng/fileupload';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -10,8 +11,6 @@ import {
 } from 'src/app/demo/models/model';
 import { CompagniesService } from 'src/app/demo/service/compagnies.service';
 import { JaugeService } from 'src/app/demo/service/jauge.service';
-import { ProductService } from 'src/app/demo/service/product.service';
-import { ServicesStationsService } from 'src/app/demo/service/servicesStations.service';
 import { TankService } from 'src/app/demo/service/tank.service';
 
 @Component({
@@ -28,9 +27,13 @@ export class AddTankComponent {
     filteredTank: Tank;
     tankForm: FormGroup;
     loading: boolean = false;
-    file: string | null = null;
-    disabled_value:boolean = true
+    file: any;
+    file1: any;
+    disabled_value: boolean = true;
     isHovered: boolean = false;
+
+    @ViewChild(FileUpload)
+    fileUpload: FileUpload;
 
     constructor(
         private router: Router,
@@ -61,7 +64,7 @@ export class AddTankComponent {
             name_ss: [null],
             name_entreprise: [null],
             name_product: [null],
-            file_abacus: [null]
+            file_abacus: [null],
         });
 
         this.tankId = this.route.snapshot.params['tankId'];
@@ -78,44 +81,41 @@ export class AddTankComponent {
     }
 
     display_product() {
+        this.allProducts = this.tankForm.value.name_ss.products;
+    }
 
-        this.allProducts =
-        this.tankForm.value.name_ss.products;
+    handleFileUpload(event: Event) {
+        this.disabled_value = false;
+        this.file = (event.target as HTMLInputElement).files?.[0];
+
+        // this.tankForm.get('file_abacus').setValue(this.file.name)
 
     }
 
+    // deleteFile(): void {
+    //     this.fileUpload.files = [];
+    //     this.file = null
+    //     this.tankForm.get('file_abacus').setValue(null)
+    //     this.disabled_value = true
 
-
-    handleFileUpload(event:Event){
-        this.file = (event.target as HTMLInputElement).files[0].name;
-        this.disabled_value = false
-
-    }
-
-    deleteFile(): void {
-        this.file = null;
-        this.disabled_value = true
-
-    }
-
-
+    // }
 
     onSubmitForm() {
         this.loading = true;
-       console.log(this.file)
-        console.log(this.tankForm.value)
-        // this.tankService.storeTank(this.tankForm.value).subscribe(
-        //     (response) => {
-        //         this.tankForm.reset();
-        //         this.router.navigateByUrl('cuves');
-        //     },
-        //     (error) => {
-        //         console.error(
-        //             "Erreur lors de l'enregistrement de l'entreprise",
-        //             error
-        //         );
-        //     }
-        // );
+
+        console.log(this.tankForm.value);
+        this.tankService.storeTank(this.tankForm.value).subscribe(
+            (response) => {
+                this.tankForm.reset();
+                this.router.navigateByUrl('cuves');
+            },
+            (error) => {
+                console.error(
+                    "Erreur lors de l'enregistrement de l'entreprise",
+                    error
+                );
+            }
+        );
     }
 
     onUpdateForm(tankId: number) {
