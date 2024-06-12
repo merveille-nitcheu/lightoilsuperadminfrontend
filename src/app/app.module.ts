@@ -34,11 +34,11 @@ import { InterceptorService } from './demo/interceptors/interceptor.service';
         CompagniesService,
         JaugeService,
         ConfirmationService,
-        // {
-        //     provide: HTTP_INTERCEPTORS,
-        //     useClass:InterceptorService ,
-        //     multi: true
-        // }
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass:InterceptorService ,
+            multi: true
+        }
     ],
     bootstrap: [AppComponent],
 })

@@ -1,4 +1,4 @@
-<div class="grid flex flex-row">
+<div class="grid flex flex-row" *ngIf="!(isLoading$ | async)">
     <div class="col-12 lg:col-6 xl:col-7">
         <div class="card size">
             <h5>Liste des Produits</h5>
@@ -164,3 +164,5 @@
         </form>
     </div>
 </div>
+
+<app-loading [isLoading$]="isLoading$"></app-loading>

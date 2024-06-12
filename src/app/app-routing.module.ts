@@ -14,6 +14,7 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                     { path: 'config', loadChildren: () => import('./demo/components/config/config.module').then(m => m.ConfigModule) },
                     { path: 'cuves', loadChildren: () => import('./demo/components/cuves/cuves.module').then(m => m.CuvesModule) },
                     { path: 'user', loadChildren: () => import('./demo/components/user/user.module').then(m => m.UserModule) },
+                    { path: 'alerts', loadChildren: () => import('./demo/components/alerts/alerts.module').then(m => m.AlertsModule) },
                 ]
 
             },

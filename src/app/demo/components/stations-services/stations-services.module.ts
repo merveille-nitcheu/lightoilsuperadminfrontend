@@ -30,6 +30,7 @@ import { SplitterModule } from 'primeng/splitter';
 import { ShowServiceStationComponent } from './show-service-station/show-service-station.component';
 import { OrderListModule } from 'primeng/orderlist';
 import { ChipsModule } from 'primeng/chips';
+import { LoadingModule } from '../loading/loading.module';
 
 
 
@@ -60,7 +61,8 @@ import { ChipsModule } from 'primeng/chips';
         ConfirmPopupModule,
         SplitterModule,
         OrderListModule,
-        ChipsModule
+        ChipsModule,
+        LoadingModule
 
 
     ],

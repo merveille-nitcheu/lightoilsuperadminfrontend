@@ -15,6 +15,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputMaskModule } from 'primeng/inputmask';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoadingModule } from '../loading/loading.module';
+
 
 
 
@@ -33,7 +35,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         InputNumberModule,
         InputMaskModule,
         ConfirmPopupModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        LoadingModule
 
     ],
 

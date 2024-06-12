@@ -1,4 +1,4 @@
-<div class="stepsdemo-content">
+<div class="stepsdemo-content"  *ngIf="!(isLoading$ | async)">
     <p-fieldset legend="Ajouter une cuve">
         <form [formGroup]="tankForm" enctype="multipart/form-data">
             <p-card>
@@ -296,3 +296,5 @@
         </form>
     </p-fieldset>
 </div>
+
+<app-loading [isLoading$]="isLoading$"></app-loading>

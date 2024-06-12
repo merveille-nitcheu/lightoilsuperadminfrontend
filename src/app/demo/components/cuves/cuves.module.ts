@@ -22,6 +22,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { SplitterModule } from 'primeng/splitter';
 import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
+import { LoadingModule } from '../loading/loading.module';
 
 
 
@@ -49,7 +50,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     SplitterModule,
     FormsModule,
     DialogModule,
-    FileUploadModule
+    FileUploadModule,
+    LoadingModule
   ]
 })
 export class CuvesModule { }

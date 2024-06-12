@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { FileUpload } from 'primeng/fileupload';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingService } from 'src/app/demo/service/loading.service';
+import { Observable } from 'rxjs';
 import {
     Compagnie,
     Jauge,
@@ -31,6 +33,7 @@ export class AddTankComponent {
     file1: any;
     disabled_value: boolean = true;
     isHovered: boolean = false;
+    isLoading$: Observable<boolean>;
 
     @ViewChild(FileUpload)
     fileUpload: FileUpload;
@@ -41,8 +44,11 @@ export class AddTankComponent {
         private compagniesService: CompagniesService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
-        private tankService: TankService
-    ) {}
+        private tankService: TankService,
+        private loadingService: LoadingService
+    ) {
+        this.isLoading$ = this.loadingService.isLoading$;
+    }
 
     ngOnInit() {
         this.compagniesService.getAllCompany().subscribe((data) => {
@@ -89,7 +95,6 @@ export class AddTankComponent {
         this.file = (event.target as HTMLInputElement).files?.[0];
 
         // this.tankForm.get('file_abacus').setValue(this.file.name)
-
     }
 
     // deleteFile(): void {
@@ -102,12 +107,15 @@ export class AddTankComponent {
 
     onSubmitForm() {
         this.loading = true;
-
+        this.loadingService.setLoading(true);
         console.log(this.tankForm.value);
         this.tankService.storeTank(this.tankForm.value).subscribe(
             (response) => {
                 this.tankForm.reset();
-                this.router.navigateByUrl('cuves');
+                this.router.navigate(['cuves'], {
+                    replaceUrl: true,
+                });
+                this.loadingService.setLoading(false);
             },
             (error) => {
                 console.error(
@@ -120,10 +128,14 @@ export class AddTankComponent {
 
     onUpdateForm(tankId: number) {
         this.loading = true;
+        this.loadingService.setLoading(true);
         this.tankService.updateTank(tankId, this.tankForm.value).subscribe(
             (response) => {
                 this.tankForm.reset();
-                this.router.navigateByUrl('cuves');
+                this.router.navigate(['cuves'], {
+                    replaceUrl: true,
+                });
+                this.loadingService.setLoading(false);
             },
             (error) => {
                 console.error(

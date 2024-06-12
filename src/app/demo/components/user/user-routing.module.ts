@@ -6,4 +6,4 @@ import { UserComponent } from './user/user.component';
     imports: [RouterModule.forChild([{ path: '', component: UserComponent }])],
     exports: [RouterModule],
 })
-export class UserRoutingModule {}
+export class UserRoutingModule { }

@@ -9,6 +9,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JaugeComponent } from './jauge/jauge.component';
+import { LoadingModule } from '../loading/loading.module';
+
 
 
 
@@ -24,7 +26,8 @@ import { JaugeComponent } from './jauge/jauge.component';
     InputTextModule,
     ButtonModule,
     InputNumberModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoadingModule
   ]
 })
 export class ConfigModule { }

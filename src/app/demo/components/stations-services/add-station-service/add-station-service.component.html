@@ -1,12 +1,19 @@
-<div class="card">
-    <p-steps [model]="items" [readonly]="false"></p-steps>
+
+<div *ngIf="!(isLoading$ | async)">
+    <div class="card">
+        <p-steps [model]="items" [readonly]="false"></p-steps>
+    </div>
+
+    <div class="stepsdemo-content">
+        <p-fieldset legend="Ajouter une station service">
+          <router-outlet></router-outlet>
+        </p-fieldset>
+    </div>
+
 </div>
 
-<div class="stepsdemo-content">
-    <p-fieldset legend="Ajouter une station service">
-      <router-outlet></router-outlet>
-    </p-fieldset>
-</div>
+<app-loading [isLoading$]="isLoading$"></app-loading>
+
 
 
 

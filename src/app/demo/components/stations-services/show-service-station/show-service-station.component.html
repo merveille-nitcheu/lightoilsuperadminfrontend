@@ -1,4 +1,4 @@
-<div class="stepsdemo-content">
+<div class="stepsdemo-content"  *ngIf="!(isLoading$ | async)">
     <p-fieldset legend="{{ filteredStation.name }}">
         <p-card>
             <form [formGroup]="ssForm">
@@ -245,3 +245,5 @@
         </p-card>
     </p-fieldset>
 </div>
+
+<app-loading [isLoading$]="isLoading$"></app-loading>

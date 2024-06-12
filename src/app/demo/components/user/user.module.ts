@@ -12,6 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from "primeng/multiselect";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoadingModule } from '../loading/loading.module';
 
 
 
@@ -30,7 +31,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DropdownModule,
     MultiSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoadingModule
   ]
 })
 export class UserModule { }

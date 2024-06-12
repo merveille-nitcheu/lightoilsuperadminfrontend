@@ -1,4 +1,4 @@
-<div class="stepsdemo-content">
+<div class="stepsdemo-content" *ngIf="!(isLoading$ | async)">
     <p-fieldset legend="Ajouter une entreprise">
         <form [formGroup]="companyForm">
             <div class="grid">
@@ -285,3 +285,5 @@
         </form>
     </p-fieldset>
 </div>
+
+<app-loading [isLoading$]="isLoading$"></app-loading>

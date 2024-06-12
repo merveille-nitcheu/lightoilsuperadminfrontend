@@ -10,6 +10,8 @@ import { Product, StationService, Tank } from 'src/app/demo/models/model';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { JaugeService } from 'src/app/demo/service/jauge.service';
 import { ServicesStationsService } from 'src/app/demo/service/servicesStations.service';
+import { LoadingService } from 'src/app/demo/service/loading.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-show-service-station',
@@ -26,7 +28,8 @@ export class ShowServiceStationComponent {
     ultrasonsTank: Tank[] = [];
     autresTank: Tank[] = [];
     isChanged: boolean = false;
-    jauge: any ;
+    jauge: any;
+    isLoading$: Observable<boolean>;
 
     constructor(
         private servicestationService: ServicesStationsService,
@@ -34,8 +37,11 @@ export class ShowServiceStationComponent {
         private route: ActivatedRoute,
         private productService: ProductService,
         private formBuilder: FormBuilder,
-        private jaugeService: JaugeService
-    ) {}
+        private jaugeService: JaugeService,
+        private loadingService: LoadingService
+    ) {
+        this.isLoading$ = this.loadingService.isLoading$;
+    }
 
     ngOnInit() {
         this.servicestationId = this.route.snapshot.params['ssId'];
@@ -69,14 +75,13 @@ export class ShowServiceStationComponent {
                     ],
                     product_name: [productNames],
                 });
-
-
-
             });
     }
 
     Details(tankId: any) {
-        this.router.navigateByUrl(`cuves/showtank/${tankId}`);
+        this.router.navigate(['cuves', 'showtank', tankId], {
+            replaceUrl: true,
+        });
     }
 
     onElementChange(): void {
@@ -96,12 +101,15 @@ export class ShowServiceStationComponent {
 
     onUpdateForm(servicestationId: number) {
         this.loading = true;
+        this.loadingService.setLoading(true);
         this.servicestationService
             .updateservicestation(servicestationId, this.ssForm.value)
             .subscribe(
                 (response) => {
                     this.ssForm.reset();
-                    window.location.reload();
+                    this.ngOnInit();
+                    this.loading = false;
+                    this.loadingService.setLoading(false);
                 },
                 (error) => {
                     console.error(

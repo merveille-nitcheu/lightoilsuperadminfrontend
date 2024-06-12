@@ -1,4 +1,4 @@
-<div class="stepsdemo-content">
+<div class="stepsdemo-content" *ngIf="!(isLoading$ | async)">
     <p-fieldset legend="Utilisateurs">
         <form [formGroup]="userForm">
             <p-card>
@@ -86,7 +86,7 @@
                                     optionLabel="name"
                                     [showClear]="true"
                                     formControlName="name_ss"
-                                    [disabled]=visible
+                                    [disabled]="visible"
                                 ></p-dropdown>
                             </div>
                         </div>
@@ -122,23 +122,25 @@
                             selectionMode="single"
                             [(selection)]="selectedUser"
                             responsiveLayout="scroll"
-                            [globalFilterFields]="['name','roles[0]?.service_stations[0]?.name']"
+                            [globalFilterFields]="[
+                                'name',
+                                'roles[0]?.service_stations[0]?.name'
+                            ]"
                         >
                             <ng-template pTemplate="caption">
                                 <div
                                     class="flex justify-content-between flex-column sm:flex-row mb-2"
                                 >
-                                    <div
-                                        class="flex justify-content-between"
-                                    > <p-button
-                                    label="Désactiver"
-                                    icon="pi pi-eye-slash"
-                                    severity="help"
-                                    (click)="desactiveuser()"
-                                    [disabled]="!selectedUser"
-                                    [loading]="loading"
-                                ></p-button>
-                                </div>
+                                    <div class="flex justify-content-between">
+                                        <p-button
+                                            label="Désactiver"
+                                            icon="pi pi-eye-slash"
+                                            severity="help"
+                                            (click)="desactiveuser()"
+                                            [disabled]="!selectedUser"
+                                            [loading]="loading"
+                                        ></p-button>
+                                    </div>
 
                                     <span
                                         class="p-input-icon-right mt-3 sm:mt-0"
@@ -207,8 +209,6 @@
                                             Entreprise
                                         </div>
                                     </th>
-
-
                                 </tr>
                             </ng-template>
 
@@ -221,7 +221,14 @@
                                         {{ user.email }}
                                     </td>
                                     <td style="width: 25%">
-                                        {{ user.roles[0]?.service_stations.length > 1 ? 'Toutes les stations' : user.roles[0]?.service_stations[0]?.name }}
+                                        {{
+                                            user.roles[0]?.service_stations
+                                                .length > 1
+                                                ? "Toutes les stations"
+                                                : user.roles[0]
+                                                      ?.service_stations[0]
+                                                      ?.name
+                                        }}
                                     </td>
                                     <td style="width: 25%">
                                         {{ user.roles[0]?.role }}
@@ -229,7 +236,6 @@
                                     <td style="width: 15%">
                                         {{ user.roles[0]?.company }}
                                     </td>
-
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="emptymessage">
@@ -251,5 +257,6 @@
             </p-card>
         </form>
     </p-fieldset>
-
 </div>
+
+<app-loading [isLoading$]="isLoading$"></app-loading>

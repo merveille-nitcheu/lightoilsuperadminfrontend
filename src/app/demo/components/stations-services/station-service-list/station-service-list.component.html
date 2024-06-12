@@ -1,4 +1,4 @@
-<div class="stepsdemo-content">
+<div class="stepsdemo-content" *ngIf="!(isLoading$ | async)">
     <p-fieldset legend="Liste des stations services">
         <p-card>
             <p-table #dt [value]="servicesStations" selectionMode="single" dataKey="id" [rows]="10" [rowHover]="true" [paginator]="true"  [(selection)]="selectedStation"
@@ -98,4 +98,6 @@
         </ng-template>
     </p-confirmPopup>
 </div>
+
+<app-loading [isLoading$]="isLoading$"></app-loading>
 

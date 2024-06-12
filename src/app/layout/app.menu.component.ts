@@ -72,7 +72,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Alerts',
                         icon: 'pi pi-fw pi-bell',
-                        routerLink: ['/uikit/misc'],
+                        routerLink: ['/alerts'],
                     },
                     {
                         label: 'Configurations',

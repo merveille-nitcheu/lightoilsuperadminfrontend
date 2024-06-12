@@ -1,0 +1,24 @@
+::ng-deep .p-card {
+    border-radius: 0.3rem !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+}
+
+::ng-deep  .p-card .p-card-content {
+    padding: 0;
+}
+
+::ng-deep  .alertClass {
+    height: 1.8rem;
+}
+::ng-deep .p-badge{
+    width: 1rem !important;
+    height: 1rem;
+    margin-top: 3px;
+    margin-right: 7px;
+    min-width: 0;
+}
+
+
+
+

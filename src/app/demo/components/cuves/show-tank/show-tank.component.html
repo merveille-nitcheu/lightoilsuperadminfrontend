@@ -1,4 +1,4 @@
-<div class="stepsdemo-content">
+<div class="stepsdemo-content" *ngIf="!(isLoading$ | async)">
     <p-fieldset legend="cuve">
         <p-card>
             <div class="field col-12 md:col-12">
@@ -151,7 +151,9 @@
                                     separator=";"
                                     formControlName="data_level"
                                     (onAdd)="onElementChange()"
-                                    (onChipClick)="onChipClick($event,'data_level')"
+                                    (onChipClick)="
+                                        onChipClick($event, 'data_level')
+                                    "
                                     required
                                 ></p-chips>
                             </div>
@@ -164,7 +166,9 @@
                                     separator=";"
                                     formControlName="data_temp"
                                     (onAdd)="onElementChange()"
-                                    (onChipClick)="onChipClick($event,'data_temp')"
+                                    (onChipClick)="
+                                        onChipClick($event, 'data_temp')
+                                    "
                                     required
                                 ></p-chips>
                             </div>
@@ -177,7 +181,9 @@
                                     separator=";"
                                     formControlName="data_pressure"
                                     (onAdd)="onElementChange()"
-                                    (onChipClick)="onChipClick($event,'data_pressure')"
+                                    (onChipClick)="
+                                        onChipClick($event, 'data_pressure')
+                                    "
                                     required
                                 ></p-chips>
                             </div>
@@ -189,7 +195,9 @@
                                     separator=";"
                                     formControlName="abacusResults"
                                     (onAdd)="onElementChange()"
-                                    (onChipClick)="onChipClick($event,'abacusResults')"
+                                    (onChipClick)="
+                                        onChipClick($event, 'abacusResults')
+                                    "
                                     required
                                 ></p-chips>
                             </div>
@@ -748,7 +756,7 @@
                 (keyup.enter)="updateChipValue()"
             />
         </div>
-
-
     </p-dialog>
 </div>
+
+<app-loading [isLoading$]="isLoading$"></app-loading>

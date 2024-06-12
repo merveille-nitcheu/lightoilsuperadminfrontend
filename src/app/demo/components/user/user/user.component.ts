@@ -7,10 +7,10 @@ import { MenuItem } from 'primeng/api';
 import { Menu } from 'primeng/menu';
 import { CompagniesService } from 'src/app/demo/service/compagnies.service';
 import { UserService } from 'src/app/demo/service/user.service';
+import { LoadingService } from 'src/app/demo/service/loading.service';
 
 @Component({
     selector: 'app-user',
-
     templateUrl: './user.component.html',
     styleUrl: './user.component.scss',
 })
@@ -29,15 +29,17 @@ export class UserComponent {
     globalFilterFields: any;
     menu: Menu;
     roles: any;
-    visible:boolean = false
+    visible: boolean = false;
 
     constructor(
         private compagniesService: CompagniesService,
         private userService: UserService,
         private formBuilder: FormBuilder,
         private router: Router,
-        private route: ActivatedRoute
-    ) {}
+        private loadingService: LoadingService
+    ) {
+        this.isLoading$ = this.loadingService.isLoading$;
+    }
 
     ngOnInit(): void {
         this.compagniesService.getAllCompany().subscribe((data) => {
@@ -45,21 +47,9 @@ export class UserComponent {
         });
         this.userService.getAlluser().subscribe((data) => {
             this.allUsers = data['data'];
-
-            // this.allUsers.forEach(user => {
-            //     user.rolesObject = user.roles.reduce((acc, curr) => {
-            //       acc[curr.id] = curr;
-            //       return acc;
-            //     }, {});
-            //   });
-
-
         });
 
-
-
-
-console.log(this.allUsers)
+        console.log(this.allUsers);
         this.roles = this.userService.roles;
 
         this.userForm = this.formBuilder.group({
@@ -100,33 +90,31 @@ console.log(this.allUsers)
         this.globalFilterFields = 'name';
     }
 
-
-    show(){
-
-
-      this.datastationService= this.userForm.value.name_entreprise.servicestations
+    show() {
+        this.datastationService =
+            this.userForm.value.name_entreprise.servicestations;
     }
 
-    hide_ss(){
-        const role_user = this.userForm.value.role_user
-        console.log(this.userForm.value.role_user.code)
-        if(role_user.code =='AD'){
-            this.visible = true
-        } else{
-            this.visible = false
+    hide_ss() {
+        const role_user = this.userForm.value.role_user;
+        console.log(this.userForm.value.role_user.code);
+        if (role_user.code == 'AD') {
+            this.visible = true;
+        } else {
+            this.visible = false;
         }
-
     }
 
     onSubmitForm() {
         this.loading = true;
+        this.loadingService.setLoading(true);
 
         this.userService.storeuser(this.userForm.value).subscribe(
             (response) => {
                 this.userForm.reset();
+                this.ngOnInit();
                 this.loading = false;
-                window.location.reload();
-
+                this.loadingService.setLoading(false);
             },
             (error) => {
                 console.error(
@@ -137,14 +125,14 @@ console.log(this.allUsers)
         );
     }
 
-
-
     desactiveuser() {
         this.loading = true;
+        this.loadingService.setLoading(true);
         this.userService.desactiveuser(this.selectedUser.id).subscribe(
             (response) => {
+                this.ngOnInit();
                 this.loading = false;
-                window.location.reload();
+                this.loadingService.setLoading(false);
             },
             (error) => {
                 console.error(
@@ -155,21 +143,14 @@ console.log(this.allUsers)
         );
     }
 
-
-
-
-
-
-
     onMenuSelect(label: any) {
         switch (label) {
             case 'Filter1':
                 this.globalFilterFields = 'name';
-                console.log(this.selectedUser.email)
+                console.log(this.selectedUser.email);
                 break;
             case 'Filter2':
-                this.globalFilterFields =
-                    'roles[0]?.service_stations[0]';
+                this.globalFilterFields = 'roles[0]?.service_stations[0]';
                 break;
             case 'Filter3':
                 this.globalFilterFields = 'roles[0]?.company';
@@ -178,6 +159,4 @@ console.log(this.allUsers)
                 break;
         }
     }
-
-
 }

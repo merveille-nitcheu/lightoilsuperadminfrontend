@@ -5,6 +5,8 @@ import { Compagnie } from 'src/app/demo/models/model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { format, parse } from 'date-fns';
 import { formatDate } from '@angular/common';
+import { LoadingService } from 'src/app/demo/service/loading.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-add-compagnie',
@@ -22,13 +24,17 @@ export class AddCompagnieComponent implements OnInit {
     uploadedImageUrl: string | null = null;
     showUploadText = true;
     datetest: Date;
+    isLoading$: Observable<boolean>;
 
     constructor(
         private compagniesService: CompagniesService,
         private formBuilder: FormBuilder,
         private router: Router,
-        private route: ActivatedRoute
-    ) {}
+        private route: ActivatedRoute,
+        private loadingService: LoadingService
+    ) {
+        this.isLoading$ = this.loadingService.isLoading$;
+    }
 
     ngOnInit(): void {
         this.companyForm = this.formBuilder.group({
@@ -44,27 +50,29 @@ export class AddCompagnieComponent implements OnInit {
 
         this.companyId = this.route.snapshot.params['companyId'];
         if (this.companyId) {
+            this.compagniesService
+                .showCompany(this.companyId)
+                .subscribe((data) => {
+                    this.filteredcompany = data['data'];
+                    this.financialYear = data['financialYear'];
+                    console.log(this.financialYear);
 
-            this.compagniesService.showCompany(this.companyId).subscribe((data) => {
-                this.filteredcompany = data['data'];
-                this.financialYear = data['financialYear'];
-                console.log(this.financialYear);
+                    this.start_date = parse(
+                        format(this.financialYear.start_date, 'dd/MM/yy'),
+                        'dd/MM/yy',
+                        new Date()
+                    );
 
-                this.start_date = parse(
-                    format(this.financialYear.start_date, 'dd/MM/yy'),
-                    'dd/MM/yy',
-                    new Date()
-                );
-
-                this.expected_end_date = parse(
-                    format(this.financialYear.expected_end_date, 'dd/MM/yy'),
-                    'dd/MM/yy',
-                    new Date()
-                );
-            });
+                    this.expected_end_date = parse(
+                        format(
+                            this.financialYear.expected_end_date,
+                            'dd/MM/yy'
+                        ),
+                        'dd/MM/yy',
+                        new Date()
+                    );
+                });
         }
-
-
     }
 
     handleFileUpload(files: File[]): void {
@@ -88,11 +96,14 @@ export class AddCompagnieComponent implements OnInit {
 
     onSubmitForm() {
         this.loading = true;
-        console.log(this.companyForm.value);
+        this.loadingService.setLoading(true);
         this.compagniesService.storeCompany(this.companyForm.value).subscribe(
             (response) => {
                 this.companyForm.reset();
-                this.router.navigateByUrl('compagnies/compagnielist');
+                this.router.navigate(['compagnies', 'compagnielist'], {
+                    replaceUrl: true,
+                });
+                this.loadingService.setLoading(false);
             },
             (error) => {
                 console.error(
@@ -105,12 +116,16 @@ export class AddCompagnieComponent implements OnInit {
 
     onUpdateForm(companyId: number) {
         this.loading = true;
+        this.loadingService.setLoading(true);
         this.compagniesService
             .updateCompany(companyId, this.companyForm.value)
             .subscribe(
                 (response) => {
                     this.companyForm.reset();
-                    this.router.navigateByUrl('compagnies/compagnielist');
+                    this.router.navigate(['compagnies', 'compagnielist'], {
+                        replaceUrl: true,
+                    });
+                    this.loadingService.setLoading(false);
                 },
                 (error) => {
                     console.error(
@@ -122,8 +137,8 @@ export class AddCompagnieComponent implements OnInit {
     }
 
     showDetails(ssId) {
-        this.router.navigateByUrl(
-            `service_station/showservice_station/${ssId}`
-        );
+        this.router.navigate(['service_station', 'showservice_station', ssId], {
+            replaceUrl: true,
+        });
     }
 }

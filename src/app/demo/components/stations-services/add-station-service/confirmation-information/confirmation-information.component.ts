@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input,Output, EventEmitter} from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServicesStationsService } from 'src/app/demo/service/servicesStations.service';
@@ -9,7 +9,8 @@ import { ServicesStationsService } from 'src/app/demo/service/servicesStations.s
   styleUrl: './confirmation-information.component.scss'
 })
 export class ConfirmationInformationComponent {
-
+    @Input() isLoading: boolean;
+    @Output() isLoadingChange = new EventEmitter<boolean>()
     stationServiceInformation:any
     loading: boolean = false;
 
@@ -31,9 +32,10 @@ export class ConfirmationInformationComponent {
     valider(){
 
         this.loading = true
+        this.isLoadingChange.emit(true)
         this.servicesStationsService.storeServicestation(this.stationServiceInformation).subscribe(
             (response) => {
-
+                this.isLoadingChange.emit(false)
                 this.router.navigateByUrl('/service_station/service_servicelist');
             },
             (error) => {

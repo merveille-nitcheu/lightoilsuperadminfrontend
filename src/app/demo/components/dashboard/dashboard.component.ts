@@ -7,7 +7,7 @@ import { CompagniesService } from '../../service/compagnies.service';
 
 @Component({
     templateUrl: './dashboard.component.html',
-    styleUrl: './dashboard.component.css',
+    styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
     allCompagnies: Compagnie[]= [];

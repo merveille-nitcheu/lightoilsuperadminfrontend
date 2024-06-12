@@ -1,4 +1,4 @@
-<div class="stepsdemo-content">
+<div class="stepsdemo-content" *ngIf="!(isLoading$ | async)">
     <p-fieldset legend="Liste des cuves">
 
         <p-card>
@@ -115,3 +115,5 @@
         </ng-template>
     </p-confirmPopup>
 </div>
+
+<app-loading [isLoading$]="isLoading$"></app-loading>

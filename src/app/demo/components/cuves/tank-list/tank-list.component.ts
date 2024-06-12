@@ -2,26 +2,35 @@ import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { TankService } from 'src/app/demo/service/tank.service';
 import { Router } from '@angular/router';
-import { ConfirmationService} from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { Tank } from 'src/app/demo/models/model';
 import { Menu } from 'primeng/menu';
-
+import { LoadingService } from 'src/app/demo/service/loading.service';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-tank-list',
-  templateUrl: './tank-list.component.html',
-  styleUrl: './tank-list.component.scss'
+    selector: 'app-tank-list',
+    templateUrl: './tank-list.component.html',
+    styleUrl: './tank-list.component.scss',
 })
 export class TankListComponent {
-     menu: Menu;
+    menu: Menu;
     tanks: Tank[] = [];
-    field:any
+    field: any;
 
     selectedtank!: Tank;
     items: MenuItem[] | undefined;
-    globalFilterFields:any
+    globalFilterFields: any;
+    isLoading$: Observable<boolean>;
 
-    constructor(private tankService:TankService,private router:Router,private confirmationService: ConfirmationService,){}
+    constructor(
+        private tankService: TankService,
+        private router: Router,
+        private confirmationService: ConfirmationService,
+        private loadingService: LoadingService
+    ) {
+        this.isLoading$ = this.loadingService.isLoading$;
+    }
     ngOnInit() {
         this.tankService.getAllTank().subscribe((data) => {
             this.tanks = data['data'];
@@ -31,51 +40,46 @@ export class TankListComponent {
                 label: 'Type de sonde',
 
                 command: () => {
-                    this.onMenuSelect('Filter1')
+                    this.onMenuSelect('Filter1');
                     this.menu.hide();
-                }
+                },
             },
             {
                 label: 'Station service',
 
                 command: () => {
-                    this.onMenuSelect('Filter2')
+                    this.onMenuSelect('Filter2');
                     this.menu.hide();
-                }
+                },
             },
             {
                 label: 'Produit',
 
                 command: () => {
-                    this.onMenuSelect('Filter3')
+                    this.onMenuSelect('Filter3');
                     this.menu.hide();
-                }
+                },
             },
             {
                 label: 'Entreprise',
                 command: () => {
-                    this.onMenuSelect('Filter4')
+                    this.onMenuSelect('Filter4');
                     this.menu.hide();
-                }
+                },
             },
         ];
 
         this.globalFilterFields = 'sensor_reference';
-
-
-
-
     }
 
     onMenuSelect(label: any) {
-
-
         switch (label) {
             case 'Filter1':
                 this.globalFilterFields = 'jauge';
                 break;
             case 'Filter2':
-                this.globalFilterFields = 'stationProduct.name_stationservice.name';
+                this.globalFilterFields =
+                    'stationProduct.name_stationservice.name';
                 break;
             case 'Filter3':
                 this.globalFilterFields = 'stationProduct.nameproduct.name';
@@ -88,11 +92,11 @@ export class TankListComponent {
         }
     }
 
-
     Details(tankId: any) {
-        this.router.navigateByUrl(`cuves/showtank/${tankId}`);
+        this.router.navigate(['cuves', 'showtank', tankId], {
+            replaceUrl: true,
+        });
     }
-
 
     deleteSelectedTank(tankId: any) {
         this.confirmationService.confirm({
@@ -103,21 +107,22 @@ export class TankListComponent {
             rejectButtonStyleClass: 'p-button-danger p-button-sm',
             acceptButtonStyleClass: 'p-button-outlined p-button-sm',
             accept: () => {
+                this.loadingService.setLoading(true);
                 this.tankService.deleteTank(tankId).subscribe(
                     (response) => {
-                        window.location.reload();
+                        this.ngOnInit();
+                        this.loadingService.setLoading(false);
                         console.error('suppression de la cuve', response);
                     },
                     (error) => {
-                      console.error('Erreur lors de la suppression de la cuve', error);
+                        console.error(
+                            'Erreur lors de la suppression de la cuve',
+                            error
+                        );
                     }
-                  );
-
+                );
             },
-            reject: () => {
-
-            }
+            reject: () => {},
         });
     }
-
 }

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Product, Tank } from 'src/app/demo/models/model';
 import { TankService } from 'src/app/demo/service/tank.service';
+import { LoadingService } from 'src/app/demo/service/loading.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-show-tank',
@@ -27,14 +28,18 @@ export class ShowTankComponent {
     selectedChipIndex: any;
     dataType: any;
     visible: boolean = false;
+    isLoading$: Observable<boolean>;
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private tankService: TankService,
+        private loadingService: LoadingService,
+        private formBuilder: FormBuilder,
 
-        private formBuilder: FormBuilder
-    ) {}
+    ) {
+        this.isLoading$ = this.loadingService.isLoading$;
+    }
 
     ngOnInit() {
         let tankId = this.route.snapshot.params['tankId'];
@@ -102,10 +107,13 @@ export class ShowTankComponent {
 
     onUpdateForm(tankId: number) {
         this.loading = true;
+        this.loadingService.setLoading(true);
         this.tankService.updateTank(tankId, this.tankForm.value).subscribe(
             (response) => {
                 this.tankForm.reset();
-                window.location.reload();
+                this.ngOnInit();
+                this.loading = false;
+                  this.loadingService.setLoading(false);
             },
             (error) => {
                 console.error('Erreur lors de la mise à jour du tank', error);

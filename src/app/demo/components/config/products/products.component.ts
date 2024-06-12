@@ -3,6 +3,8 @@ import { ProductService } from '../../../service/product.service';
 import { Product } from 'src/app/demo/models/model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoadingService } from 'src/app/demo/service/loading.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-products',
@@ -17,12 +19,16 @@ export class ProductsComponent {
     filteredproduct!: any;
     nbstationService!: any | undefined;
     datastationService!: any;
+    isLoading$: Observable<boolean>;
 
     constructor(
         private productService: ProductService,
         private formBuilder: FormBuilder,
-        private router:Router
-    ) {}
+        private router:Router,
+        private loadingService: LoadingService
+    ) {
+        this.isLoading$ = this.loadingService.isLoading$;
+    }
 
     ngOnInit(): void {
         this.productService.getAllproduct().subscribe((data) => {
@@ -37,11 +43,14 @@ export class ProductsComponent {
 
     onSubmitForm() {
         this.loading = true;
+        this.loadingService.setLoading(true);
         this.productService.storeProduct(this.productForm.value).subscribe(
             (response) => {
                 this.productForm.reset();
 
-                window.location.reload();
+                this.ngOnInit();
+                this.loading = false;
+                  this.loadingService.setLoading(false);
             },
             (error) => {
                 console.error(
@@ -54,12 +63,15 @@ export class ProductsComponent {
 
     onUpdateForm(productId: number) {
         this.loading = true;
+        this.loadingService.setLoading(true);
         this.productService
             .updateProduct(productId, this.productForm.value)
             .subscribe(
                 (response) => {
                     this.productForm.reset();
-                    window.location.reload();
+                    this.ngOnInit();
+                    this.loading = false;
+                      this.loadingService.setLoading(false);
                 },
                 (error) => {
                     console.error(
@@ -71,9 +83,11 @@ export class ProductsComponent {
     }
 
     deleteProduct(productId: number) {
+        this.loadingService.setLoading(true);
         this.productService.deleteProduct(productId).subscribe(
             (response) => {
-                window.location.reload();
+                this.ngOnInit();
+                this.loadingService.setLoading(false);
             },
             (error) => {
                 console.error(
@@ -101,6 +115,7 @@ export class ProductsComponent {
     }
 
     showDetails(ssId){
-        this.router.navigateByUrl(`service_station/showservice_station/${ssId}`);
+        this.router.navigate(['service_station', 'showservice_station',ssId], { replaceUrl: true });
+
     }
 }

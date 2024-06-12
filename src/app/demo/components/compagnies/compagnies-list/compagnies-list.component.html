@@ -1,4 +1,4 @@
-<div class="stepsdemo-content">
+<div class="stepsdemo-content" *ngIf="!(isLoading$ | async)">
     <p-fieldset legend="Liste des entreprises">
         <p-card>
             <p-table
@@ -112,15 +112,14 @@
                             ></p-tableCheckbox>
                         </td>
                         <td style="width: 15%; white-space: nowrap">
-
-                            <span class="image-text ">{{
+                            <span class="image-text">{{
                                 allCompagnie.name
                             }}</span>
                         </td>
                         <td style="width: 15%">
                             {{ allCompagnie.address }}
                         </td>
-                        <td style="width: 10%">{{ (allCompagnie.phone) }}</td>
+                        <td style="width: 10%">{{ allCompagnie.phone }}</td>
                         <td style="width: 20%">
                             <span>{{ allCompagnie.email }}</span>
                         </td>
@@ -169,3 +168,5 @@
         </ng-template>
     </p-confirmPopup>
 </div>
+
+<app-loading [isLoading$]="isLoading$"></app-loading>

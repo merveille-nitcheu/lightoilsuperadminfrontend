@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Jauge } from 'src/app/demo/models/model';
 import { JaugeService } from 'src/app/demo/service/jauge.service';
+import { LoadingService } from 'src/app/demo/service/loading.service';
 
 @Component({
     selector: 'app-jauge',
@@ -18,12 +20,16 @@ export class JaugeComponent {
     filteredJauge: any;
     stationCount = 0;
     stations = [];
+    isLoading$: Observable<boolean>;
 
     constructor(
         private jaugeService: JaugeService,
         private formBuilder: FormBuilder,
-        private router: Router
-    ) {}
+        private router: Router,
+        private loadingService: LoadingService
+    ) {
+        this.isLoading$ = this.loadingService.isLoading$;
+    }
 
     ngOnInit(): void {
         this.jaugeService.getAlljauge().subscribe((data) => {
@@ -38,12 +44,14 @@ export class JaugeComponent {
 
     onSubmitForm() {
         this.loading = true;
-
+        this.loadingService.setLoading(true);
         this.jaugeService.storeJauge(this.jaugeForm.value).subscribe(
             (response) => {
                 this.jaugeForm.reset();
 
-                window.location.reload();
+                this.ngOnInit();
+                this.loading = false;
+                  this.loadingService.setLoading(false);
             },
             (error) => {
                 console.error(
@@ -56,11 +64,13 @@ export class JaugeComponent {
 
     onUpdateForm(jaugeId: number) {
         this.loading = true;
-
+        this.loadingService.setLoading(true);
         this.jaugeService.updateJauge(jaugeId, this.jaugeForm.value).subscribe(
             (response) => {
                 this.jaugeForm.reset();
-                window.location.reload();
+                this.ngOnInit();
+                this.loading = false;
+                  this.loadingService.setLoading(false);
             },
             (error) => {
                 console.error(
@@ -72,9 +82,11 @@ export class JaugeComponent {
     }
 
     deleteJauge(jaugeId: number) {
+        this.loadingService.setLoading(true);
         this.jaugeService.deleteJauge(jaugeId).subscribe(
             (response) => {
-                window.location.reload();
+                this.ngOnInit();
+                this.loadingService.setLoading(false);
             },
             (error) => {
                 console.error(
@@ -119,8 +131,6 @@ export class JaugeComponent {
     }
 
     showDetails(ssId) {
-        this.router.navigateByUrl(
-            `service_station/showservice_station/${ssId}`
-        );
+        this.router.navigate(['service_station', 'showservice_station',ssId], { replaceUrl: true });
     }
 }
