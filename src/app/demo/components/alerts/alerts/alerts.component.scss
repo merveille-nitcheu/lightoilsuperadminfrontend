@@ -5,11 +5,14 @@
 }
 
 ::ng-deep  .p-card .p-card-content {
-    padding: 0;
+    padding-block: 0.2rem;
+    padding-inline: 0;
 }
 
 ::ng-deep  .alertClass {
-    height: 1.8rem;
+    padding-right: 0.8rem;
+    padding-left: 0.8rem;
+    height: 1.5rem;
 }
 ::ng-deep .p-badge{
     width: 1rem !important;

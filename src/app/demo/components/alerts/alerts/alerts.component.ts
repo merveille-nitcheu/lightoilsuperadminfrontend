@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AlertService } from '../../../service/alerts.service';
 
 @Component({
   selector: 'app-alerts',
@@ -9,14 +10,21 @@ export class AlertsComponent {
 
     private notificationSound: HTMLAudioElement;
 
-    constructor() {
+    getInactiveTanks:any
+
+    constructor( private AlertService: AlertService,) {
         this.notificationSound = new Audio('assets/sounds/Cavalerie.mp3');
       }
 
 
       ngOnInit(): void {
-        this.notificationSound.play().catch((error) => {
-            console.error('Erreur lors de la lecture du son:', error);
-          });
+
+        this.AlertService.getInactiveTanks().subscribe((data) => {
+            this.getInactiveTanks = data['inactiveTanks'];
+            this.notificationSound.play().catch((error) => {
+                console.error('Erreur lors de la lecture du son:', error);
+              });
+        });
+
     }
 }

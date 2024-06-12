@@ -1,49 +1,58 @@
 <div class="stepsdemo-content">
     <p-fieldset legend="Les Alertes">
-        <p-card>
-            <div class="flex">
-                <div
-                    class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                >
-                    Tank
-                </div>
-                <div
-                    class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                >
-                    Produit
-                </div>
-                <div
-                    class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                >
-                    Diametre
-                </div>
-                <div
-                    class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                >
-                    Station
-                </div>
-                <div
-                    class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                >
-                    Entreprise
-                </div>
-                <div
-                    class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                >
-                    Date
-                </div>
-                <div
-                class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-            >
-                Diagnostic
-            </div>
-                <div
+        <div >
+            <!-- *ngFor="let tank of getInactiveTanks" -->
+
+            <p-card>
+                <div class="flex">
+                    <div
+                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
+                    >
+                        tank?.sensor_reference
+                    </div>
+                    <div
+                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
+                    >
+                    tank?.stationProduct.nameproduct
+                    </div>
+                    <div
+                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
+                    >
+                    tank?.diameter
+                    </div>
+                    <div
+                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
+                    >
+                    tank?.stationProduct.name_stationservice
+                    </div>
+                    <div
+                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
+                    >
+                    tank?.stationProduct.name_entreprise
+                    </div>
+                    <div
+                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
+                    >
+                    <p-badge  severity="danger" />
+                        Inactif
+                    </div>
+                    <div
+                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
+                    >
+                    Depuis tank?.created_at
+
+                    </div>
+                    <div
                     class="alertClass flex-auto flex align-items-center justify-content-center"
                 >
-                <p-badge  severity="success" />
-                    Status
+                tank?.pub_reference
                 </div>
-            </div>
-        </p-card>
+
+                </div>
+            </p-card>
+
+        </div>
+
+
     </p-fieldset>
 </div>
