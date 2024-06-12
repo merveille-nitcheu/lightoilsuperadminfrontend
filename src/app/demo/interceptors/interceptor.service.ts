@@ -10,14 +10,14 @@ export class InterceptorService implements HttpInterceptor {
   constructor(private cookieService: CookieService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token: string = this.cookieService.get('token');
+    const user: any = this.cookieService.get('User');
     let authRequest = request;
 
-    if (token != null && token.length > 0) {
-      const authToken = JSON.parse(token);
+    if (user != null && user.length > 0) {
+      const userConnected = JSON.parse(user);
       authRequest = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${authToken}`
+          Authorization: `Bearer ${userConnected.id}`
         }
       });
     }

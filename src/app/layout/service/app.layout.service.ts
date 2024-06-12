@@ -32,6 +32,7 @@ export class LayoutService {
         theme: 'saga-blue',
         scale: 14,
     };
+    user:any
 
     config = signal<AppConfig>(this._config);
     constructor(private cookieService: CookieService) { }
@@ -117,13 +118,14 @@ export class LayoutService {
     ];
 
     getUserConnected() {
-        let user = ''
+        let userConnected = ''
         if (this.cookieService.check('User')) {
-           const user: string = this.cookieService.get('User');
-        return user;
+           userConnected = this.cookieService.get('User');
+           this.user = JSON.parse(userConnected)
+        return this.user;
         }
 
-        return user
+        return this.user
 
 
     }
