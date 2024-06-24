@@ -1,58 +1,159 @@
 <div class="stepsdemo-content">
     <p-fieldset legend="Les Alertes">
-        <div >
-            <!-- *ngFor="let tank of getInactiveTanks" -->
+        <p-card>
 
-            <p-card>
-                <div class="flex">
-                    <div
-                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                    >
-                        tank?.sensor_reference
-                    </div>
-                    <div
-                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                    >
-                    tank?.stationProduct.nameproduct
-                    </div>
-                    <div
-                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                    >
-                    tank?.diameter
-                    </div>
-                    <div
-                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                    >
-                    tank?.stationProduct.name_stationservice
-                    </div>
-                    <div
-                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                    >
-                    tank?.stationProduct.name_entreprise
-                    </div>
-                    <div
-                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                    >
-                    <p-badge  severity="danger" />
-                        Inactif
-                    </div>
-                    <div
-                        class="alertClass flex-auto flex align-items-center justify-content-center border-right-1 border-blue-300"
-                    >
-                    Depuis tank?.created_at
-
-                    </div>
-                    <div
-                    class="alertClass flex-auto flex align-items-center justify-content-center"
+            <p-table
+            [value]="getInactiveTanks"
+            dataKey="id"
+            [rows]="10"
+            [paginator]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [expandedRowKeys]="expandedRows"
+            [globalFilterFields]="[globalFilterFields]"
+        >
+            <ng-template pTemplate="caption">
+                <div
+                    class="flex justify-content-between flex-column sm:flex-row"
                 >
-                tank?.pub_reference
+                    <div class="flex justify-content-between">
+                        <p-button
+                            label="Agrandir"
+                            icon="pi pi-plus"
+                            severity="help"
+                            [text]="true"
+                            [raised]="true"
+                            text
+                            (onClick)="expandAll()"
+                        ></p-button>
+
+                        <p-button
+                            label="Réduire"
+                            class="ml-4"
+                            icon="pi pi-minus"
+                            severity="help"
+                            [text]="true"
+                            [raised]="true"
+                            text
+                            (onClick)="collapseAll()"
+                        ></p-button>
+                    </div>
+
+                    <span class="p-input-icon-right mt-3 sm:mt-0">
+                        <i
+                            class="pi pi-align-justify mr-2"
+                            (mouseenter)="menu.toggle($event)"
+                            (click)="menu.toggle($event)"
+                        ></i>
+                        <input
+                            pInputText
+                            type="text"
+                            #filter
+                            placeholder="filtrer par ... "
+                            class="w-full"
+                            (input)="
+                                dt.filterGlobal($event.target.value, 'contains')
+                            "
+                        />
+                        <p-menu
+                            #menu
+                            [model]="items"
+                            [popup]="true"
+                            (click)="menu.hide()"
+                        />
+                    </span>
                 </div>
+            </ng-template>
 
-                </div>
-            </p-card>
+            <ng-template
+                pTemplate="body"
+                let-inactivetank
+                let-expanded="expanded"
+            >
+                <tr>
+                    <div
+                        class="alertClass flex justify-content-between text-lg"
+                    >
+                        <td class="chevron">
+                            <p-button
+                                type="button"
+                                pRipple
+                                [pRowToggler]="inactivetank"
+                                [text]="true"
+                                [rounded]="true"
+                                [plain]="true"
+                                [icon]="
+                                    expanded
+                                        ? 'pi pi-chevron-down'
+                                        : 'pi pi-chevron-right'
+                                "
+                            />
+                        </td>
+                        <td>{{ inactivetank?.sensor_reference }}</td>
 
-        </div>
+                        <td>
+                            {{ inactivetank?.stationProduct.nameproduct.name }}
+                        </td>
+                        <td>{{ inactivetank?.diameter }}</td>
+                        <td><p-badge severity="danger" />Inactif</td>
+                    </div>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-inactivetank>
+                <tr>
+                    <td colspan="7">
+                        <div class="child">
+                            <p-table [value]="[inactivetank]" dataKey="id">
+                                <ng-template pTemplate="body" let-inactivetank>
+                                    <tr>
+                                        <div
+                                            class="alertClass flex justify-content-between text-lg"
+                                        >
+                                            <td>
+                                                {{
+                                                    inactivetank?.stationProduct
+                                                        .name_stationservice
+                                                        .name
+                                                }}
+                                            </td>
+                                            <td>
+                                                {{
+                                                    inactivetank?.stationProduct
+                                                        .name_entreprise.name
+                                                }}
+                                            </td>
+                                            <td>
+                                                {{ inactivetank?.time_out }}
+                                            </td>
+                                            <td>
+                                                {{
+                                                    inactivetank?.pub_reference
+                                                }}
+                                            </td>
+                                        </div>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="6">
+                                            Aucune Cuve Inactive
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="6">
+                        <h5 class="align-items-center">Aucune Cuve Inactive</h5>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
 
+        </p-card>
 
     </p-fieldset>
 </div>

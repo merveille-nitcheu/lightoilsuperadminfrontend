@@ -1,6 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
+import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-topbar',
@@ -17,26 +19,44 @@ export class AppTopBarComponent {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService,private cookieService: CookieService) { }
 
 
     ngOnInit(): void {
-        this.items = this.layoutService.items_profil
+
+
+         this.items = [
+            {
+                label: 'Profil',
+                icon: 'pi pi-user',
+                routerLink: 'personal'
+            },
+            {
+                label: 'Deconnexion',
+                icon: 'pi pi-sign-out',
+                command: () => {
+                    this.disconnectUser();
+                }
+
+            },
+
+        ];
         this.user = this.layoutService.getUserConnected();
 
 
 
     }
 
-    getInitials(fullName: string): string {
-        if (this.user) {
+    disconnectUser(){
+        console.log('222')
+        this.cookieService.deleteAll();
+        localStorage.clear();
+        window.location.href = environment.authUrl;
+        //this.router.navigateByUrl(environment.authUrl);
+    }
 
-          return fullName.charAt(0);
-        } else {
-            return 'MN'
-        }
 
-      }
+
 
 
 

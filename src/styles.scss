@@ -64,6 +64,10 @@ body {
     &:focus {
         box-shadow: none;
     }
+
+    &:hover {
+        background-color: transparent;
+    }
 }
 
 .field > label{
@@ -104,16 +108,18 @@ body {
     padding: 0.5rem 1rem;
 }
 
- .p-menu.p-menu-overlay {
+::ng-deep .p-menu.p-menu-overlay {
     width: 14rem;
     top: 2.5rem !important;
     left: 0rem !important;
 }
 
-.p-menu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover {
+::ng-deep .p-menu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover {
     color: #495057;
     background: #b9d9fa;
 }
+
+
 
 
 

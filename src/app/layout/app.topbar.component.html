@@ -37,13 +37,15 @@
         <span>Suggestions</span>
     </button>
     <button class="p-link layout-topbar-button border-gray-300 border-right-1 border-noround">
-        <i class="pi pi-bell text-3xl" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger" style="color: red"></i>
+        <i class="pi pi-bell text-3xl" ></i>
+
+
 
         <span>Alerts</span>
     </button>
     <p-menu #menu [model]="items" [popup]="true"></p-menu>
-    <div class="flex flex-row" (click)="menu.toggle($event)">
-        <p-avatar [label]="getInitials(user.user_name)" size="large" class="mx-3 mt-1" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" ></p-avatar>
+    <div class="flex flex-row" (click)="menu.toggle($event)"  (mouseenter)="menu.toggle($event)">
+        <p-avatar   icon="pi pi-user"  size="large" class="mx-3 mt-1" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" ></p-avatar>
         <span class="text-lg flex flex-column">
             <span class="text-base capitalize"> {{ user ? user.user_name : 'Merveille Nitcheu' }}</span>
             <span class="text-sm mt-1">{{ user ? user.email : 'Web developper' }}</span>

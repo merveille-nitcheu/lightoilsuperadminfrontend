@@ -10,6 +10,9 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { DashboardsRoutingModule } from './dashboard-routing.module';
 import { TooltipModule } from 'primeng/tooltip';
+import { BadgeModule } from 'primeng/badge';
+import { TabViewModule } from 'primeng/tabview';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
     imports: [
@@ -22,7 +25,10 @@ import { TooltipModule } from 'primeng/tooltip';
         PanelMenuModule,
         ButtonModule,
         DashboardsRoutingModule,
-        TooltipModule
+        TooltipModule,
+        BadgeModule,
+        TabViewModule,
+        TagModule
     ],
     declarations: [DashboardComponent]
 })

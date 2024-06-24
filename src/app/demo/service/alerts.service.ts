@@ -10,9 +10,9 @@ export class AlertService {
 
     constructor(private http: HttpClient) {}
 
-    getInactiveTanks() {
-        return this.http.get<any[]>(environment.apiUrl + '/alerts/getInactiveTanks');
-    }
+    // getInactiveTanks() {
+    //     return this.http.get<any[]>(environment.apiUrl + '/alerts/getInactiveTanks');
+    // }
 
 
 

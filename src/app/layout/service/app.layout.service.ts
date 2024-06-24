@@ -103,19 +103,7 @@ export class LayoutService {
         this.configUpdate.next(this.config());
     }
 
-    items_profil = [
-        {
-            label: 'Profil',
-            icon: 'pi pi-user',
-            routerLink: 'personal'
-        },
-        {
-            label: 'Deconnexion',
-            icon: 'pi pi-sign-out',
-            routerLink: 'seat'
-        },
 
-    ];
 
     getUserConnected() {
         let userConnected = ''

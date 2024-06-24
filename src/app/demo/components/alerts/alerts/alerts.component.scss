@@ -1,18 +1,27 @@
-::ng-deep .p-card {
+::ng-deep .alertClass{
     border-radius: 0.3rem !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    border: 1px solid #ccc;
+    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    // border: 1px solid #ccc;
+    // margin-bottom: 1rem;
+    // height: 3rem;
+    // background-color: white;
+    // padding-inline: 1.5rem;
+    // padding-top: 0.5rem;
+
 }
 
-::ng-deep  .p-card .p-card-content {
-    padding-block: 0.2rem;
-    padding-inline: 0;
-}
+// ::ng-deep .child{
+//  margin-top: -1.4rem !important;
+//  margin-inline: 1rem;
 
-::ng-deep  .alertClass {
-    padding-right: 0.8rem;
-    padding-left: 0.8rem;
-    height: 1.5rem;
+// }
+
+// // ::ng-deep  .p-button{
+// //     background: rgb(240, 13, 13);
+// // }
+
+::ng-deep .chevron{
+    margin-right: -17rem;
 }
 ::ng-deep .p-badge{
     width: 1rem !important;
@@ -21,6 +30,34 @@
     margin-right: 7px;
     min-width: 0;
 }
+
+
+:host ::ng-deep .p-menu.p-menu-overlay {
+    width: 14rem;
+    top: 2.5rem !important;
+    left: 0rem !important;
+}
+
+
+
+:host ::ng-deep .pi.pi-chevron-right,
+:host ::ng-deep .pi.pi-chevron-down{
+    width: 1rem;
+    height: 1rem;
+    margin-top: -0.6rem;
+
+    &:hover {
+        background-color: transparent;
+    }
+  }
+
+
+
+
+// :host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+
+//     background-color: transparent;
+//   }
 
 
 

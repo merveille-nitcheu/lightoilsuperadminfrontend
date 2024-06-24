@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
     providers: [MessageService, ConfirmationService],
 })
 export class CompagniesListComponent {
-    allCompagnies: Compagnie[] = [];
+    allCompagnies:any;
 
     selectedCompanies: Compagnie[] = [];
     isLoading$: Observable<boolean>;
@@ -30,8 +30,24 @@ export class CompagniesListComponent {
     ngOnInit(): void {
         this.compagniesService.getAllCompany().subscribe((data) => {
             this.allCompagnies = data['data'];
+            if (this.allCompagnies) {
+                console.log(this.allCompagnies.map(company => company.servicestations));
+              } else {
+                console.log('Aucune compagnie trouvée');
+              }
+
         });
+
+
+
+
+
+
     }
+
+
+
+
 
     Details(companyId: any) {
         this.router.navigate(['compagnies', 'addcompagnie', companyId], {
