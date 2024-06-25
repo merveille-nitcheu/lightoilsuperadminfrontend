@@ -64,3 +64,40 @@
     padding: 0 0.5rem 0 0.5rem;
 }
 
+
+
+::ng-deep .p-datepicker table td > span {
+    font-size: small;
+    width: 1.3rem;
+    height: 1.3rem;
+}
+::ng-deep .p-datepicker table th > span {
+    font-size: small;
+    font-weight: lighter;
+}
+
+::ng-deep .p-calendar .p-inputtext {
+    flex: 1 1 auto;
+    width: 20rem;
+}
+
+::ng-deep
+    .p-datepicker
+    .p-datepicker-header
+    .p-datepicker-title
+    .p-datepicker-month,
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year {
+    font-size: small;
+    font-weight: lighter;
+}
+
+
+:host ::ng-deep .p-button.p-button-icon-only.p-button-rounded {
+    padding: 0.5rem 0.2rem !important;
+    width: auto !important;
+}
+
+:host ::ng-deep .inputedit {
+    height: 2rem !important;
+    width: 10rem !important;
+}

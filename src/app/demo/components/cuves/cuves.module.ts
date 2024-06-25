@@ -18,11 +18,13 @@ import { AddTankComponent } from './add-tank/add-tank.component';
 import { TankListComponent } from './tank-list/tank-list.component';
 import { ChipsModule } from 'primeng/chips';
 import { ShowTankComponent } from './show-tank/show-tank.component';
+import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { SplitterModule } from 'primeng/splitter';
 import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { LoadingModule } from '../loading/loading.module';
+
 
 
 
@@ -51,7 +53,9 @@ import { LoadingModule } from '../loading/loading.module';
     FormsModule,
     DialogModule,
     FileUploadModule,
-    LoadingModule
+    LoadingModule,
+    CalendarModule,
+
   ]
 })
 export class CuvesModule { }

@@ -17,7 +17,7 @@
                                 id="name"
                                 type="text"
                                 [(ngModel)]="
-                                    tankData.stationProduct.name_stationservice
+                                    tankData?.stationProduct?.name_stationservice
                                         .name
                                 "
                                 [disabled]="true"
@@ -225,150 +225,309 @@
             <div class="field col-12 md:col-12 -mt-4">
                 <p-tabView>
                     <p-tabPanel header="Informations de la Record">
-                        <p-splitter
-                            [style]="{ height: '300px' }"
-                            styleClass="mt-4"
+                        <p-table
+                            [value]="records"
+                            dataKey="id"
+                            editMode="row"
+                            styleClass="p-datatable-striped"
+                            [tableStyle]="{ 'min-width': '50rem' }"
+                            [rows]="10"
+                            [rowsPerPageOptions]="[10, 25, 50]"
+                            [loading]="loading"
+                            [paginator]="true"
                         >
-                            <ng-template pTemplate>
-                                <div class="tabs">
-                                    <div
-                                        class="field flex flex-row justify-content-between mx-4 mb-3"
-                                    >
-                                        <div class="mr-5">
-                                            <b for="class">Battery Level </b>
-                                        </div>
-
-                                        <label class="text-lg"
-                                            >{{ record?.battery_level }}
-                                        </label>
+                            <ng-template pTemplate="caption">
+                                <div
+                                    class="flex justify-content-between flex-column sm:flex-row mb-2"
+                                >
+                                    <div class="flex justify-content-start">
+                                        <span class="p-float-label -ml-3">
+                                            <p-calendar
+                                                [(ngModel)]="rangeDates"
+                                                selectionMode="range"
+                                                [readonlyInput]="true"
+                                                [iconDisplay]="'input'"
+                                                [showIcon]="true"
+                                                inputId="icondisplay"
+                                                (onSelect)="filterRecords()"
+                                            />
+                                            <label for="float-input"
+                                                >Selectionnez la période</label
+                                            >
+                                        </span>
                                     </div>
 
-                                    <div
-                                        class="field flex flex-row justify-content-between mx-4 mb-3"
+                                    <!-- <span
+                                        class="p-input-icon-right mt-3 sm:mt-0"
                                     >
-                                        <div class="mr-5">
-                                            <b for="class"> Density </b>
-                                        </div>
-
-                                        <label class="text-lg">
-                                            {{ record?.density }}
-                                        </label>
-                                    </div>
-
-                                    <div
-                                        class="field flex flex-row justify-content-between mx-4 mb-3"
-                                    >
-                                        <div class="mr-5">
-                                            <b for="class" class=""
-                                                >Depotage
-                                            </b>
-                                        </div>
-
-                                        <label class="text-lg">
-                                            {{ record?.depotage }}
-                                        </label>
-                                    </div>
-
-                                    <div
-                                        class="field flex flex-row justify-content-between mx-4 mb-3"
-                                    >
-                                        <div class="mr-5">
-                                            <b for="class">Env_Temperature </b>
-                                        </div>
-
-                                        <label class="text-lg"
-                                            >{{ record?.env_temperature }}
-                                        </label>
-                                    </div>
-                                    <div
-                                        class="field flex flex-row justify-content-between mx-4 mb-3"
-                                    >
-                                        <div class="mr-5">
-                                            <b for="class">Total_Volume </b>
-                                        </div>
-
-                                        <label class="text-lg"
-                                            >{{ record?.total_volume }}
-                                        </label>
-                                    </div>
-                                    <div
-                                        class="field flex flex-row justify-content-between mx-4 mb-3"
-                                    >
-                                        <div class="mr-5">
-                                            <b for="class">Volume_at_fift </b>
-                                        </div>
-
-                                        <label class="text-lg"
-                                            >{{ record?.volume_at_fift }}
-                                        </label>
-                                    </div>
+                                        <i
+                                            class="pi pi-align-justify mr-2"
+                                            (mouseenter)="menu.toggle($event)"
+                                            (click)="menu.toggle($event)"
+                                        ></i>
+                                        <input
+                                            pInputText
+                                            type="text"
+                                            #filter
+                                            placeholder="filtrer par ... "
+                                            class="w-full"
+                                            (input)="
+                                                dt.filterGlobal(
+                                                    $event.target.value,
+                                                    'contains'
+                                                )
+                                            "
+                                        />
+                                        <p-menu
+                                            #menu
+                                            [model]="items"
+                                            [popup]="true"
+                                            (click)="menu.hide()"
+                                        />
+                                    </span> -->
                                 </div>
                             </ng-template>
-                            <ng-template pTemplate>
-                                <div class="tabs">
-                                    <div
-                                        class="field flex flex-row justify-content-between mx-4 mb-3"
-                                    >
-                                        <div class="mr-5">
-                                            <b for="class">Level </b>
-                                        </div>
-
-                                        <label class="text-lg"
-                                            >{{ record?.level }}
-                                        </label>
-                                    </div>
-
-                                    <div
-                                        class="field flex flex-row justify-content-between mx-4 mb-3"
-                                    >
-                                        <div class="mr-5">
-                                            <b for="class"> Liquid height </b>
-                                        </div>
-
-                                        <label class="text-lg">
-                                            {{ record?.liquid_height }}
-                                        </label>
-                                    </div>
-
-                                    <div
-                                        class="field flex flex-row justify-content-between mx-4 mb-3"
-                                    >
-                                        <div class="mr-5">
-                                            <b for="class" class=""
-                                                >Liquid Temperature
-                                            </b>
-                                        </div>
-
-                                        <label class="text-lg">
-                                            {{ record?.liquid_temperature }}
-                                        </label>
-                                    </div>
-
-                                    <div
-                                        class="field flex flex-row justify-content-between mx-4 mb-3"
-                                    >
-                                        <div class="mr-5">
-                                            <b for="class">Sensor_reference </b>
-                                        </div>
-
-                                        <label class="text-lg"
-                                            >{{ record?.sensor_reference }}
-                                        </label>
-                                    </div>
-                                    <div
-                                        class="field flex flex-row justify-content-between mx-4 mb-3"
-                                    >
-                                        <div class="mr-5">
-                                            <b for="class">Volume </b>
-                                        </div>
-
-                                        <label class="text-lg"
-                                            >{{ record?.volume }}
-                                        </label>
-                                    </div>
-                                </div>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width: 20%">battery_level</th>
+                                    <th style="width: 20%">Level</th>
+                                    <th style="width: 20%">density</th>
+                                    <th style="width: 20%">liquid_height</th>
+                                    <th style="width: 20%">
+                                        liquid_temperature
+                                    </th>
+                                    <th style="width: 20%">total_volume</th>
+                                    <th style="width: 20%">volume</th>
+                                    <th style="width: 20%">volume_at_fift</th>
+                                    <th style="width: 20%">Date</th>
+                                    <th style="width: 20%">Actions</th>
+                                </tr>
                             </ng-template>
-                        </p-splitter>
+
+                            <ng-template
+                                pTemplate="body"
+                                let-record
+                                let-editing="editing"
+                                let-ri="rowIndex"
+                            >
+                                <tr [pEditableRow]="record">
+                                    <td style="width: 15%" [pEditableColumn]="record.liquid_type" pEditableColumnField="liquid_type">
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input
+                                                    class="inputedit"
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="
+                                                        record.liquid_type
+                                                    "
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ record.liquid_type }}
+                                            </ng-template>
+                                        </p-cellEditor>
+
+                                    </td>
+                                    <td style="width: 15%">
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input
+                                                    class="inputedit"
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="
+                                                        record.liquid_type
+                                                    "
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ record.liquid_type }}
+                                            </ng-template>
+                                        </p-cellEditor>
+
+                                    </td>
+                                    <td style="width: 15%">
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input
+                                                    class="inputedit"
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="
+                                                        record.liquid_type
+                                                    "
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ record.liquid_type }}
+                                            </ng-template>
+                                        </p-cellEditor>
+
+                                    </td>
+                                    <td style="width: 15%">
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input
+                                                    class="inputedit"
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="
+                                                        record.liquid_type
+                                                    "
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ record.liquid_type }}
+                                            </ng-template>
+                                        </p-cellEditor>
+
+                                    </td>
+                                    <td style="width: 15%">
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input
+                                                    class="inputedit"
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="
+                                                        record.liquid_type
+                                                    "
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ record.liquid_type }}
+                                            </ng-template>
+                                        </p-cellEditor>
+
+                                    </td>
+                                    <td style="width: 15%">
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input
+                                                    class="inputedit"
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="
+                                                        record.liquid_type
+                                                    "
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ record.liquid_type }}
+                                            </ng-template>
+                                        </p-cellEditor>
+
+                                    </td>
+                                    <td style="width: 15%">
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input
+                                                    class="inputedit"
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="
+                                                        record.liquid_type
+                                                    "
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ record.liquid_type }}
+                                            </ng-template>
+                                        </p-cellEditor>
+
+                                    </td>
+                                    <td style="width: 15%">
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input
+                                                    class="inputedit"
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="
+                                                        record.liquid_type
+                                                    "
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ record.liquid_type }}
+                                            </ng-template>
+                                        </p-cellEditor>
+
+                                    </td>
+                                    <td style="width: 15%">
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input" >
+                                                <input
+                                                    class="inputedit"
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="
+                                                        record.liquid_type
+                                                    "
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ record.liquid_type }}
+                                            </ng-template>
+                                        </p-cellEditor>
+
+                                    </td>
+                                    <td
+                                        style="width: 15%"
+                                        class="justify-content-between"
+                                    >
+                                        <button
+                                            *ngIf="!editing"
+                                            pButton
+                                            pRipple
+                                            severity="success"
+                                            type="button"
+                                            pInitEditableRow
+                                            icon="pi pi-file-edit"
+                                            (click)="onRowEditInit(record)"
+                                            class="p-button-rounded p-button-text p-button-success "
+                                        ></button>
+                                        <button
+                                            *ngIf="editing"
+                                            pButton
+                                            pRipple
+                                            type="button"
+                                            pSaveEditableRow
+                                            icon="pi pi-check"
+                                            (click)="onRowEditSave(record)"
+                                            class="p-button-rounded p-button-text p-button-success "
+                                        ></button>
+                                        <button
+                                            *ngIf="editing"
+                                            pButton
+                                            pRipple
+                                            type="button"
+                                            pCancelEditableRow
+                                            icon="pi pi-times"
+                                            (click)="
+                                                onRowEditCancel(record, ri)
+                                            "
+                                            class="p-button-rounded p-button-text p-button-danger"
+                                        ></button>
+                                        <p-button
+                                        *ngIf="!editing"
+                                            icon="pi pi-trash"
+                                            pTooltip="supprimer"
+                                            tooltipPosition="bottom"
+                                            (click)="
+                                                deleteSelectedStationService(
+                                                    servicesStation.id
+                                                )
+                                            "
+                                            [rounded]="true"
+                                            [text]="true"
+                                            severity="danger"
+                                        ></p-button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
                     </p-tabPanel>
                     <p-tabPanel
                         header="Informations de la Raw datas"

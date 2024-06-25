@@ -134,7 +134,7 @@ export class DashboardComponent implements OnInit {
     getAllTanks(company: any): any[] {
         let tanks: any[] = [];
         for (let service_station of company.servicestations) {
-          tanks = [...tanks, ...service_station.products];
+          tanks = [...tanks, ...service_station.tanks];
         }
         return tanks;
       }

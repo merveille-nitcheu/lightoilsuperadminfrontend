@@ -18,7 +18,9 @@ export class ShowTankComponent {
     data_pressure: string[];
     data_temp: string[];
     data_level: string[];
-    record: any;
+    rangeDates: Date[];
+    records;
+    clonedRecords;
     tankForm: FormGroup;
     raw_datas: any;
     probe_sensors: any;
@@ -35,8 +37,7 @@ export class ShowTankComponent {
         private route: ActivatedRoute,
         private tankService: TankService,
         private loadingService: LoadingService,
-        private formBuilder: FormBuilder,
-
+        private formBuilder: FormBuilder
     ) {
         this.isLoading$ = this.loadingService.isLoading$;
     }
@@ -45,6 +46,7 @@ export class ShowTankComponent {
         let tankId = this.route.snapshot.params['tankId'];
         this.tankService.showTank(tankId).subscribe((data) => {
             this.tankData = data['data'];
+
 
             this.tankAdditionalData = data['additionaldata'];
             this.Level_active_depotage = parseFloat(
@@ -62,7 +64,7 @@ export class ShowTankComponent {
             this.data_pressure = this.tankData.correction_data.data_pressure
                 .split(';')
                 .filter((value) => value.trim() !== '');
-            this.record = this.tankAdditionalData.record;
+
             this.raw_datas = this.tankAdditionalData.raw_datas;
             this.probe_sensors = this.tankAdditionalData.probe_sensors;
 
@@ -77,6 +79,15 @@ export class ShowTankComponent {
                 data_pressure: [this.data_pressure],
             });
         });
+
+        this.tankService.getAllTank().subscribe((data) => {
+            this.records = data['data'];
+            console.log(this.records)
+
+        });
+
+
+
     }
 
     onChipClick(event: any, dataType: string) {
@@ -98,7 +109,6 @@ export class ShowTankComponent {
             dataControl.setValue(updatedValue);
             this.visible = false; // Fermer le modal
         }
-
     }
 
     onElementChange(): void {
@@ -113,11 +123,65 @@ export class ShowTankComponent {
                 this.tankForm.reset();
                 this.ngOnInit();
                 this.loading = false;
-                  this.loadingService.setLoading(false);
+                this.loadingService.setLoading(false);
             },
             (error) => {
                 console.error('Erreur lors de la mise à jour du tank', error);
             }
         );
     }
+
+    onRowEditInit(record: any) {
+        this.clonedRecords[record.id as string] = { ...record };
+    }
+
+    onRowEditSave(record) {
+        if (record.price > 0) {
+            delete this.clonedRecords[record.id as string];
+        } else {
+        }
+    }
+
+    onRowEditCancel(record, index: number) {
+        this.records[index] = this.clonedRecords[record.id as string];
+        delete this.clonedRecords[record.id as string];
+    }
+
+
+    filterRecords(){
+        if (this.rangeDates && this.rangeDates[1] == null ) {
+            this.records = this.records.filter(record => {
+                const recordDate = new Date(record.created_at).getTime();
+                const startDate = this.rangeDates[0].getTime();
+
+                return recordDate >= startDate;
+            });
+
+          } else if  (this.rangeDates && this.rangeDates.length === 2){
+
+            this.records = this.records.filter(record => {
+                console.log(new Date(record.created_at))
+                const recordDate = new Date(record.created_at).getTime();
+                const startDate = this.rangeDates[0].getTime();
+                const endDate = this.rangeDates[1].getTime();
+
+                return recordDate >= startDate && recordDate <= endDate;
+
+
+            });
+
+
+
+          }else{
+                // Réinitialiser les records si aucune plage de dates n'est sélectionnée
+            this.tankService.getAllTank().subscribe((data) => {
+                this.records = data['data'];
+              });
+          }
+
+
+        console.log(this.records)
+    }
+
+
 }
