@@ -31,7 +31,7 @@
                                 id="name"
                                 type="text"
                                 [(ngModel)]="
-                                    tankData.stationProduct.nameproduct.name
+                                    tankData?.stationProduct?.nameproduct.name
                                 "
                                 [disabled]="true"
                                 required
@@ -44,7 +44,7 @@
                                 id="name"
                                 type="text"
                                 [(ngModel)]="
-                                    tankData.stationProduct.name_stationservice
+                                    tankData?.stationProduct?.name_stationservice
                                         .city
                                 "
                                 [disabled]="true"
@@ -289,18 +289,18 @@
                             </ng-template>
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th style="width: 20%">battery_level</th>
-                                    <th style="width: 20%">Level</th>
-                                    <th style="width: 20%">density</th>
-                                    <th style="width: 20%">liquid_height</th>
-                                    <th style="width: 20%">
+                                    <th style="width: 5%">battery_level</th>
+                                    <th style="width: 11%">Level</th>
+                                    <th style="width: 11%">density</th>
+                                    <th style="width: 11%">liquid_height</th>
+                                    <th style="width: 5%">
                                         liquid_temperature
                                     </th>
-                                    <th style="width: 20%">total_volume</th>
-                                    <th style="width: 20%">volume</th>
-                                    <th style="width: 20%">volume_at_fift</th>
-                                    <th style="width: 20%">Date</th>
-                                    <th style="width: 20%">Actions</th>
+                                    <th style="width: 11%">total_volume</th>
+                                    <th style="width: 11%">volume</th>
+                                    <th style="width: 11%">volume_at_fift</th>
+                                    <th style="width: 15%">Date</th>
+                                    <th style="width: 15%">Actions</th>
                                 </tr>
                             </ng-template>
 
@@ -311,164 +311,172 @@
                                 let-ri="rowIndex"
                             >
                                 <tr [pEditableRow]="record">
-                                    <td style="width: 15%" [pEditableColumn]="record.liquid_type" pEditableColumnField="liquid_type">
+                                    <td>
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
                                                     class="inputedit"
                                                     pInputText
-                                                    type="text"
+                                                    type="number"
+                                                    name="battery_level"
                                                     [(ngModel)]="
-                                                        record.liquid_type
+                                                        record.battery_level
                                                     "
                                                 />
                                             </ng-template>
                                             <ng-template pTemplate="output">
-                                                {{ record.liquid_type }}
+                                                {{ record.battery_level }}
                                             </ng-template>
                                         </p-cellEditor>
 
                                     </td>
-                                    <td style="width: 15%">
+                                    <td >
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
                                                     class="inputedit"
                                                     pInputText
-                                                    type="text"
+                                                    name="level"
+                                                    type="number"
                                                     [(ngModel)]="
-                                                        record.liquid_type
+                                                        record.level
                                                     "
                                                 />
                                             </ng-template>
                                             <ng-template pTemplate="output">
-                                                {{ record.liquid_type }}
+                                                {{ record.level }}
                                             </ng-template>
                                         </p-cellEditor>
 
                                     </td>
-                                    <td style="width: 15%">
+                                    <td >
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
                                                     class="inputedit"
                                                     pInputText
-                                                    type="text"
+                                                    name="density"
+                                                    type="number"
                                                     [(ngModel)]="
-                                                        record.liquid_type
+                                                        record.density
                                                     "
                                                 />
                                             </ng-template>
                                             <ng-template pTemplate="output">
-                                                {{ record.liquid_type }}
+                                                {{ record.density }}
                                             </ng-template>
                                         </p-cellEditor>
 
                                     </td>
-                                    <td style="width: 15%">
+                                    <td >
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
                                                     class="inputedit"
                                                     pInputText
-                                                    type="text"
+                                                    type="number"
+                                                    name="liquid_height"
                                                     [(ngModel)]="
-                                                        record.liquid_type
+                                                        record.liquid_height
                                                     "
                                                 />
                                             </ng-template>
                                             <ng-template pTemplate="output">
-                                                {{ record.liquid_type }}
+                                                {{ record.liquid_height }}
                                             </ng-template>
                                         </p-cellEditor>
 
                                     </td>
-                                    <td style="width: 15%">
+                                    <td >
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
                                                     class="inputedit"
                                                     pInputText
-                                                    type="text"
+                                                    name="liquid_temperature"
+                                                    type="number"
                                                     [(ngModel)]="
-                                                        record.liquid_type
+                                                        record.liquid_temperature
                                                     "
                                                 />
                                             </ng-template>
                                             <ng-template pTemplate="output">
-                                                {{ record.liquid_type }}
+                                                {{ record.liquid_temperature }}
                                             </ng-template>
                                         </p-cellEditor>
 
                                     </td>
-                                    <td style="width: 15%">
+                                    <td >
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
                                                     class="inputedit"
                                                     pInputText
-                                                    type="text"
+                                                    name="total_volume"
+                                                    type="number"
                                                     [(ngModel)]="
-                                                        record.liquid_type
+                                                        record.total_volume
                                                     "
                                                 />
                                             </ng-template>
                                             <ng-template pTemplate="output">
-                                                {{ record.liquid_type }}
+                                                {{ record.total_volume }}
                                             </ng-template>
                                         </p-cellEditor>
 
                                     </td>
-                                    <td style="width: 15%">
+                                    <td >
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
                                                     class="inputedit"
                                                     pInputText
-                                                    type="text"
+                                                    type="number"
+                                                    name="volume"
                                                     [(ngModel)]="
-                                                        record.liquid_type
+                                                        record.volume
                                                     "
                                                 />
                                             </ng-template>
                                             <ng-template pTemplate="output">
-                                                {{ record.liquid_type }}
+                                                {{ record.volume }}
                                             </ng-template>
                                         </p-cellEditor>
 
                                     </td>
-                                    <td style="width: 15%">
+                                    <td >
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
                                                     class="inputedit"
                                                     pInputText
-                                                    type="text"
+                                                    type="number"
+                                                    name="volume_at_fift"
                                                     [(ngModel)]="
-                                                        record.liquid_type
+                                                        record.volume_at_fift
                                                     "
                                                 />
                                             </ng-template>
                                             <ng-template pTemplate="output">
-                                                {{ record.liquid_type }}
+                                                {{ record.volume_at_fift }}
                                             </ng-template>
                                         </p-cellEditor>
 
                                     </td>
-                                    <td style="width: 15%">
+                                    <td >
                                         <p-cellEditor>
-                                            <ng-template pTemplate="input" >
+                                            <!-- <ng-template pTemplate="input" >
                                                 <input
                                                     class="inputedit"
                                                     pInputText
-                                                    type="text"
-                                                    [(ngModel)]="
-                                                        record.liquid_type
-                                                    "
+                                                    type="number"
+                                                    name="created_at"
+                                                    [ngModel]=
+                                                    "getDate(record.created_at)"
                                                 />
-                                            </ng-template>
+                                            </ng-template> -->
                                             <ng-template pTemplate="output">
-                                                {{ record.liquid_type }}
+                                                {{ getDate(record.last_update) }}
                                             </ng-template>
                                         </p-cellEditor>
 
@@ -513,11 +521,9 @@
                                         <p-button
                                         *ngIf="!editing"
                                             icon="pi pi-trash"
-                                            pTooltip="supprimer"
-                                            tooltipPosition="bottom"
                                             (click)="
-                                                deleteSelectedStationService(
-                                                    servicesStation.id
+                                                deleteRecord(
+                                                    record.id
                                                 )
                                             "
                                             [rounded]="true"
@@ -525,6 +531,11 @@
                                             severity="danger"
                                         ></p-button>
                                     </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8">Aucune record enregistrée dans cette periode</td>
                                 </tr>
                             </ng-template>
                         </p-table>

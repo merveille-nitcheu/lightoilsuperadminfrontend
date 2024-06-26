@@ -14,6 +14,8 @@ export class TankService {
         return this.http.get<any[]>(environment.apiUrl + '/tank/getalltank');
     }
 
+
+
     storeTank(tankInfos: any) {
         return this.http.post<any[]>(
             environment.apiUrl + '/tank/storetank',
@@ -34,9 +36,22 @@ export class TankService {
         );
     }
 
+    saveRecord(idRecord: number, RecordInfos: any) {
+        return this.http.post<any[]>(
+            environment.apiUrl + '/tank/saverecord/' + idRecord,
+            RecordInfos
+        );
+    }
+
     deleteTank(tankId: number) {
         return this.http.delete<any[]>(
             environment.apiUrl + '/tank/destroytank/' + tankId
+        );
+    }
+
+    deleteRecord(idRecord: number) {
+        return this.http.delete<any[]>(
+            environment.apiUrl + '/tank/destroyrecord/' + idRecord
         );
     }
 }

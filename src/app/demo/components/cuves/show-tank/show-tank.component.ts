@@ -20,7 +20,7 @@ export class ShowTankComponent {
     data_level: string[];
     rangeDates: Date[];
     records;
-    clonedRecords;
+    clonedRecords: { [s: number]: any } = {};
     tankForm: FormGroup;
     raw_datas: any;
     probe_sensors: any;
@@ -46,7 +46,7 @@ export class ShowTankComponent {
         let tankId = this.route.snapshot.params['tankId'];
         this.tankService.showTank(tankId).subscribe((data) => {
             this.tankData = data['data'];
-
+            this.records = this.tankData.records;
 
             this.tankAdditionalData = data['additionaldata'];
             this.Level_active_depotage = parseFloat(
@@ -79,15 +79,6 @@ export class ShowTankComponent {
                 data_pressure: [this.data_pressure],
             });
         });
-
-        this.tankService.getAllTank().subscribe((data) => {
-            this.records = data['data'];
-            console.log(this.records)
-
-        });
-
-
-
     }
 
     onChipClick(event: any, dataType: string) {
@@ -111,6 +102,12 @@ export class ShowTankComponent {
         }
     }
 
+    getDate(recordDate) {
+        let newDate = new Date(recordDate);
+        newDate.setHours(newDate.getHours() + 1);
+        return newDate.toLocaleString();
+    }
+
     onElementChange(): void {
         this.isChanged = true;
     }
@@ -132,56 +129,82 @@ export class ShowTankComponent {
     }
 
     onRowEditInit(record: any) {
-        this.clonedRecords[record.id as string] = { ...record };
-    }
-
-    onRowEditSave(record) {
-        if (record.price > 0) {
-            delete this.clonedRecords[record.id as string];
-        } else {
+        if (record) {
+            this.clonedRecords[record.id] = { ...record };
         }
     }
 
-    onRowEditCancel(record, index: number) {
-        this.records[index] = this.clonedRecords[record.id as string];
-        delete this.clonedRecords[record.id as string];
+    onRowEditSave(record) {
+        delete this.clonedRecords[record.id];
+
+        const RecordData = {
+            battery_level: record.battery_level,
+            level: record.level,
+            density: record.density,
+            liquid_height: record.liquid_height,
+            liquid_temperature: record.liquid_temperature,
+            total_volume: record.total_volume,
+            volume: record.volume,
+            volume_at_fift: record.volume_at_fift,
+        };
+        console.log(RecordData);
+        this.loadingService.setLoading(true);
+        this.tankService.saveRecord(record.id, RecordData).subscribe(
+            (response) => {
+                this.ngOnInit();
+                this.loadingService.setLoading(false);
+                console.error('enregistrement de la record', response);
+            },
+            (error) => {
+                console.error('enregistrement suppression de la record', error);
+            }
+        );
     }
 
+    onRowEditCancel(record, index: number) {
+        this.records[index] = this.clonedRecords[record.id];
+        delete this.clonedRecords[record.id];
+    }
+    deleteRecord(idRecord: number) {
+        this.loadingService.setLoading(true);
+        this.tankService.deleteRecord(idRecord).subscribe(
+            (response) => {
+                this.ngOnInit();
+                this.loadingService.setLoading(false);
+                console.error('suppression de la record', response);
+            },
+            (error) => {
+                console.error(
+                    'Erreur lors de la suppression de la record',
+                    error
+                );
+            }
+        );
+    }
 
-    filterRecords(){
-        if (this.rangeDates && this.rangeDates[1] == null ) {
-            this.records = this.records.filter(record => {
+    filterRecords() {
+        if (this.rangeDates && this.rangeDates[1] == null) {
+            this.records = this.tankData.records.filter((record) => {
                 const recordDate = new Date(record.created_at).getTime();
                 const startDate = this.rangeDates[0].getTime();
+                const endDate = startDate + 86400;
 
-                return recordDate >= startDate;
+                return recordDate >= startDate && recordDate <= endDate;
             });
-
-          } else if  (this.rangeDates && this.rangeDates.length === 2){
-
-            this.records = this.records.filter(record => {
-                console.log(new Date(record.created_at))
+        } else if (this.rangeDates && this.rangeDates.length === 2) {
+            this.records = this.tankData.records.filter((record) => {
+                console.log(new Date(record.created_at));
                 const recordDate = new Date(record.created_at).getTime();
                 const startDate = this.rangeDates[0].getTime();
                 const endDate = this.rangeDates[1].getTime();
 
                 return recordDate >= startDate && recordDate <= endDate;
-
-
             });
-
-
-
-          }else{
-                // Réinitialiser les records si aucune plage de dates n'est sélectionnée
+        } else {
+            // Réinitialiser les records si aucune plage de dates n'est sélectionnée
             this.tankService.getAllTank().subscribe((data) => {
                 this.records = data['data'];
-              });
-          }
-
-
-        console.log(this.records)
+            });
+        }
     }
-
-
 }
