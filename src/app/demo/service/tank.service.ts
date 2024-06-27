@@ -4,17 +4,11 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class TankService {
-
-
-
-
     constructor(private http: HttpClient) {}
 
     getAllTank() {
         return this.http.get<any[]>(environment.apiUrl + '/tank/getalltank');
     }
-
-
 
     storeTank(tankInfos: any) {
         return this.http.post<any[]>(
@@ -52,6 +46,11 @@ export class TankService {
     deleteRecord(idRecord: number) {
         return this.http.delete<any[]>(
             environment.apiUrl + '/tank/destroyrecord/' + idRecord
+        );
+    }
+    deleteRecords(recordids: number[]) {
+        return this.http.delete<any[]>(
+            environment.apiUrl + '/tank/destroyrecords/' + recordids
         );
     }
 }

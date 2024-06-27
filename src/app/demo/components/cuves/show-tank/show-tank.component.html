@@ -1,5 +1,5 @@
 <div class="stepsdemo-content" *ngIf="!(isLoading$ | async)">
-    <p-fieldset legend="cuve">
+    <p-fieldset legend="CUVE {{ tankData?.sensor_reference }}">
         <p-card>
             <div class="field col-12 md:col-12">
                 <span class="block font-bold mb-3"
@@ -17,8 +17,8 @@
                                 id="name"
                                 type="text"
                                 [(ngModel)]="
-                                    tankData?.stationProduct?.name_stationservice
-                                        .name
+                                    tankData?.stationProduct
+                                        ?.name_stationservice.name
                                 "
                                 [disabled]="true"
                                 required
@@ -44,8 +44,8 @@
                                 id="name"
                                 type="text"
                                 [(ngModel)]="
-                                    tankData?.stationProduct?.name_stationservice
-                                        .city
+                                    tankData?.stationProduct
+                                        ?.name_stationservice.city
                                 "
                                 [disabled]="true"
                                 required
@@ -60,7 +60,7 @@
                                 pInputText
                                 id="name"
                                 type="text"
-                                [(ngModel)]="tankData.jauge"
+                                [ngModel]="tankData?.jauge"
                                 [disabled]="true"
                                 required
                             />
@@ -71,7 +71,7 @@
                                 pInputText
                                 id="name"
                                 type="text"
-                                [(ngModel)]="tankData.liquid_type"
+                                [ngModel]="tankData?.liquid_type"
                                 [disabled]="true"
                                 required
                             />
@@ -84,7 +84,7 @@
                                 inputId="locale-user"
                                 [minFractionDigits]="5"
                                 [showButtons]="true"
-                                [(ngModel)]="tankData.diameter"
+                                [ngModel]="tankData.diameter"
                                 [disabled]="true"
                             ></p-inputNumber>
                         </div>
@@ -100,7 +100,7 @@
                                     required
                                     [minFractionDigits]="5"
                                     [showButtons]="true"
-                                    (change)="onElementChange()"
+                                    (ngModelChange)="onElementChange()"
                                     formControlName="man_hole_height"
                                 ></p-inputNumber>
                             </div>
@@ -111,7 +111,7 @@
                                     required
                                     [minFractionDigits]="5"
                                     [showButtons]="true"
-                                    (change)="onElementChange()"
+                                    (ngModelChange)="onElementChange()"
                                     formControlName="sensor_depth"
                                 ></p-inputNumber>
                             </div>
@@ -150,7 +150,7 @@
                                 <p-chips
                                     separator=";"
                                     formControlName="data_level"
-                                    (onAdd)="onElementChange()"
+                                    (onAdd)="onElementChange('data_level')"
                                     (onChipClick)="
                                         onChipClick($event, 'data_level')
                                     "
@@ -165,7 +165,7 @@
                                 <p-chips
                                     separator=";"
                                     formControlName="data_temp"
-                                    (onAdd)="onElementChange()"
+                                    (onAdd)="onElementChange('data_temp')"
                                     (onChipClick)="
                                         onChipClick($event, 'data_temp')
                                     "
@@ -180,7 +180,7 @@
                                 <p-chips
                                     separator=";"
                                     formControlName="data_pressure"
-                                    (onAdd)="onElementChange()"
+                                    (onAdd)="onElementChange('data_pressure')"
                                     (onChipClick)="
                                         onChipClick($event, 'data_pressure')
                                     "
@@ -194,7 +194,7 @@
                                 <p-chips
                                     separator=";"
                                     formControlName="abacusResults"
-                                    (onAdd)="onElementChange()"
+                                    (onAdd)="onElementChange('abacusResults')"
                                     (onChipClick)="
                                         onChipClick($event, 'abacusResults')
                                     "
@@ -226,9 +226,11 @@
                 <p-tabView>
                     <p-tabPanel header="Informations de la Record">
                         <p-table
+                            #dt
                             [value]="records"
                             dataKey="id"
                             editMode="row"
+                            [(selection)]="selectedRecords"
                             styleClass="p-datatable-striped"
                             [tableStyle]="{ 'min-width': '50rem' }"
                             [rows]="10"
@@ -240,8 +242,22 @@
                                 <div
                                     class="flex justify-content-between flex-column sm:flex-row mb-2"
                                 >
-                                    <div class="flex justify-content-start">
-                                        <span class="p-float-label -ml-3">
+                                    <div
+                                        class="-ml-3 flex justify-content-start"
+                                    >
+                                        <p-button
+                                            label="Supprimer"
+                                            icon="pi pi-trash"
+                                            severity="danger"
+                                            (click)="deleteselectedRecords()"
+                                            [disabled]="
+                                                !selectedRecords ||
+                                                !selectedRecords.length
+                                            "
+                                        ></p-button>
+                                    </div>
+                                    <div class="flex justify-content-end">
+                                        <span class="p-float-label">
                                             <p-calendar
                                                 [(ngModel)]="rangeDates"
                                                 selectionMode="range"
@@ -256,39 +272,13 @@
                                             >
                                         </span>
                                     </div>
-
-                                    <!-- <span
-                                        class="p-input-icon-right mt-3 sm:mt-0"
-                                    >
-                                        <i
-                                            class="pi pi-align-justify mr-2"
-                                            (mouseenter)="menu.toggle($event)"
-                                            (click)="menu.toggle($event)"
-                                        ></i>
-                                        <input
-                                            pInputText
-                                            type="text"
-                                            #filter
-                                            placeholder="filtrer par ... "
-                                            class="w-full"
-                                            (input)="
-                                                dt.filterGlobal(
-                                                    $event.target.value,
-                                                    'contains'
-                                                )
-                                            "
-                                        />
-                                        <p-menu
-                                            #menu
-                                            [model]="items"
-                                            [popup]="true"
-                                            (click)="menu.hide()"
-                                        />
-                                    </span> -->
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="header">
                                 <tr>
+                                    <th style="width: 4rem">
+                                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                    </th>
                                     <th style="width: 5%">battery_level</th>
                                     <th style="width: 11%">Level</th>
                                     <th style="width: 11%">density</th>
@@ -299,7 +289,12 @@
                                     <th style="width: 11%">total_volume</th>
                                     <th style="width: 11%">volume</th>
                                     <th style="width: 11%">volume_at_fift</th>
-                                    <th style="width: 15%">Date</th>
+                                    <th
+                                        pSortableColumn="last_update"
+                                        style="width: 15%"
+                                    >
+                                        Date <p-sortIcon field="last_update" />
+                                    </th>
                                     <th style="width: 15%">Actions</th>
                                 </tr>
                             </ng-template>
@@ -311,6 +306,11 @@
                                 let-ri="rowIndex"
                             >
                                 <tr [pEditableRow]="record">
+                                    <td>
+                                        <p-tableCheckbox
+                                            [value]="record"
+                                        ></p-tableCheckbox>
+                                    </td>
                                     <td>
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
@@ -328,9 +328,8 @@
                                                 {{ record.battery_level }}
                                             </ng-template>
                                         </p-cellEditor>
-
                                     </td>
-                                    <td >
+                                    <td>
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
@@ -338,18 +337,15 @@
                                                     pInputText
                                                     name="level"
                                                     type="number"
-                                                    [(ngModel)]="
-                                                        record.level
-                                                    "
+                                                    [(ngModel)]="record.level"
                                                 />
                                             </ng-template>
                                             <ng-template pTemplate="output">
                                                 {{ record.level }}
                                             </ng-template>
                                         </p-cellEditor>
-
                                     </td>
-                                    <td >
+                                    <td>
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
@@ -357,18 +353,15 @@
                                                     pInputText
                                                     name="density"
                                                     type="number"
-                                                    [(ngModel)]="
-                                                        record.density
-                                                    "
+                                                    [(ngModel)]="record.density"
                                                 />
                                             </ng-template>
                                             <ng-template pTemplate="output">
                                                 {{ record.density }}
                                             </ng-template>
                                         </p-cellEditor>
-
                                     </td>
-                                    <td >
+                                    <td>
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
@@ -385,9 +378,8 @@
                                                 {{ record.liquid_height }}
                                             </ng-template>
                                         </p-cellEditor>
-
                                     </td>
-                                    <td >
+                                    <td>
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
@@ -404,9 +396,8 @@
                                                 {{ record.liquid_temperature }}
                                             </ng-template>
                                         </p-cellEditor>
-
                                     </td>
-                                    <td >
+                                    <td>
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
@@ -423,9 +414,8 @@
                                                 {{ record.total_volume }}
                                             </ng-template>
                                         </p-cellEditor>
-
                                     </td>
-                                    <td >
+                                    <td>
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
@@ -433,18 +423,15 @@
                                                     pInputText
                                                     type="number"
                                                     name="volume"
-                                                    [(ngModel)]="
-                                                        record.volume
-                                                    "
+                                                    [(ngModel)]="record.volume"
                                                 />
                                             </ng-template>
                                             <ng-template pTemplate="output">
                                                 {{ record.volume }}
                                             </ng-template>
                                         </p-cellEditor>
-
                                     </td>
-                                    <td >
+                                    <td>
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input
@@ -461,9 +448,8 @@
                                                 {{ record.volume_at_fift }}
                                             </ng-template>
                                         </p-cellEditor>
-
                                     </td>
-                                    <td >
+                                    <td>
                                         <p-cellEditor>
                                             <!-- <ng-template pTemplate="input" >
                                                 <input
@@ -476,10 +462,11 @@
                                                 />
                                             </ng-template> -->
                                             <ng-template pTemplate="output">
-                                                {{ getDate(record.last_update) }}
+                                                {{
+                                                    getDate(record.last_update)
+                                                }}
                                             </ng-template>
                                         </p-cellEditor>
-
                                     </td>
                                     <td
                                         style="width: 15%"
@@ -494,7 +481,7 @@
                                             pInitEditableRow
                                             icon="pi pi-file-edit"
                                             (click)="onRowEditInit(record)"
-                                            class="p-button-rounded p-button-text p-button-success "
+                                            class="p-button-rounded p-button-text p-button-success"
                                         ></button>
                                         <button
                                             *ngIf="editing"
@@ -504,7 +491,7 @@
                                             pSaveEditableRow
                                             icon="pi pi-check"
                                             (click)="onRowEditSave(record)"
-                                            class="p-button-rounded p-button-text p-button-success "
+                                            class="p-button-rounded p-button-text p-button-success"
                                         ></button>
                                         <button
                                             *ngIf="editing"
@@ -519,13 +506,9 @@
                                             class="p-button-rounded p-button-text p-button-danger"
                                         ></button>
                                         <p-button
-                                        *ngIf="!editing"
+                                            *ngIf="!editing"
                                             icon="pi pi-trash"
-                                            (click)="
-                                                deleteRecord(
-                                                    record.id
-                                                )
-                                            "
+                                            (click)="deleteRecord(record.id)"
                                             [rounded]="true"
                                             [text]="true"
                                             severity="danger"
@@ -535,7 +518,10 @@
                             </ng-template>
                             <ng-template pTemplate="emptymessage">
                                 <tr>
-                                    <td colspan="8">Aucune record enregistrée dans cette periode</td>
+                                    <td colspan="8">
+                                        Aucune record enregistrée dans cette
+                                        periode
+                                    </td>
                                 </tr>
                             </ng-template>
                         </p-table>

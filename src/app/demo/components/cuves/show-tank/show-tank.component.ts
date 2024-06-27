@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { TankService } from 'src/app/demo/service/tank.service';
 import { LoadingService } from 'src/app/demo/service/loading.service';
 import { Observable } from 'rxjs';
@@ -16,6 +16,7 @@ export class ShowTankComponent {
     Level_active_depotage: number;
     abacusResults: string[];
     data_pressure: string[];
+    selectedRecords: any[] = [];
     data_temp: string[];
     data_level: string[];
     rangeDates: Date[];
@@ -92,6 +93,23 @@ export class ShowTankComponent {
         this.visible = true;
     }
 
+    sortDataLevel(dataType: string) {
+        const dataControl = this.tankForm.get(dataType);
+        if (dataControl) {
+            const sortedData = [...dataControl.value].sort((a, b) => {
+                const numA = parseInt(a.split(',')[0].trim());
+                const numB = parseInt(b.split(',')[0].trim());
+                return numA - numB;
+            });
+            dataControl.setValue(sortedData);
+        }
+    }
+
+    //   dataControl.setValue('data_level');
+
+    //   const dataControl = this.tankForm.get(this.dataType);
+    //   dataControl.setValue(this.data_level);
+
     updateChipValue() {
         if (this.chipValue !== null) {
             const dataControl = this.tankForm.get(this.dataType);
@@ -100,6 +118,14 @@ export class ShowTankComponent {
             dataControl.setValue(updatedValue);
             this.visible = false; // Fermer le modal
         }
+        this.isChanged = true;
+        this.sortDataLevel(this.dataType);
+    }
+
+    getDatetoFilter(recordDate) {
+        let newDate = new Date(recordDate);
+        newDate.setHours(newDate.getHours() + 1);
+        return newDate;
     }
 
     getDate(recordDate) {
@@ -108,24 +134,26 @@ export class ShowTankComponent {
         return newDate.toLocaleString();
     }
 
-    onElementChange(): void {
+    onElementChange(dataType: string): void {
         this.isChanged = true;
+        this.sortDataLevel(dataType);
     }
 
     onUpdateForm(tankId: number) {
         this.loading = true;
-        this.loadingService.setLoading(true);
-        this.tankService.updateTank(tankId, this.tankForm.value).subscribe(
-            (response) => {
-                this.tankForm.reset();
-                this.ngOnInit();
-                this.loading = false;
-                this.loadingService.setLoading(false);
-            },
-            (error) => {
-                console.error('Erreur lors de la mise à jour du tank', error);
-            }
-        );
+        console.log(this.tankForm.value);
+        // this.loadingService.setLoading(true);
+        // this.tankService.updateTank(tankId, this.tankForm.value).subscribe(
+        //     (response) => {
+        //         this.tankForm.reset();
+        //         this.ngOnInit();
+        //         this.loading = false;
+        //         this.loadingService.setLoading(false);
+        //     },
+        //     (error) => {
+        //         console.error('Erreur lors de la mise à jour du tank', error);
+        //     }
+        // );
     }
 
     onRowEditInit(record: any) {
@@ -185,16 +213,20 @@ export class ShowTankComponent {
     filterRecords() {
         if (this.rangeDates && this.rangeDates[1] == null) {
             this.records = this.tankData.records.filter((record) => {
-                const recordDate = new Date(record.created_at).getTime();
+                const recordDate = this.getDatetoFilter(
+                    record.last_update
+                ).getTime();
                 const startDate = this.rangeDates[0].getTime();
-                const endDate = startDate + 86400;
+                const endDate = startDate + 8640000;
 
                 return recordDate >= startDate && recordDate <= endDate;
             });
         } else if (this.rangeDates && this.rangeDates.length === 2) {
             this.records = this.tankData.records.filter((record) => {
                 console.log(new Date(record.created_at));
-                const recordDate = new Date(record.created_at).getTime();
+                const recordDate = this.getDatetoFilter(
+                    record.last_update
+                ).getTime();
                 const startDate = this.rangeDates[0].getTime();
                 const endDate = this.rangeDates[1].getTime();
 
@@ -206,5 +238,23 @@ export class ShowTankComponent {
                 this.records = data['data'];
             });
         }
+    }
+
+    deleteselectedRecords() {
+        const recordids = this.selectedRecords.map((record) => record.id);
+        this.loadingService.setLoading(true);
+        this.tankService.deleteRecords(recordids).subscribe(
+            (response) => {
+                this.ngOnInit();
+                this.loadingService.setLoading(false);
+                console.error('suppression de la record', response);
+            },
+            (error) => {
+                console.error(
+                    'Erreur lors de la suppression de la record',
+                    error
+                );
+            }
+        );
     }
 }

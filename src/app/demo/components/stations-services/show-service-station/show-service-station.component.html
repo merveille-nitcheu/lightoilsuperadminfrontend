@@ -1,4 +1,4 @@
-<div class="stepsdemo-content"  *ngIf="!(isLoading$ | async)">
+<div class="stepsdemo-content" *ngIf="!(isLoading$ | async)">
     <p-fieldset legend="{{ filteredStation.name }}">
         <p-card>
             <form [formGroup]="ssForm">
@@ -41,15 +41,13 @@
                                     >Produits de la station service
                                 </label>
 
-                                    <p-chips
-                                        formControlName="product_name"
-                                        class="w-full disabled"
-                                        required
-                                        (ngModelChange)="onElementChange()"
-                                    >
-                                    </p-chips>
-
-
+                                <p-chips
+                                    formControlName="product_name"
+                                    class="w-full disabled"
+                                    required
+                                    (ngModelChange)="onElementChange()"
+                                >
+                                </p-chips>
                             </div>
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="address">Fuseau Horaire </label>
@@ -181,65 +179,50 @@
                         </div>
                     </div>
 
-
                     <p-orderList
-                    [value]="this.filteredStationsupp?.Tanks"
-
-                    header="CUVES DE {{ filteredStation.name }}"
-                >
-                    <ng-template let-tank pTemplate="item">
-                        <div
-                            (click)="Details(tank.id)"
-                            class="flex flex-wrap align-items-center border-bottom-1 border-black-alpha-10 pb-3 -mx-3"
-                            *ngIf="filteredStationsupp.totalTanks > 0"
-                        >
-
+                        [value]="this.filteredStationsupp?.Tanks"
+                        header="CUVES DE {{ filteredStation.name }}"
+                    >
+                        <ng-template let-tank pTemplate="item">
                             <div
-                                class="flex-1 flex flex-column gap-2 mx-3"
+                                (click)="Details(tank.id)"
+                                class="flex flex-wrap align-items-center border-bottom-1 border-black-alpha-10 pb-3 -mx-3"
+                                *ngIf="filteredStationsupp.totalTanks > 0"
                             >
-                                <span class="font-bold">{{
-                                    tank.diameter + " m"
-                                }}</span>
-                                <div
-                                    class="flex align-items-center gap-2"
-                                >
-                                    <i
-                                        class="pi pi-ticket text-sm"
-                                    ></i>
-                                    <span>
-                                        {{ tank.sensor_reference }}
+                                <div class="flex-1 flex flex-column gap-2 mx-3">
+                                    <span class="font-bold">{{
+                                        tank.diameter + " m"
+                                    }}</span>
+                                    <div class="flex align-items-center gap-2">
+                                        <i class="pi pi-ticket text-sm"></i>
+                                        <span>
+                                            {{ tank.sensor_reference }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <span class="flex-1 flex flex-column gap-2">
+                                    <span class="font-bold text-900">
+                                        {{ tank.liquid_type }}
                                     </span>
+                                    <span>
+                                        {{ tank.jauge }}
+                                    </span>
+                                </span>
+                            </div>
+                            <div
+                                class="flex flex-wrap p-2 align-items-center gap-3"
+                            >
+                                <div
+                                    *ngIf="filteredStationsupp.totalTanks == 0"
+                                    class="flex-1 flex flex-column gap-2"
+                                >
+                                    <span class="font-bold"
+                                        >Aucune cuve disponible</span
+                                    >
                                 </div>
                             </div>
-                            <span class="flex-1 flex flex-column gap-2">
-                                <span class="font-bold text-900">
-                                    {{ tank.liquid_type }}
-                                </span>
-                                <span >
-                                    {{ tank.jauge }}
-                                </span>
-
-                            </span>
-
-                        </div>
-                        <div
-                            class="flex flex-wrap p-2 align-items-center gap-3"
-                        >
-                            <div
-                                *ngIf="
-                                    filteredStationsupp.totalTanks == 0
-                                "
-                                class="flex-1 flex flex-column gap-2"
-                            >
-                                <span class="font-bold"
-                                    >Aucune cuve disponible</span
-                                >
-                            </div>
-                        </div>
-                    </ng-template>
-                </p-orderList>
-
-
+                        </ng-template>
+                    </p-orderList>
                 </div>
             </div>
         </p-card>
