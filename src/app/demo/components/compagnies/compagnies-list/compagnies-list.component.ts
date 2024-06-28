@@ -60,9 +60,9 @@ export class CompagniesListComponent {
     }
 
     deleteSelectedCompanies() {
-        const selectedCompanyId: any = this.selectedCompanies.map(
-            (company) => company.id
-        );
+
+        const companyIds = this.selectedCompanies.map((company) => company.id);
+
 
         this.confirmationService.confirm({
             message:
@@ -75,7 +75,7 @@ export class CompagniesListComponent {
             accept: () => {
                 this.loadingService.setLoading(true);
                 this.compagniesService
-                    .deleteCompany(selectedCompanyId)
+                    .deleteCompany(companyIds)
                     .subscribe(
                         (response) => {
                             // forcer le rafraichissement de la page

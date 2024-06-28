@@ -11,7 +11,7 @@ export const environment = {
     authUrl: 'https://www.lightoil.cm',
 
     pusher: {
-        key: 'c8686a07ccd742ec6564',
+        key: '52f92389bf572016d550',
         cluster: 'mt1',
     },
 };

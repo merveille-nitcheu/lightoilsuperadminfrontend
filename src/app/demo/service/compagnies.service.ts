@@ -29,8 +29,8 @@ import { Compagnie } from "../models/model";
     return this.http.post<any[]>(environment.apiUrl+'/company/updatecompany/'+companyId,companyInfos)
   }
 
-  deleteCompany(companyId:number){
-    return this.http.delete<any[]>(environment.apiUrl+'/company/destroycompany/'+companyId)
+  deleteCompany(companyIds:number[]){
+    return this.http.post<any[]>(environment.apiUrl+'/company/destroycompany',companyIds)
   }
 
 

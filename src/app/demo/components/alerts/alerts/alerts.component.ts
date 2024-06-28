@@ -29,7 +29,7 @@ export class AlertsComponent {
     ngOnInit(): void {
 
 
-        var pusher = new Pusher('c8686a07ccd742ec6564', {
+        var pusher = new Pusher('754b452e0542aa79ebfd', {
             cluster: 'mt1'
           });
 

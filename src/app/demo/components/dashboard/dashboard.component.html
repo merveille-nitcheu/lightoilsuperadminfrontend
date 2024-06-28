@@ -88,7 +88,7 @@
                         >Cuves Inactives</span
                     >
                     <div class="text-900 font-medium text-xl">
-                        {{ getInactiveTanks? getInactiveTanks:0  }}
+                        {{ getInactiveTanks ? getInactiveTanks : 0 }}
                     </div>
                 </div>
                 <div
@@ -100,7 +100,9 @@
                     ></i>
                 </div>
             </div>
-            <span class="text-green-500 font-medium">{{ tanksThisDay?tanksThisDay:0 }} </span>
+            <span class="text-green-500 font-medium"
+                >{{ tanksThisDay ? tanksThisDay : 0 }}
+            </span>
             <span class="text-500"
                 >cuves inactives enregistrées aujourd'hui</span
             >
@@ -117,8 +119,8 @@
                     </p>
                 </div>
             </div>
-            <p-tabView class="p-element" >
-                <div class="grid overflow-auto"  style="max-height: 31rem">
+            <p-tabView class="p-element">
+                <div class="grid overflow-auto" style="max-height: 31rem">
                     <div
                         class="col-6 alertCard"
                         *ngFor="let company of allCompagnies"
@@ -131,19 +133,119 @@
                                 {{ company?.name }}
                             </h6>
 
+                            <ul
+                                class="list-none p-0 overflow-auto"
+                                style="max-height: 18rem"
+                            >
+                            <ng-container *ngFor="let tank of getAllTanks(company)"
+                            >
+                            <ng-container *ngIf="tank?.tanks.length > 0">
 
-                        <ul
-                        class="list-none p-0 overflow-auto"
-                        style="max-height: 18rem"
+                                <li
+                                class="border-round-lg pt-2 px-3 pb-2 mb-3"
+                                style="background-color: white"
+
+                            >
+
+                                    <div
+                                        class="flex justify-content-between align-items-center mb-1"
+                                    >
+                                        <div
+                                            class="flex align-items-center gap-1"
+                                        >
+                                            <h6 class="m-0 mr-2">
+                                                {{
+                                                    tank?.tanks[0]
+                                                        ?.sensor_reference
+                                                        ? tank?.tanks[0]
+                                                              ?.sensor_reference
+                                                        : tank?.tanks[0]
+                                                              ?.sensor_reference
+                                                }}
+                                            </h6>
+                                            <p-tag
+                                                styleclass="m-0 mx-8 px-2 text-xs bg-blue-300"
+                                                [value]="tank?.tanks?.[0]?.diameter ? (tank?.tanks?.[0]?.diameter + ' m') : ''"
+                                                class="p-element inline-block"
+                                                style="white-space: nowrap"
+                                                ><span
+                                                    class="m-0 mr-2 px-2 text-xs bg-blue-300 p-tag p-component"
+                                                    ><!----><!----><!----><!----><span
+                                                        class="p-tag-value"
+                                                        style="
+                                                            white-space: nowrap;
+                                                        "
+                                                    >
+                                                        {{
+                                                            tank?.tanks[0]
+                                                                ?.jauge
+                                                        }}</span
+                                                    ></span
+                                                ></p-tag
+                                            >
+                                        </div>
+                                        <span
+                                            class="text-gray-500 font-semibold ml-2 text-sm line-height-1"
+                                        >
+                                            <b
+                                                >{{
+                                                    tank?.tanks[0]
+                                                        ?.stationProduct
+                                                        ?.nameproduct.name
+                                                }}
+                                            </b></span
+                                        >
+                                    </div>
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        <span
+                                            class="mt-1 text-500 block text-sm line-height-1"
+                                        >
+                                            {{
+                                                tank?.tanks[0]
+                                                    ?.stationProduct
+                                                    ?.name_stationservice
+                                                    .name
+                                            }}
+                                            ,<b
+                                                >{{
+                                                    tank?.tanks[0]
+                                                        ?.stationProduct
+                                                        ?.name_stationservice
+                                                        .city
+                                                }}
+                                            </b>
+                                        </span>
+                                        <button
+                                            type="button"
+                                            pbutton=""
+                                            icon="pi pi-ellipsis-v"
+                                            severity="danger"
+                                            class="p-element p-button-rounded p-button-text p-button-sm flex-shrink-0 p-button p-component p-button-icon-only"
+                                        >
+                                            <span
+                                                id="pn_id_128_badge"
+                                                class="p-badge p-component p-badge-success p-badge-no-gutter zoomin animation-duration-1000 animation-iteration-infinite"
+                                            ></span>
+                                        </button>
+                                    </div>
+
+                            </li>
+
+                            </ng-container>
+
+                            <ng-container *ngIf="tank?.tanks.length > 1">
 
 
+                            <ng-container *ngFor="let tankChild of tank">
 
-                    >
-                        <li
-                            class="border-round-lg pt-2 px-3 pb-2 mb-3"
-                            style="background-color: white"  *ngFor="let tank of getAllTanks(company)"
+                                <li
+                                class="border-round-lg pt-2 px-3 pb-2 mb-3"
+                                style="background-color: white"
 
-                        ><ng-container *ngIf="tank?.tanks.length > 0">
+                            >
+
                             <div
                             class="flex justify-content-between align-items-center mb-1"
                         >
@@ -152,15 +254,17 @@
                             >
                                 <h6 class="m-0 mr-2">
                                     {{
-                                        tank?.tanks[0]
-                                            ?.sensor_reference ? tank?.tanks[0]
-                                            ?.sensor_reference : tank?.tanks[0]
+                                        tankChild
                                             ?.sensor_reference
+                                            ? tankChild
+                                                  ?.sensor_reference
+                                            : tankChild
+                                                  ?.sensor_reference
                                     }}
                                 </h6>
                                 <p-tag
                                     styleclass="m-0 mx-8 px-2 text-xs bg-blue-300"
-                                    [value]="tank?.tanks?.[0]?.diameter ? (tank?.tanks?.[0]?.diameter + ' m') : ''"
+                                    [value]="tankChild?.diameter ? (tankChild?.diameter + ' m') : ''"
                                     class="p-element inline-block"
                                     style="white-space: nowrap"
                                     ><span
@@ -172,7 +276,7 @@
                                             "
                                         >
                                             {{
-                                                tank?.tanks[0]
+                                                tankChild
                                                     ?.jauge
                                             }}</span
                                         ></span
@@ -184,7 +288,7 @@
                             >
                                 <b
                                     >{{
-                                        tank?.tanks[0]
+                                        tankChild
                                             ?.stationProduct
                                             ?.nameproduct.name
                                     }}
@@ -198,12 +302,14 @@
                                 class="mt-1 text-500 block text-sm line-height-1"
                             >
                                 {{
-                                    tank?.tanks[0]?.stationProduct
-                                        ?.name_stationservice.name
+                                    tankChild
+                                        ?.stationProduct
+                                        ?.name_stationservice
+                                        .name
                                 }}
                                 ,<b
                                     >{{
-                                        tank?.tanks[0]
+                                       tankChild
                                             ?.stationProduct
                                             ?.name_stationservice
                                             .city
@@ -223,11 +329,19 @@
                                 ></span>
                             </button>
                         </div>
+
+                </li>
+
+                            </ng-container>
+
+
+
+                            </ng-container>
+
+
                         </ng-container>
 
-                        </li>
-                    </ul>
-
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -249,7 +363,7 @@
                         <span
                             id="pn_id_128_badge"
                             class="p-badge p-component p-badge-danger p-badge-no-gutter zoomin animation-duration-1000 animation-iteration-infinite"
-                            >{{ getInactiveTanks? getInactiveTanks:0  }}</span
+                            >{{ getInactiveTanks ? getInactiveTanks : 0 }}</span
                         >
                     </div>
                     <p class="subtitle">
@@ -265,7 +379,8 @@
                     <li
                         class="border-round-lg pt-2 px-3 pb-2 mb-3"
                         style="background-color: #f3fbfb"
-                     *ngIf="getInactiveTanks">
+                        *ngIf="getInactiveTanks"
+                    >
                         <div
                             class="flex justify-content-between align-items-center mb-1"
                         >
@@ -275,13 +390,18 @@
                                 </h6>
                                 <p-tag
                                     styleclass="m-0 ml-8 px-2 text-xs bg-blue-300"
-                                    [value]="getInactiveTanks?.stationProduct.nameproduct.name"
+                                    [value]="
+                                        getInactiveTanks?.stationProduct
+                                            .nameproduct.name
+                                    "
                                     class="p-element inline-block"
                                     ><span
                                         class="m-0 mr-2 px-2 text-xs bg-blue-300 p-tag p-component"
                                         ><!----><!----><!----><!----><span
                                             class="p-tag-value"
-                                            >{{ getInactiveTanks.pub_reference }}</span
+                                            >{{
+                                                getInactiveTanks.pub_reference
+                                            }}</span
                                         ></span
                                     ></p-tag
                                 >
@@ -298,7 +418,14 @@
                             <span
                                 class="mt-1 text-500 block text-sm line-height-1"
                             >
-                            {{ getInactiveTanks?.stationProduct.name_stationservice.name }}, <b>{{ getInactiveTanks?.stationProduct.name_entreprise.name}}</b> </span
+                                {{
+                                    getInactiveTanks?.stationProduct
+                                        .name_stationservice.name
+                                }},
+                                <b>{{
+                                    getInactiveTanks?.stationProduct
+                                        .name_entreprise.name
+                                }}</b> </span
                             ><button
                                 type="button"
                                 pbutton=""
@@ -316,7 +443,8 @@
                     <li
                         class="border-round-lg pt-2 px-3 pb-2 mb-3"
                         style="background-color: #f3fbfb"
-                     *ngIf="!getInactiveTanks">
+                        *ngIf="!getInactiveTanks"
+                    >
                         <div
                             class="flex justify-content-between align-items-center mb-1"
                         >
@@ -324,11 +452,8 @@
                                 <h6 class="line-height-3 m-0 mr-2">
                                     Aucune Cuve Inactive
                                 </h6>
-
                             </div>
-
                         </div>
-
                     </li>
                 </ul>
             </p-tabView>

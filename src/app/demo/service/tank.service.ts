@@ -48,9 +48,10 @@ export class TankService {
             environment.apiUrl + '/tank/destroyrecord/' + idRecord
         );
     }
-    deleteRecords(recordids: number[]) {
-        return this.http.delete<any[]>(
-            environment.apiUrl + '/tank/destroyrecords/' + recordids
+    deleteRecords(recordids: any[]) {
+        return this.http.post<any[]>(
+            environment.apiUrl + '/tank/destroyrecords',
+            recordids
         );
     }
 }

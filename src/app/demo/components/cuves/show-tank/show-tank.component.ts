@@ -199,7 +199,7 @@ export class ShowTankComponent {
             (response) => {
                 this.ngOnInit();
                 this.loadingService.setLoading(false);
-                console.error('suppression de la record', response);
+
             },
             (error) => {
                 console.error(
@@ -247,7 +247,7 @@ export class ShowTankComponent {
             (response) => {
                 this.ngOnInit();
                 this.loadingService.setLoading(false);
-                console.error('suppression de la record', response);
+
             },
             (error) => {
                 console.error(
