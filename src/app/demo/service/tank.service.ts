@@ -32,7 +32,7 @@ export class TankService {
 
     saveRecord(idRecord: number, RecordInfos: any) {
         return this.http.post<any[]>(
-            environment.apiUrl + '/tank/saverecord/' + idRecord,
+            environment.apiUrl + '/record/saverecord/' + idRecord,
             RecordInfos
         );
     }
@@ -45,12 +45,12 @@ export class TankService {
 
     deleteRecord(idRecord: number) {
         return this.http.delete<any[]>(
-            environment.apiUrl + '/tank/destroyrecord/' + idRecord
+            environment.apiUrl + '/record/destroyrecord/' + idRecord
         );
     }
     deleteRecords(recordids: any[]) {
         return this.http.post<any[]>(
-            environment.apiUrl + '/tank/destroyrecords',
+            environment.apiUrl + '/record/destroyrecords',
             recordids
         );
     }
