@@ -47,7 +47,7 @@ export class ShowTankComponent {
         let tankId = this.route.snapshot.params['tankId'];
         this.tankService.showTank(tankId).subscribe((data) => {
             this.tankData = data['data'];
-            this.records = this.tankData.records;
+            this.records = data['additionaldata'].records;
 
             this.tankAdditionalData = data['additionaldata'];
             this.Level_active_depotage = parseFloat(
@@ -212,7 +212,7 @@ export class ShowTankComponent {
 
     filterRecords() {
         if (this.rangeDates && this.rangeDates[1] == null) {
-            this.records = this.tankData.records.filter((record) => {
+            this.records = this.tankAdditionalData.records.filter((record) => {
                 const recordDate = this.getDatetoFilter(
                     record.last_update
                 ).getTime();
@@ -222,7 +222,7 @@ export class ShowTankComponent {
                 return recordDate >= startDate && recordDate <= endDate;
             });
         } else if (this.rangeDates && this.rangeDates.length === 2) {
-            this.records = this.tankData.records.filter((record) => {
+            this.records = this.tankAdditionalData.records.filter((record) => {
                 console.log(new Date(record.created_at));
                 const recordDate = this.getDatetoFilter(
                     record.last_update
@@ -235,7 +235,7 @@ export class ShowTankComponent {
         } else {
             // Réinitialiser les records si aucune plage de dates n'est sélectionnée
             this.tankService.getAllTank().subscribe((data) => {
-                this.records = data['data'];
+                this.records = data['additionaldata'].records;
             });
         }
     }
