@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class ShowTankComponent {
     tankData: any;
+    isDataLoaded: boolean = false;
     tankAdditionalData: any;
     Level_active_depotage: number;
     abacusResults: string[];
@@ -21,6 +22,7 @@ export class ShowTankComponent {
     data_level: string[];
     rangeDates: Date[];
     records;
+    tankId;
     clonedRecords: { [s: number]: any } = {};
     tankForm: FormGroup;
     raw_datas: any;
@@ -33,6 +35,7 @@ export class ShowTankComponent {
     visible: boolean = false;
     isLoading$: Observable<boolean>;
 
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -44,12 +47,10 @@ export class ShowTankComponent {
     }
 
     ngOnInit() {
-        let tankId = this.route.snapshot.params['tankId'];
-        this.tankService.showTank(tankId).subscribe((data) => {
+        this.tankId = this.route.snapshot.params['tankId'];
+        this.tankService.showTank(this.tankId).subscribe((data) => {
             this.tankData = data['data'];
-            this.records = data['additionaldata'].records;
 
-            this.tankAdditionalData = data['additionaldata'];
             this.Level_active_depotage = parseFloat(
                 this.tankData.level_active_depotage
             );
@@ -65,9 +66,6 @@ export class ShowTankComponent {
             this.data_pressure = this.tankData.correction_data.data_pressure
                 .split(';')
                 .filter((value) => value.trim() !== '');
-
-            this.raw_datas = this.tankAdditionalData.raw_datas;
-            this.probe_sensors = this.tankAdditionalData.probe_sensors;
 
             this.tankForm = this.formBuilder.group({
                 man_hole_height: [this.tankData?.man_hole_height],
@@ -105,10 +103,6 @@ export class ShowTankComponent {
         }
     }
 
-    //   dataControl.setValue('data_level');
-
-    //   const dataControl = this.tankForm.get(this.dataType);
-    //   dataControl.setValue(this.data_level);
 
     updateChipValue() {
         if (this.chipValue !== null) {
@@ -199,7 +193,6 @@ export class ShowTankComponent {
             (response) => {
                 this.ngOnInit();
                 this.loadingService.setLoading(false);
-
             },
             (error) => {
                 console.error(
@@ -208,6 +201,18 @@ export class ShowTankComponent {
                 );
             }
         );
+    }
+
+    showrecord() {
+
+            this.tankService.showRecord(this.tankId).subscribe((data) => {
+                this.tankAdditionalData = data['additionaldata'];
+                this.records = data['additionaldata'].records;
+                this.raw_datas = this.tankAdditionalData.raw_datas;
+                this.probe_sensors = this.tankAdditionalData.probe_sensors;
+
+            });
+
     }
 
     filterRecords() {
@@ -247,7 +252,6 @@ export class ShowTankComponent {
             (response) => {
                 this.ngOnInit();
                 this.loadingService.setLoading(false);
-
             },
             (error) => {
                 console.error(

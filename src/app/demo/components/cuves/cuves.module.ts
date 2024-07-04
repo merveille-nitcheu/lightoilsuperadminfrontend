@@ -24,6 +24,7 @@ import { SplitterModule } from 'primeng/splitter';
 import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { LoadingModule } from '../loading/loading.module';
+import { PanelModule } from 'primeng/panel';
 
 
 
@@ -55,6 +56,7 @@ import { LoadingModule } from '../loading/loading.module';
     FileUploadModule,
     LoadingModule,
     CalendarModule,
+    PanelModule
 
   ]
 })

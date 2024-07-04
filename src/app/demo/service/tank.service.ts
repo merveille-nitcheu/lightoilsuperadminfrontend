@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/env';
 
 @Injectable()
 export class TankService {
@@ -30,9 +30,15 @@ export class TankService {
         );
     }
 
+    showRecord(tankId: number) {
+        return this.http.get<any[]>(
+            environment.apiUrl + '/tank/showrecord/' + tankId
+        );
+    }
+
     saveRecord(idRecord: number, RecordInfos: any) {
         return this.http.post<any[]>(
-            environment.apiUrl + '/record/saverecord/' + idRecord,
+            environment.apiUrl + '/tank/saverecord/' + idRecord,
             RecordInfos
         );
     }
@@ -45,12 +51,12 @@ export class TankService {
 
     deleteRecord(idRecord: number) {
         return this.http.delete<any[]>(
-            environment.apiUrl + '/record/destroyrecord/' + idRecord
+            environment.apiUrl + '/tank/destroyrecord/' + idRecord
         );
     }
     deleteRecords(recordids: any[]) {
         return this.http.post<any[]>(
-            environment.apiUrl + '/record/destroyrecords',
+            environment.apiUrl + '/tank/destroyrecords',
             recordids
         );
     }

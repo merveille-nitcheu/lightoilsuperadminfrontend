@@ -224,8 +224,12 @@
 
             <div class="field col-12 md:col-12 -mt-4">
                 <p-tabView>
-                    <p-tabPanel header="Informations de la Record">
-                        <p-table
+                    <p-tabPanel header="Données recues de la record">
+                        <p-panel header="Afficher les Données de la record " [toggleable]="true" [collapsed]="true" (onBeforeToggle)="showrecord()">
+
+
+
+                            <p-table
                             #dt
                             [value]="records"
                             dataKey="id"
@@ -525,8 +529,11 @@
                                 </tr>
                             </ng-template>
                         </p-table>
+
+                        </p-panel>
+
                     </p-tabPanel>
-                    <p-tabPanel
+                    <!-- <p-tabPanel
                         header="Informations de la Raw datas"
                         *ngIf="raw_datas !== null"
                     >
@@ -751,12 +758,12 @@
                                 </div>
                             </ng-template>
                         </p-splitter>
-                    </p-tabPanel>
+                    </p-tabPanel> -->
                     <p-tabPanel
-                        header="Informations de la Props Sensor"
-                        *ngIf="probe_sensors !== null"
+                        header="Données recues de la Props Sensor"
+
                     >
-                        <p-splitter
+                        <!-- <p-splitter
                             [style]="{ height: '300px' }"
                             styleClass="mt-4"
                         >
@@ -890,7 +897,7 @@
                                     </div>
                                 </div>
                             </ng-template>
-                        </p-splitter>
+                        </p-splitter> -->
                     </p-tabPanel>
                 </p-tabView>
             </div>
