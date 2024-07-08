@@ -34,6 +34,9 @@ export class ShowTankComponent {
     dataType: any;
     visible: boolean = false;
     isLoading$: Observable<boolean>;
+    totalRecords
+    currentPage
+    totalPages
 
 
     constructor(
@@ -207,7 +210,10 @@ export class ShowTankComponent {
 
             this.tankService.showRecord(this.tankId).subscribe((data) => {
                 this.tankAdditionalData = data['additionaldata'];
-                this.records = data['additionaldata'].data;
+                this.records = data['additionaldata'].records;
+                this.totalRecords = this.tankAdditionalData.totalRecords;
+                this.currentPage =  this.tankAdditionalData.current_page;
+                this.totalPages =  this.tankAdditionalData.total_pages;
                 this.raw_datas = this.tankAdditionalData.raw_datas;
                 this.probe_sensors = this.tankAdditionalData.probe_sensors;
 
@@ -215,9 +221,15 @@ export class ShowTankComponent {
 
     }
 
+    onPageChange(event) {
+        this.currentPage = event.page + 1;
+        this.showrecord();
+        console.log('222')
+      }
+
     filterRecords() {
         if (this.rangeDates && this.rangeDates[1] == null) {
-            this.records = this.tankAdditionalData.data.filter((record) => {
+            this.records = this.tankAdditionalData.records.filter((record) => {
                 const recordDate = this.getDatetoFilter(
                     record.last_update
                 ).getTime();
@@ -227,7 +239,7 @@ export class ShowTankComponent {
                 return recordDate >= startDate && recordDate <= endDate;
             });
         } else if (this.rangeDates && this.rangeDates.length === 2) {
-            this.records = this.tankAdditionalData.data.filter((record) => {
+            this.records = this.tankAdditionalData.records.filter((record) => {
                 console.log(new Date(record.created_at));
                 const recordDate = this.getDatetoFilter(
                     record.last_update

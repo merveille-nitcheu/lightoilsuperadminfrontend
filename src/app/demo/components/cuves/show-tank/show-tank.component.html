@@ -225,237 +225,258 @@
             <div class="field col-12 md:col-12 -mt-4">
                 <p-tabView>
                     <p-tabPanel header="Données recues de la record">
-                        <p-panel header="Afficher les Données de la record " [toggleable]="true" [collapsed]="true" (onBeforeToggle)="showrecord()">
-
-
-
-                            <p-table
-                            #dt
-                            [value]="records"
-                            dataKey="id"
-                            editMode="row"
-                            [(selection)]="selectedRecords"
-                            styleClass="p-datatable-striped"
-                            [tableStyle]="{ 'min-width': '50rem' }"
-                            [rows]="10"
-                            [rowsPerPageOptions]="[10, 25, 50]"
-                            [loading]="loading"
-                            [paginator]="true"
+                        <p-panel
+                            header="Afficher les Données de la record "
+                            [toggleable]="true"
+                            [collapsed]="true"
+                            (onBeforeToggle)="showrecord()"
                         >
-                            <ng-template pTemplate="caption">
-                                <div
-                                    class="flex justify-content-between flex-column sm:flex-row mb-2"
-                                >
-                                    <div
-                                        class="-ml-3 flex justify-content-start"
-                                    >
-                                        <p-button
-                                            label="Supprimer"
-                                            icon="pi pi-trash"
-                                            severity="danger"
-                                            (click)="deleteselectedRecords()"
-                                            [disabled]="
-                                                !selectedRecords ||
-                                                !selectedRecords.length
-                                            "
-                                        ></p-button>
-                                    </div>
-                                    <div class="flex justify-content-end">
-                                        <span class="p-float-label">
-                                            <p-calendar
-                                                [(ngModel)]="rangeDates"
-                                                selectionMode="range"
-                                                [readonlyInput]="true"
-                                                [iconDisplay]="'input'"
-                                                [showIcon]="true"
-                                                inputId="icondisplay"
-                                                (onSelect)="filterRecords()"
-                                            />
-                                            <label for="float-input"
-                                                >Selectionnez la période</label
-                                            >
-                                        </span>
-                                    </div>
-                                </div>
-                            </ng-template>
-                            <ng-template pTemplate="header">
-                                <tr>
-                                    <th style="width: 4rem">
-                                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                                    </th>
-                                    <th style="width: 5%">battery_level</th>
-                                    <th style="width: 11%">Level</th>
-                                    <th style="width: 11%">density</th>
-                                    <th style="width: 11%">liquid_height</th>
-                                    <th style="width: 5%">
-                                        liquid_temperature
-                                    </th>
-                                    <th style="width: 11%">total_volume</th>
-                                    <th style="width: 11%">volume</th>
-                                    <th style="width: 11%">volume_at_fift</th>
-                                    <th
-                                        pSortableColumn="last_update"
-                                        style="width: 15%"
-                                    >
-                                        Date <p-sortIcon field="last_update" />
-                                    </th>
-                                    <th style="width: 15%">Actions</th>
-                                </tr>
-                            </ng-template>
-
-                            <ng-template
-                                pTemplate="body"
-                                let-record
-                                let-editing="editing"
-                                let-ri="rowIndex"
+                            <p-table
+                                #dt
+                                [value]="records"
+                                dataKey="id"
+                                editMode="row"
+                                [(selection)]="selectedRecords"
+                                styleClass="p-datatable-striped"
+                                [tableStyle]="{ 'min-width': '50rem' }"
+                                [rows]="50"
+                                [rowsPerPageOptions]="[50, 100, 150]"
+                                [loading]="loading"
+                                [paginator]="true"
+                                [totalRecords]="totalRecords"
+                                [page]="currentPage - 1"
+                                (onPage)="onPageChange($event)"
                             >
-                                <tr [pEditableRow]="record">
-                                    <td>
-                                        <p-tableCheckbox
-                                            [value]="record"
-                                        ></p-tableCheckbox>
-                                    </td>
-                                    <td>
-                                        <p-cellEditor>
-                                            <ng-template pTemplate="input">
-                                                <input
-                                                    class="inputedit"
-                                                    pInputText
-                                                    type="number"
-                                                    name="battery_level"
-                                                    [(ngModel)]="
-                                                        record.battery_level
-                                                    "
+                                <ng-template pTemplate="caption">
+                                    <div
+                                        class="flex justify-content-between flex-column sm:flex-row mb-2"
+                                    >
+                                        <div
+                                            class="-ml-3 flex justify-content-start"
+                                        >
+                                            <p-button
+                                                label="Supprimer"
+                                                icon="pi pi-trash"
+                                                severity="danger"
+                                                (click)="
+                                                    deleteselectedRecords()
+                                                "
+                                                [disabled]="
+                                                    !selectedRecords ||
+                                                    !selectedRecords.length
+                                                "
+                                            ></p-button>
+                                        </div>
+                                        <div class="flex justify-content-end">
+                                            <span class="p-float-label">
+                                                <p-calendar
+                                                    [(ngModel)]="rangeDates"
+                                                    selectionMode="range"
+                                                    [readonlyInput]="true"
+                                                    [iconDisplay]="'input'"
+                                                    [showIcon]="true"
+                                                    inputId="icondisplay"
+                                                    (onSelect)="filterRecords()"
                                                 />
-                                            </ng-template>
-                                            <ng-template pTemplate="output">
-                                                {{ record.battery_level }}
-                                            </ng-template>
-                                        </p-cellEditor>
-                                    </td>
-                                    <td>
-                                        <p-cellEditor>
-                                            <ng-template pTemplate="input">
-                                                <input
-                                                    class="inputedit"
-                                                    pInputText
-                                                    name="level"
-                                                    type="number"
-                                                    [(ngModel)]="record.level"
-                                                />
-                                            </ng-template>
-                                            <ng-template pTemplate="output">
-                                                {{ record.level }}
-                                            </ng-template>
-                                        </p-cellEditor>
-                                    </td>
-                                    <td>
-                                        <p-cellEditor>
-                                            <ng-template pTemplate="input">
-                                                <input
-                                                    class="inputedit"
-                                                    pInputText
-                                                    name="density"
-                                                    type="number"
-                                                    [(ngModel)]="record.density"
-                                                />
-                                            </ng-template>
-                                            <ng-template pTemplate="output">
-                                                {{ record.density }}
-                                            </ng-template>
-                                        </p-cellEditor>
-                                    </td>
-                                    <td>
-                                        <p-cellEditor>
-                                            <ng-template pTemplate="input">
-                                                <input
-                                                    class="inputedit"
-                                                    pInputText
-                                                    type="number"
-                                                    name="liquid_height"
-                                                    [(ngModel)]="
-                                                        record.liquid_height
-                                                    "
-                                                />
-                                            </ng-template>
-                                            <ng-template pTemplate="output">
-                                                {{ record.liquid_height }}
-                                            </ng-template>
-                                        </p-cellEditor>
-                                    </td>
-                                    <td>
-                                        <p-cellEditor>
-                                            <ng-template pTemplate="input">
-                                                <input
-                                                    class="inputedit"
-                                                    pInputText
-                                                    name="liquid_temperature"
-                                                    type="number"
-                                                    [(ngModel)]="
+                                                <label for="float-input"
+                                                    >Selectionnez la
+                                                    période</label
+                                                >
+                                            </span>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 4rem">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th style="width: 5%">battery_level</th>
+                                        <th style="width: 11%">Level</th>
+                                        <th style="width: 11%">density</th>
+                                        <th style="width: 11%">
+                                            liquid_height
+                                        </th>
+                                        <th style="width: 5%">
+                                            liquid_temperature
+                                        </th>
+                                        <th style="width: 11%">total_volume</th>
+                                        <th style="width: 11%">volume</th>
+                                        <th style="width: 11%">
+                                            volume_at_fift
+                                        </th>
+                                        <th
+                                            pSortableColumn="last_update"
+                                            style="width: 15%"
+                                        >
+                                            Date
+                                            <p-sortIcon field="last_update" />
+                                        </th>
+                                        <th style="width: 15%">Actions</th>
+                                    </tr>
+                                </ng-template>
+
+                                <ng-template
+                                    pTemplate="body"
+                                    let-record
+                                    let-editing="editing"
+                                    let-ri="rowIndex"
+                                >
+                                    <tr [pEditableRow]="record">
+                                        <td>
+                                            <p-tableCheckbox
+                                                [value]="record"
+                                            ></p-tableCheckbox>
+                                        </td>
+                                        <td>
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <input
+                                                        class="inputedit"
+                                                        pInputText
+                                                        type="number"
+                                                        name="battery_level"
+                                                        [(ngModel)]="
+                                                            record.battery_level
+                                                        "
+                                                    />
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{ record.battery_level }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <input
+                                                        class="inputedit"
+                                                        pInputText
+                                                        name="level"
+                                                        type="number"
+                                                        [(ngModel)]="
+                                                            record.level
+                                                        "
+                                                    />
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{ record.level }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <input
+                                                        class="inputedit"
+                                                        pInputText
+                                                        name="density"
+                                                        type="number"
+                                                        [(ngModel)]="
+                                                            record.density
+                                                        "
+                                                    />
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{ record.density }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <input
+                                                        class="inputedit"
+                                                        pInputText
+                                                        type="number"
+                                                        name="liquid_height"
+                                                        [(ngModel)]="
+                                                            record.liquid_height
+                                                        "
+                                                    />
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{ record.liquid_height }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <input
+                                                        class="inputedit"
+                                                        pInputText
+                                                        name="liquid_temperature"
+                                                        type="number"
+                                                        [(ngModel)]="
+                                                            record.liquid_temperature
+                                                        "
+                                                    />
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{
                                                         record.liquid_temperature
-                                                    "
-                                                />
-                                            </ng-template>
-                                            <ng-template pTemplate="output">
-                                                {{ record.liquid_temperature }}
-                                            </ng-template>
-                                        </p-cellEditor>
-                                    </td>
-                                    <td>
-                                        <p-cellEditor>
-                                            <ng-template pTemplate="input">
-                                                <input
-                                                    class="inputedit"
-                                                    pInputText
-                                                    name="total_volume"
-                                                    type="number"
-                                                    [(ngModel)]="
-                                                        record.total_volume
-                                                    "
-                                                />
-                                            </ng-template>
-                                            <ng-template pTemplate="output">
-                                                {{ record.total_volume }}
-                                            </ng-template>
-                                        </p-cellEditor>
-                                    </td>
-                                    <td>
-                                        <p-cellEditor>
-                                            <ng-template pTemplate="input">
-                                                <input
-                                                    class="inputedit"
-                                                    pInputText
-                                                    type="number"
-                                                    name="volume"
-                                                    [(ngModel)]="record.volume"
-                                                />
-                                            </ng-template>
-                                            <ng-template pTemplate="output">
-                                                {{ record.volume }}
-                                            </ng-template>
-                                        </p-cellEditor>
-                                    </td>
-                                    <td>
-                                        <p-cellEditor>
-                                            <ng-template pTemplate="input">
-                                                <input
-                                                    class="inputedit"
-                                                    pInputText
-                                                    type="number"
-                                                    name="volume_at_fift"
-                                                    [(ngModel)]="
-                                                        record.volume_at_fift
-                                                    "
-                                                />
-                                            </ng-template>
-                                            <ng-template pTemplate="output">
-                                                {{ record.volume_at_fift }}
-                                            </ng-template>
-                                        </p-cellEditor>
-                                    </td>
-                                    <td>
-                                        <p-cellEditor>
-                                            <!-- <ng-template pTemplate="input" >
+                                                    }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <input
+                                                        class="inputedit"
+                                                        pInputText
+                                                        name="total_volume"
+                                                        type="number"
+                                                        [(ngModel)]="
+                                                            record.total_volume
+                                                        "
+                                                    />
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{ record.total_volume }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <input
+                                                        class="inputedit"
+                                                        pInputText
+                                                        type="number"
+                                                        name="volume"
+                                                        [(ngModel)]="
+                                                            record.volume
+                                                        "
+                                                    />
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{ record.volume }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <input
+                                                        class="inputedit"
+                                                        pInputText
+                                                        type="number"
+                                                        name="volume_at_fift"
+                                                        [(ngModel)]="
+                                                            record.volume_at_fift
+                                                        "
+                                                    />
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{ record.volume_at_fift }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <p-cellEditor>
+                                                <!-- <ng-template pTemplate="input" >
                                                 <input
                                                     class="inputedit"
                                                     pInputText
@@ -465,73 +486,75 @@
                                                     "getDate(record.created_at)"
                                                 />
                                             </ng-template> -->
-                                            <ng-template pTemplate="output">
-                                                {{
-                                                    getDate(record.last_update)
-                                                }}
-                                            </ng-template>
-                                        </p-cellEditor>
-                                    </td>
-                                    <td
-                                        style="width: 15%"
-                                        class="justify-content-between"
-                                    >
-                                        <button
-                                            *ngIf="!editing"
-                                            pButton
-                                            pRipple
-                                            severity="success"
-                                            type="button"
-                                            pInitEditableRow
-                                            icon="pi pi-file-edit"
-                                            (click)="onRowEditInit(record)"
-                                            class="p-button-rounded p-button-text p-button-success"
-                                        ></button>
-                                        <button
-                                            *ngIf="editing"
-                                            pButton
-                                            pRipple
-                                            type="button"
-                                            pSaveEditableRow
-                                            icon="pi pi-check"
-                                            (click)="onRowEditSave(record)"
-                                            class="p-button-rounded p-button-text p-button-success"
-                                        ></button>
-                                        <button
-                                            *ngIf="editing"
-                                            pButton
-                                            pRipple
-                                            type="button"
-                                            pCancelEditableRow
-                                            icon="pi pi-times"
-                                            (click)="
-                                                onRowEditCancel(record, ri)
-                                            "
-                                            class="p-button-rounded p-button-text p-button-danger"
-                                        ></button>
-                                        <p-button
-                                            *ngIf="!editing"
-                                            icon="pi pi-trash"
-                                            (click)="deleteRecord(record.id)"
-                                            [rounded]="true"
-                                            [text]="true"
-                                            severity="danger"
-                                        ></p-button>
-                                    </td>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="emptymessage">
-                                <tr>
-                                    <td colspan="8">
-                                        Aucune record enregistrée dans cette
-                                        periode
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-
+                                                <ng-template pTemplate="output">
+                                                    {{
+                                                        getDate(
+                                                            record.last_update
+                                                        )
+                                                    }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td
+                                            style="width: 15%"
+                                            class="justify-content-between"
+                                        >
+                                            <button
+                                                *ngIf="!editing"
+                                                pButton
+                                                pRipple
+                                                severity="success"
+                                                type="button"
+                                                pInitEditableRow
+                                                icon="pi pi-file-edit"
+                                                (click)="onRowEditInit(record)"
+                                                class="p-button-rounded p-button-text p-button-success"
+                                            ></button>
+                                            <button
+                                                *ngIf="editing"
+                                                pButton
+                                                pRipple
+                                                type="button"
+                                                pSaveEditableRow
+                                                icon="pi pi-check"
+                                                (click)="onRowEditSave(record)"
+                                                class="p-button-rounded p-button-text p-button-success"
+                                            ></button>
+                                            <button
+                                                *ngIf="editing"
+                                                pButton
+                                                pRipple
+                                                type="button"
+                                                pCancelEditableRow
+                                                icon="pi pi-times"
+                                                (click)="
+                                                    onRowEditCancel(record, ri)
+                                                "
+                                                class="p-button-rounded p-button-text p-button-danger"
+                                            ></button>
+                                            <p-button
+                                                *ngIf="!editing"
+                                                icon="pi pi-trash"
+                                                (click)="
+                                                    deleteRecord(record.id)
+                                                "
+                                                [rounded]="true"
+                                                [text]="true"
+                                                severity="danger"
+                                            ></p-button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="8">
+                                            Aucune record enregistrée dans cette
+                                            periode
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
                         </p-panel>
-
                     </p-tabPanel>
                     <!-- <p-tabPanel
                         header="Informations de la Raw datas"
@@ -759,10 +782,7 @@
                             </ng-template>
                         </p-splitter>
                     </p-tabPanel> -->
-                    <p-tabPanel
-                        header="Données recues de la Props Sensor"
-
-                    >
+                    <p-tabPanel header="Données recues de la Props Sensor">
                         <!-- <p-splitter
                             [style]="{ height: '300px' }"
                             styleClass="mt-4"
